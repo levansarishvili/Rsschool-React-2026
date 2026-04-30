@@ -48,8 +48,8 @@ class App extends Component {
 
     return (
       <div className="font-inter text-base w-full px-4 md:px-8 pt-4 md:pt-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
-        <Header />
-        <main className="w-full flex-1 flex justify-center items-center min-h-[300px]">
+        <Header searchQuery={searchQuery} onSearch={this.handleSearch} />
+        <main className="w-full flex-1 flex justify-center items-center min-h-75">
           {loading && <Loader />}
 
           {!loading && products.length === 0 && !error && <EmptyState />}

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import type { AppState } from './types/types.ts';
 import Loader from './components/loader/Loader.tsx';
-import { Header } from './components/header.tsx';
+import { Header } from './components/Header.tsx';
 import { Footer } from './components/Footer.tsx';
 import { EmptyState } from './components/EmptyState.tsx';
 import { ErrorState } from './components/ErrorState.tsx';

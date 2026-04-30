@@ -4,7 +4,7 @@ import { IoLogoGithub } from 'react-icons/io';
 export class Footer extends Component {
   render() {
     return (
-      <footer className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 text-sm">
+      <footer className="flex flex-col md:flex-row items-center justify-between gap-4 px-4 md:px-8 py-4 text-sm">
         <a href="https://rs.school/" target="_blank" rel="noreferrer">
           <img
             className="w-8"

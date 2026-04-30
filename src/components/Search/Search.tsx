@@ -38,7 +38,7 @@ class Search extends Component<Props, State> {
       >
         <div className="relative w-full">
           <input
-            className="w-full border rounded-md px-4 py-2 text-sm outline-primary placeholder:text-sm placeholder:italic pr-10"
+            className="w-full border border-gray-400 rounded-xl px-4 py-3 text-sm outline-primary placeholder:text-sm placeholder:italic pr-10"
             type="text"
             placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
             value={this.state.input}
@@ -49,7 +49,7 @@ class Search extends Component<Props, State> {
             <button
               type="button"
               onClick={() => this.setState({ input: '' })}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-600 cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-600 cursor-pointer"
               aria-label="Clear input"
             >
               <X className="size-5" />
@@ -58,7 +58,7 @@ class Search extends Component<Props, State> {
         </div>
 
         <button
-          className="bg-primary text-white cursor-pointer text-sm w-28 rounded-md hover:bg-secondary transition-all duration-200"
+          className="bg-primary text-white cursor-pointer text-sm w-40 rounded-xl hover:bg-secondary transition-all duration-200"
           type="submit"
         >
           Search

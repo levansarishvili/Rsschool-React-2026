@@ -11,11 +11,14 @@ class ProductCard extends Component<Props> {
     const { productObj } = this.props;
 
     return (
-      <div className="flex flex-col gap-2 justify-between items-center min-w-56 border p-4 rounded-md hover:shadow hover:bg-[#f5f3ff] transition-all duration-200 cursor-pointer">
+      <div
+        className="flex flex-col gap-2 justify-between items-center min-w-56 border border-gray-400 p-4 rounded-xl hover:shadow-lg 
+      hover:bg-[#ecfdf5] hover:border-primary transition-all duration-200 cursor-pointer group"
+      >
         <img
           src={productObj.image}
           alt={productObj.name}
-          className="w-24 h-auto object-cover"
+          className="w-24 h-auto object-cover group-hover:scale-110 transition-all duration-200"
         />
         <h2 className="text-base font-semibold">{productObj.name}</h2>
         <p

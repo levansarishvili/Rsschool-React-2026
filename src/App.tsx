@@ -48,7 +48,7 @@ class App extends Component {
 
     return (
       <div
-        className="font-inter text-base w-full pt-4 max-w-7xl mx-auto md:pt-6 flex flex-col gap-6 md:gap-10 
+        className="font-inter text-base w-full pt-4 max-w-7xl mx-auto md:pt-6 flex flex-col gap-6 md:gap-12 
       justify-center min-h-screen"
       >
         <Header searchQuery={searchQuery} onSearch={this.handleSearch} />

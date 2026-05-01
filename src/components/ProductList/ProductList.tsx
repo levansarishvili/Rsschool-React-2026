@@ -13,7 +13,7 @@ class ProductList extends Component<Props> {
     const { products } = this.props;
 
     return (
-      <section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
           <ProductCard key={product.id} productObj={product} />
         ))}

@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import { IoLogoGithub } from 'react-icons/io';
+import ErrorButton from './ErrorButton';
 
 export class Footer extends Component {
   render() {
     return (
-      <footer className="flex flex-col md:flex-row items-center justify-between gap-4 px-4 md:px-8 py-4 text-sm">
+      <footer className="flex flex-col md:flex-row items-center justify-between gap-4 px-4 md:px-8 py-6 text-sm">
         <a href="https://rs.school/" target="_blank" rel="noreferrer">
           <img
             className="w-8"
@@ -24,7 +25,9 @@ export class Footer extends Component {
           </a>
           <p>&copy; Tbilisi 2026</p>
         </div>
-        <div className="flex gap-4"></div>
+        <div className="flex gap-4">
+          <ErrorButton />
+        </div>
       </footer>
     );
   }

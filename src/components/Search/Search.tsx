@@ -38,7 +38,7 @@ class Search extends Component<Props, State> {
       >
         <div className="relative w-full">
           <input
-            className="w-full border border-gray-400 rounded-xl px-4 py-3 text-sm outline-primary placeholder:text-sm placeholder:italic pr-10"
+            className="w-full border border-gray-300 rounded-xs px-4 py-3 text-sm outline-primary placeholder:text-sm placeholder:italic pr-10"
             type="text"
             placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
             value={this.state.input}
@@ -58,7 +58,7 @@ class Search extends Component<Props, State> {
         </div>
 
         <button
-          className="bg-primary text-white cursor-pointer text-sm w-40 rounded-xl hover:bg-secondary transition-all duration-200"
+          className="bg-primary text-white cursor-pointer text-sm w-40 rounded-xs hover:bg-secondary transition-all duration-200"
           type="submit"
         >
           Search

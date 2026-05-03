@@ -23,6 +23,8 @@ class App extends Component {
 
   fetchProducts = async (query = 'ball') => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       const data = await fetchProductsApi(query);
       const productsData = transformProducts(data.products);
 
@@ -47,23 +49,26 @@ class App extends Component {
     const { products, loading, error, searchQuery } = this.state;
 
     return (
-      <div
-        className="font-inter text-base w-full pt-4 max-w-7xl mx-auto md:pt-6 flex flex-col gap-6 md:gap-12 
-      justify-center min-h-screen"
-      >
+      <div className="font-inter text-base bg-gray-50 w-full min-h-screen">
         <Header searchQuery={searchQuery} onSearch={this.handleSearch} />
-        <main className="w-full flex-1 flex justify-center items-center min-h-75 px-4 md:px-8">
-          {loading && <Loader />}
+        <div className="max-w-7xl mx-auto pt-4 md:pt-6 flex flex-col gap-6 md:gap-12 justify-center min-h-screen">
+          <main className="relative z-0 w-full flex-1 flex justify-center items-center min-h-75 px-4 md:px-8">
+            {loading && <Loader />}
 
-          {!loading && products.length === 0 && !error && <EmptyState />}
+            {!loading && products.length === 0 && !error && <EmptyState />}
 
-          {error && <ErrorState error={error} />}
+            {error && <ErrorState error={error} />}
 
-          {!loading && !error && products.length > 0 && (
-            <ProductList products={products} loading={loading} error={error} />
-          )}
-        </main>
-        <Footer />
+            {!loading && !error && products.length > 0 && (
+              <ProductList
+                products={products}
+                loading={loading}
+                error={error}
+              />
+            )}
+          </main>
+          <Footer />
+        </div>
       </div>
     );
   }

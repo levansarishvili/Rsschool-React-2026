@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# React Class Component Search App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a small React application built using **class components** and demonstrates the use of an **Error Boundary**, **search functionality with localStorage**, and **API integration** with loading and error states.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+- Built with **React** and **Vite**
+- Uses **Class Components** (no hooks)
+- Custom **Error Boundary** with fallback UI
+- Dynamic **Search Input** with LocalStorage persistence
+- API data fetch with **loading spinner** and **error handling**
+- Fully styled using **Tailwind CSS**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📦 Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Search Section** (Top):
+  - Input field and a "Search" button
+  - Pre-filled from `localStorage` (if saved)
+  - User can submit a trimmed search term to fetch results
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Results Section** (Bottom):
+  - Displays search results (product card)
+  - If empty input → fetch all items
+  - If no results → shows a "no items found" image/message
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Error Handling**:
+  - Application wrapped in a custom `ErrorBoundary`
+  - Fallback UI shown if a render error occurs
+  - Includes a button (`ErrorButton`) to simulate an error for testing
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Loading State**:
+  - Displays a spinner during API requests
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 Testing Functionality
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- To test the error boundary:
+  1. Click the “Throw Error” button in the UI
+  2. The app will crash and show the fallback error message
+  3. Check the console to see the reported error
+
+- To test error from API:
+  1. Modify the API endpoint (e.g., change `search` to `seawwrch`)
+  2. Observe the error message in the UI
+
+---
+
+## 🔧 Technologies Used
+
+- React (Class Components)
+- Vite
+- Tailwind CSS
+- TypeScript
+- [DummyJSON API](https://dummyjson.com/)
+
+---

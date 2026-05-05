@@ -24,6 +24,11 @@ class Search extends Component<Props, State> {
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const current = this.state.input.trim().toLowerCase();
+    const previous = this.props.searchQuery.trim().toLowerCase();
+
+    if (current === previous) return;
+
     const query = this.state.input.trim();
     this.props.onSearch(query);
 
@@ -58,7 +63,7 @@ class Search extends Component<Props, State> {
         </div>
 
         <button
-          className="bg-primary text-white cursor-pointer text-sm w-40 rounded-xs hover:bg-secondary transition-all duration-200"
+          className="cursor-pointer hover:bg-secondary transition-all duration-200 bg-primary text-white text-sm w-40 rounded-xs"
           type="submit"
         >
           Search

@@ -4,6 +4,48 @@ This project is a small React application built using **class components** and d
 
 ---
 
+## 🛠️ Getting Started (Run Locally)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/levansarishvili/Rsschool-React-2026.git
+```
+
+Navigate to the project folder:
+
+```bash
+cd Rsschool-React-2026
+
+```
+
+Switch branch:
+
+```bash
+git checkout class-components
+
+```
+
+Install dependencies:
+
+```bash
+npm install
+
+```
+
+Create a .env file in the root of the project and add:
+
+```bash
+VITE_API_BASE_URL='https://dummyjson.com/'
+```
+
+Start the development server:
+
+```bash
+npm run dev
+
+```
+
 ## 🚀 Features
 
 - Built with **React** and **Vite**

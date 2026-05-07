@@ -9,7 +9,7 @@ import { fetchProductsApi } from './services/api.ts';
 import { transformProducts } from './utils/transform.ts';
 import ProductList from './components/ProductList/ProductList.tsx';
 
-class App extends Component {
+class App extends Component<object, AppState> {
   state: AppState = {
     products: [],
     loading: true,

@@ -24,10 +24,6 @@ class ErrorBoundary extends Component<Props, State> {
     console.error('Uncaught error:', error, errorInfo);
   }
 
-  // handleReload = () => {
-  //   window.location.reload();
-  // };
-
   handleReset = () => {
     this.setState({ hasError: false, error: null });
   };

@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 type Props = {
   error?: string;
+  status?: number;
 };
 
 export class ErrorState extends Component<Props> {

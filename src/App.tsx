@@ -23,10 +23,8 @@ class App extends Component<object, AppState> {
 
   fetchProducts = async (query = 'ball') => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const data = await fetchProductsApi(query);
-      const productsData = transformProducts(data.products);
+      const { products } = await fetchProductsApi(query);
+      const productsData = transformProducts(products);
 
       this.setState({ products: productsData || [], loading: false });
     } catch (error) {

@@ -5,7 +5,7 @@ export const transformProducts = (products: ApiProduct[]) => {
     id: product.id,
     name: product.title,
     description: product.description,
-    image: product.images[0],
+    image: product.thumbnail,
     price: product.price,
     rating: product.rating,
   }));

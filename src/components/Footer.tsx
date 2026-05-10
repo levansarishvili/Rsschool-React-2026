@@ -20,6 +20,7 @@ export class Footer extends Component {
             target="_blank"
             rel="noreferrer"
             className="hover:text-primary transition-colors"
+            aria-label="GitHub profile"
           >
             <IoLogoGithub className="text-2xl" />
           </a>

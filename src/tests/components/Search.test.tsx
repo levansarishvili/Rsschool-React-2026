@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Search from '../../src/components/Search/Search';
+import Search from '../../components/Search/Search';
 
 describe('Search', () => {
   const onSearchMock = vi.fn();

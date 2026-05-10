@@ -7,7 +7,7 @@ export class EmptyState extends Component {
         <img
           className="w-56"
           src="./assets/item-not-found.png"
-          alt="Item not found!"
+          alt="Item not found"
         />
         <p className="text-gray-500">No products matched your search!</p>
       </div>

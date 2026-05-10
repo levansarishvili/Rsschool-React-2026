@@ -60,11 +60,7 @@ class App extends Component<object, AppState> {
             {error && <ErrorState error={error} />}
 
             {!loading && !error && products.length > 0 && (
-              <ProductList
-                products={products}
-                loading={loading}
-                error={error}
-              />
+              <ProductList products={products} />
             )}
           </main>
           <Footer />

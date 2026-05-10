@@ -4,8 +4,6 @@ import type { ProductType } from '../../types/types.ts';
 
 type Props = {
   products: ProductType[];
-  loading: boolean;
-  error: string | null;
 };
 
 class ProductList extends Component<Props> {

@@ -25,7 +25,9 @@ class Search extends Component<Props, State> {
     e.preventDefault();
 
     const current = this.state.input.trim().toLowerCase();
-    const previous = this.props.searchQuery.trim().toLowerCase();
+    const previous = (localStorage.getItem('searchQuery') || '')
+      .trim()
+      .toLowerCase();
 
     if (current === previous) return;
 

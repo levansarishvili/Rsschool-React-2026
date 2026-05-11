@@ -28,7 +28,7 @@ class ProductCard extends Component<Props> {
           <img
             src={image || './assets/placeholder.png'}
             alt={name || 'product image'}
-            className="w-36 h-auto mb-2 object-cover rounded-xs opacity-80 group-hover:opacity-100 transition-all duration-200"
+            className="w-28 h-auto mb-2 object-cover rounded-xs opacity-80 group-hover:opacity-100 transition-all duration-200"
           />
           {name && <h2 className="text-sm md:text-base font-medium">{name}</h2>}
 

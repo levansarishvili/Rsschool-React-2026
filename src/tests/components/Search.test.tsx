@@ -61,13 +61,31 @@ describe('Search', () => {
     expect(localStorage.getItem('searchQuery')).toBe(searchTerm);
   });
 
+  it('should update existing localStorage value after new search', async () => {
+    const user = userEvent.setup();
+
+    localStorage.setItem('searchQuery', 'old');
+
+    renderSearch();
+
+    await user.clear(getInput());
+    await user.type(getInput(), 'new');
+    await user.click(getSearchButton());
+
+    expect(localStorage.getItem('searchQuery')).toBe('new');
+  });
+
   it('should not call onSearch when search term has not changed', async () => {
     const user = userEvent.setup();
     const searchTerm = 'phone';
 
+    localStorage.setItem('searchQuery', searchTerm);
+
     renderSearch(searchTerm);
 
+    await user.clear(getInput());
     await user.type(getInput(), searchTerm);
+
     await user.click(getSearchButton());
 
     expect(onSearchMock).not.toHaveBeenCalled();

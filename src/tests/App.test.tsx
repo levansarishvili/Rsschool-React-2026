@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from '../App';
-import { server } from '../test-utils/mocks/server';
-import { http, HttpResponse } from 'msw';
 import userEvent from '@testing-library/user-event';
-
-const API_URL = import.meta.env.VITE_API_BASE_URL;
+import {
+  mockErrorResponse,
+  mockProductsResponse,
+} from '../test-utils/mocks/handlers';
 
 describe('App', () => {
   it('should render loader initially', () => {
@@ -23,6 +23,24 @@ describe('App', () => {
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
+  it('should show loader again when a new search starts', async () => {
+    const user = userEvent.setup();
+
+    mockProductsResponse([], 400);
+
+    render(<App />);
+
+    await screen.findByRole('status');
+
+    const input = screen.getByRole('textbox');
+
+    await user.clear(input);
+    await user.type(input, 'phone');
+    await user.click(screen.getByRole('button', { name: /search/i }));
+
+    expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
   it('should render fetched products', async () => {
     render(<App />);
 
@@ -31,13 +49,7 @@ describe('App', () => {
   });
 
   it('should render empty state when no products returned', async () => {
-    server.use(
-      http.get(`${API_URL}products/search`, () => {
-        return HttpResponse.json({
-          products: [],
-        });
-      })
-    );
+    mockProductsResponse();
 
     render(<App />);
 
@@ -50,18 +62,13 @@ describe('App', () => {
     render(<App />);
 
     const input = screen.getByRole('textbox');
-
     await user.type(input, 'phone');
 
     expect(await screen.findByText(/iphone 16/i)).toBeInTheDocument();
   });
 
   it('should render error state on API failure', async () => {
-    server.use(
-      http.get(`${API_URL}products/search`, () => {
-        return HttpResponse.error();
-      })
-    );
+    mockErrorResponse();
 
     render(<App />);
 

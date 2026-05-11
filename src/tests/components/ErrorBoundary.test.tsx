@@ -6,6 +6,14 @@ const Crash = () => {
   throw new Error('Test crash');
 };
 
+const renderCrashedBoundary = () => {
+  render(
+    <ErrorBoundary>
+      <Crash />
+    </ErrorBoundary>
+  );
+};
+
 describe('ErrorBoundary', () => {
   it('should render children when there is no error', () => {
     render(
@@ -18,11 +26,7 @@ describe('ErrorBoundary', () => {
   });
 
   it('should render fallback UI when child crashes', () => {
-    render(
-      <ErrorBoundary>
-        <Crash />
-      </ErrorBoundary>
-    );
+    renderCrashedBoundary();
 
     expect(
       screen.getByRole('heading', { name: /oops! something went wrong/i })
@@ -32,22 +36,14 @@ describe('ErrorBoundary', () => {
   });
 
   it('should render error image in fallback UI', () => {
-    render(
-      <ErrorBoundary>
-        <Crash />
-      </ErrorBoundary>
-    );
+    renderCrashedBoundary();
 
     const img = screen.getByRole('img', { name: /Page error/i });
 
     expect(img).toBeInTheDocument();
   });
   it('should render reload button in fallback UI', () => {
-    render(
-      <ErrorBoundary>
-        <Crash />
-      </ErrorBoundary>
-    );
+    renderCrashedBoundary();
 
     const reloadButton = screen.getByRole('button', { name: /reload/i });
 
@@ -77,11 +73,7 @@ describe('ErrorBoundary', () => {
   it('should log an error when a child component crashes', () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    render(
-      <ErrorBoundary>
-        <Crash />
-      </ErrorBoundary>
-    );
+    renderCrashedBoundary();
 
     expect(consoleSpy).toHaveBeenCalled();
 

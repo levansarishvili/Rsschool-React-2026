@@ -16,7 +16,7 @@ describe('EmptyState', () => {
     const img = screen.getByRole('img');
 
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', './assets/item-not-found.png');
+    expect(img).toHaveAttribute('src', './assets/data-not-found.svg');
     expect(img).toHaveAttribute('alt', 'Item not found');
   });
 });

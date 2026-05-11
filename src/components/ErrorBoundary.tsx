@@ -31,10 +31,10 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError && this.state.error) {
       return (
-        <div className="h-screen text-center flex flex-col gap-4 items-center justify-center">
+        <div className="h-screen text-center flex flex-col gap-6 items-center justify-center">
           <img
-            className="w-80"
-            src="./assets/page-error.jpg"
+            className="w-80 mb-4"
+            src="./assets/page-not-found.svg"
             alt="Page error"
           />
           <h2 className="text-lg">Oops! Something went wrong.</h2>

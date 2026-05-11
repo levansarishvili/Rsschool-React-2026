@@ -40,7 +40,7 @@ class ErrorBoundary extends Component<Props, State> {
           <h2 className="text-lg">Oops! Something went wrong.</h2>
           <p>{this.state.error.message || 'Unknown error occurred'}</p>
           <button
-            className="w-24 text-white bg-primary hover:bg-secondary transition-all duration-200 rounded-xs cursor-pointer p-2"
+            className="w-24 text-white bg-primary hover:bg-secondary transition-all duration-200 rounded-lg cursor-pointer p-2"
             onClick={this.handleReset}
           >
             Reload

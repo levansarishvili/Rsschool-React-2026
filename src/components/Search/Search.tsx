@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { X } from 'lucide-react';
+import { X, Search as SearchIcon } from 'lucide-react';
 
 type Props = {
   searchQuery: string;
@@ -44,8 +44,12 @@ class Search extends Component<Props, State> {
         onSubmit={this.handleSubmit}
       >
         <div className="relative w-full">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <SearchIcon className="size-5" />
+          </span>
+
           <input
-            className="w-full border border-gray-300 rounded-xs px-4 py-3 text-sm outline-primary placeholder:text-sm placeholder:italic pr-10"
+            className="w-full bg-white border border-gray-200 rounded-lg px-12 py-3 text-sm outline-primary placeholder:text-sm placeholder:text-gray-400 placeholder:italic pr-10"
             type="text"
             placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
             value={this.state.input}
@@ -65,7 +69,7 @@ class Search extends Component<Props, State> {
         </div>
 
         <button
-          className="cursor-pointer hover:bg-secondary transition-all duration-200 bg-primary text-white text-sm w-40 rounded-xs"
+          className="cursor-pointer hover:bg-secondary transition-all duration-200 bg-primary text-white text-sm w-40 rounded-lg"
           type="submit"
         >
           Search

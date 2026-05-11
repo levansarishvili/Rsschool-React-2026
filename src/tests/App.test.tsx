@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 import {
@@ -30,15 +30,15 @@ describe('App', () => {
 
     render(<App />);
 
-    await screen.findByRole('status');
-
     const input = screen.getByRole('textbox');
 
     await user.clear(input);
     await user.type(input, 'phone');
     await user.click(screen.getByRole('button', { name: /search/i }));
 
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByRole('status')).toBeInTheDocument();
+    });
   });
 
   it('should render fetched products', async () => {

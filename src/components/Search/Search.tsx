@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Search as SearchIcon } from 'lucide-react';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 type PropsType = {
   searchQuery: string;
@@ -7,7 +8,7 @@ type PropsType = {
 };
 
 function Search({ searchQuery, onSearch }: PropsType) {
-  const savedQuery = localStorage.getItem('searchQuery') || '';
+  const [savedQuery, setSavedQuery] = useLocalStorage('searchQuery', '');
   const [input, setInput] = useState(searchQuery || savedQuery);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,16 +19,13 @@ function Search({ searchQuery, onSearch }: PropsType) {
     e.preventDefault();
 
     const query = input.trim().toLowerCase();
-    const previous = (localStorage.getItem('searchQuery') || '')
-      .trim()
-      .toLowerCase();
+    const previous = (savedQuery || '').trim().toLowerCase();
     console.log(query, previous);
 
     if (query === previous) return;
 
     onSearch(query);
-
-    localStorage.setItem('searchQuery', query);
+    setSavedQuery(query);
   };
 
   const handleClear = () => {

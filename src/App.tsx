@@ -9,6 +9,7 @@ import { transformProducts } from './utils/transform.ts';
 import ProductList from './components/ProductList/ProductList.tsx';
 import { useEffect, useState } from 'react';
 import { DEFAULT_SEARCH_QUERY } from './constants/index.ts';
+import useLocalStorage from './hooks/useLocalStorage.ts';
 
 export default function App() {
   const initialState: AppState = {
@@ -19,6 +20,7 @@ export default function App() {
   };
 
   const [appState, setAppState] = useState(initialState);
+  const [savedQuery] = useLocalStorage('searchQuery', '');
 
   const fetchProducts = async function (query = DEFAULT_SEARCH_QUERY) {
     setAppState((prev) => ({ ...prev, loading: true, error: null }));
@@ -44,13 +46,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    const searchQuery = localStorage.getItem('searchQuery');
     async function loadProducts() {
-      await fetchProducts(searchQuery || DEFAULT_SEARCH_QUERY);
+      await fetchProducts(savedQuery || DEFAULT_SEARCH_QUERY);
     }
 
     loadProducts();
-  }, []);
+  }, [savedQuery]);
 
   const handleSearch = (query: string) => {
     setAppState((prev) => ({ ...prev, searchQuery: query, loading: true }));

@@ -1,9 +1,10 @@
+import { DEFAULT_SEARCH_QUERY } from '../constants/index.ts';
 import type { ProductsApiResponse } from '../types/types.ts';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const fetchProductsApi = async (
-  query = 'ball'
+  query = DEFAULT_SEARCH_QUERY
 ): Promise<ProductsApiResponse> => {
   const term = localStorage.getItem('searchQuery') || query;
 

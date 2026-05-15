@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 
-type Props = {
+type PropsType = {
   children: ReactNode;
 };
 
@@ -10,7 +10,7 @@ type State = {
   error: Error | null;
 };
 
-class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends Component<PropsType, State> {
   state: State = {
     hasError: false,
     error: null,

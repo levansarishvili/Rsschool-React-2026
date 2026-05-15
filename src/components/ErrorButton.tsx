@@ -1,26 +1,24 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
-class ErrorButton extends Component {
-  state = { crash: false };
+function ErrorButton() {
+  const [isCrash, setIsCrashed] = useState(false);
 
-  handleClick = () => this.setState({ crash: true });
+  const handleClick = () => setIsCrashed((prev) => !prev);
 
-  render() {
-    if (this.state.crash) {
-      throw new Error(
-        'Simulated render crash: This error was thrown intentionally to test the Error Boundary.'
-      );
-    }
-
-    return (
-      <button
-        className="text-sm flex gap-2 bg-red-600 text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-red-500 transition-colors"
-        onClick={this.handleClick}
-      >
-        Test Error Boundary
-      </button>
+  if (isCrash) {
+    throw new Error(
+      'Simulated render crash: This error was thrown intentionally to test the Error Boundary.'
     );
   }
+
+  return (
+    <button
+      className="text-sm flex gap-2 bg-red-600 text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-red-500 transition-colors"
+      onClick={handleClick}
+    >
+      Test Error Boundary
+    </button>
+  );
 }
 
 export default ErrorButton;

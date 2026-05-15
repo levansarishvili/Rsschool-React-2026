@@ -44,8 +44,9 @@ export default function App() {
   };
 
   useEffect(() => {
+    const searchQuery = localStorage.getItem('searchQuery');
     async function loadProducts() {
-      await fetchProducts();
+      await fetchProducts(searchQuery || DEFAULT_SEARCH_QUERY);
     }
 
     loadProducts();
@@ -53,7 +54,6 @@ export default function App() {
 
   const handleSearch = (query: string) => {
     setAppState((prev) => ({ ...prev, searchQuery: query, loading: true }));
-    console.log(query);
     fetchProducts(query);
   };
 

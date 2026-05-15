@@ -32,7 +32,7 @@ describe('Search', () => {
 
   it('should display saved search term from localStorage on mount', () => {
     const searchTerm = 'phone';
-    localStorage.setItem('searchQuery', searchTerm);
+    localStorage.setItem('searchQuery', JSON.stringify(searchTerm));
 
     renderSearch();
 
@@ -58,7 +58,9 @@ describe('Search', () => {
     await user.type(getInput(), searchTerm);
     await user.click(getSearchButton());
 
-    expect(localStorage.getItem('searchQuery')).toBe(searchTerm);
+    expect(localStorage.getItem('searchQuery')).toBe(
+      JSON.stringify(searchTerm)
+    );
   });
 
   it('should update existing localStorage value after new search', async () => {
@@ -72,14 +74,14 @@ describe('Search', () => {
     await user.type(getInput(), 'new');
     await user.click(getSearchButton());
 
-    expect(localStorage.getItem('searchQuery')).toBe('new');
+    expect(localStorage.getItem('searchQuery')).toBe(JSON.stringify('new'));
   });
 
   it('should not call onSearch when search term has not changed', async () => {
     const user = userEvent.setup();
     const searchTerm = 'phone';
 
-    localStorage.setItem('searchQuery', searchTerm);
+    localStorage.setItem('searchQuery', JSON.stringify(searchTerm));
 
     renderSearch(searchTerm);
 

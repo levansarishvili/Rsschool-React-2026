@@ -13,7 +13,7 @@ function ErrorButton() {
 
   return (
     <button
-      className="text-sm flex gap-2 bg-red-600 text-white px-4 py-3 rounded-xs cursor-pointer hover:bg-red-500 transition-colors"
+      className="text-sm flex gap-2 bg-red-600 text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-red-500 transition-colors"
       onClick={handleClick}
     >
       Test Error Boundary

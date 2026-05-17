@@ -5,6 +5,7 @@ import type { ProductDetailsType } from '../types/types.ts';
 import Loader from '../components/loader/Loader.tsx';
 import { ErrorState } from '../components/ErrorState.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
+import { getStockColor } from '../utils/getStockColor.ts';
 
 export default function DetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -57,7 +58,7 @@ export default function DetailsPage() {
       <div>
         <button
           className="cursor-pointer flex items-center gap-2 text-xs text-gray-500 
-            hover:text-gray-900 font-medium border rounded-xs px-3 py-1.5"
+            hover:text-gray-900 font-medium border rounded-lg px-3 py-1.5"
           onClick={handleCloseDetails}
         >
           Close
@@ -67,14 +68,14 @@ export default function DetailsPage() {
       <img
         src={product.thumbnail}
         alt={product.title}
-        className="w-full max-h-52 object-contain rounded-xs bg-gray-100 p-4"
+        className="w-full max-h-52 object-contain rounded-lg bg-gray-100 p-4"
       />
       <div>
         <span className="text-xs uppercase tracking-wider text-gray-400 font-bold">
           {product.brand}
         </span>
         <h2 className="text-2xl font-bold text-gray-800">{product.title}</h2>
-        <p className="text-xl font-black text-primary mt-1">
+        <p className="text-xl font-bold text-primary mt-1">
           ${Math.round(product.price)}
         </p>
       </div>
@@ -94,8 +95,8 @@ export default function DetailsPage() {
         </span>
         <span>
           Status:
-          <strong className="text-green-600">
-            {product.availabilityStatus}
+          <strong className={getStockColor(product.availabilityStatus)}>
+            {` ${product.availabilityStatus}`}
           </strong>
         </span>
       </div>

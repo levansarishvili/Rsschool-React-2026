@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-8 max-w-2xl mx-auto mt-8 text-center">
+    <div className="bg-white rounded-lg border border-gray-200 p-8 max-w-2xl mx-auto mt-8 text-center">
       <h1 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
         About This Application
       </h1>
@@ -20,7 +20,7 @@ export default function AboutPage() {
           </p>
           <a
             href="https://github.com/levansarishvili"
-            className="flex gap-2 text-sm text-gray-600"
+            className="flex text-blue-700 gap-2 text-sm underline"
             target="_blank"
             rel="noreferrer"
           >
@@ -29,7 +29,7 @@ export default function AboutPage() {
           </a>
           <a
             href="https://www.linkedin.com/in/levan-sarishvili/"
-            className="flex gap-2 text-sm text-gray-600"
+            className="flex text-blue-700 gap-2 text-sm underline"
             target="_blank"
             rel="noreferrer"
           >

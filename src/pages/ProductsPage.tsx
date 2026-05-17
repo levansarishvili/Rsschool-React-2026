@@ -69,7 +69,7 @@ export default function App() {
       <div
         className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-[2fr_1fr] gap-10' : ''}`}
       >
-        <div className="min-h-screen flex justify-center items-center">
+        <div className="min-h-screen flex justify-center items-start">
           {loading && <Loader />}
 
           {!loading && products.length === 0 && !error && (
@@ -91,8 +91,7 @@ export default function App() {
               bg-white rounded-xs border border-gray-200 p-6
               transform transition-all duration-300 ease-out
               translate-x-0 opacity-100
-              animate-[slideIn_.3s_ease-out]
-    "
+              animate-[slideIn_.3s_ease-out]"
           >
             <Outlet />
           </div>

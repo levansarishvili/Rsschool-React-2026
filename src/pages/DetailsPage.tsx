@@ -74,7 +74,9 @@ export default function DetailsPage() {
           {product.brand}
         </span>
         <h2 className="text-2xl font-bold text-gray-800">{product.title}</h2>
-        <p className="text-xl font-black text-primary mt-1">${product.price}</p>
+        <p className="text-xl font-black text-primary mt-1">
+          ${Math.round(product.price)}
+        </p>
       </div>
       <p className="text-gray-600 text-sm leading-relaxed">
         {product.description}

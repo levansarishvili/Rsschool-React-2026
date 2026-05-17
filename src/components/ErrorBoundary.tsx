@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 type PropsType = {
   children: ReactNode;
 };
@@ -34,7 +36,7 @@ class ErrorBoundary extends Component<PropsType, State> {
         <div className="h-screen text-center flex flex-col gap-6 items-center justify-center">
           <img
             className="w-80 mb-4"
-            src="./assets/page-not-found.svg"
+            src={`${baseUrl}/assets/page-not-found.svg`}
             alt="Page error"
           />
           <h2 className="text-lg">Oops! Something went wrong.</h2>

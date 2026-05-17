@@ -29,6 +29,18 @@ export interface ApiProduct {
   rating: number;
   thumbnail: string;
 }
+export interface ProductDetailsType {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  rating: number;
+  thumbnail: string;
+  availabilityStatus: string;
+  brand: string;
+  stock: string;
+  category: string;
+}
 
 export interface Review {
   user: string;

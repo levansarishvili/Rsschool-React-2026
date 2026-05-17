@@ -11,7 +11,7 @@ import { EmptyState } from '../components/EmptyState.tsx';
 import { Outlet, useMatch } from 'react-router-dom';
 import Search from '../components/Search/Search.tsx';
 
-export default function App() {
+export default function ProductsPage() {
   const initialState: AppState = {
     products: [],
     loading: true,
@@ -70,7 +70,11 @@ export default function App() {
         className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-[2fr_1fr] gap-10' : ''}`}
       >
         <div className="min-h-screen flex justify-center items-start">
-          {loading && <Loader />}
+          {loading && (
+            <div className="flex items-center justify-center min-h-screen">
+              <Loader />
+            </div>
+          )}
 
           {!loading && products.length === 0 && !error && (
             <EmptyState message="No products matched your search!" />

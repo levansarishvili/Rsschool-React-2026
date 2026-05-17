@@ -6,7 +6,7 @@ export function Header() {
       <div className="flex justify-between items-center max-w-360 mx-auto gap-4 px-4 md:px-8 py-4">
         <Link to="/" className="text-xl font-semibold">
           <h1 className="text-lg md:text-xl text-center font-semibold">
-            🛒 RS-React-App
+            RS-React-App
           </h1>
         </Link>
         <nav className="flex gap-6">

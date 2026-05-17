@@ -1,21 +1,33 @@
 import { render, screen } from '@testing-library/react';
 import { Header } from '../../components/Header';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('Header', () => {
-  const onSearchMock = vi.fn();
+  const renderHeader = () =>
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>
+    );
 
   it('should render header title', () => {
-    render(<Header searchQuery="" onSearch={onSearchMock} />);
-
+    renderHeader();
     const header = screen.getByRole('heading');
 
     expect(header).toBeInTheDocument();
     expect(header).toHaveTextContent('RS-React-App');
   });
 
-  it('should render search component', () => {
-    render(<Header searchQuery="" onSearch={onSearchMock} />);
+  it('should render navigation links', () => {
+    renderHeader();
 
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    const homeLink = screen.getByRole('link', { name: /home/i });
+    const aboutLink = screen.getByRole('link', { name: /about/i });
+
+    expect(homeLink).toBeInTheDocument();
+    expect(homeLink).toHaveAttribute('href', '/');
+
+    expect(aboutLink).toBeInTheDocument();
+    expect(aboutLink).toHaveAttribute('href', '/about');
   });
 });

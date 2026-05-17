@@ -12,7 +12,7 @@ export function ErrorState({ error }: PropsType) {
         <img
           className="w-60"
           src={`${baseUrl}/assets/page-not-found.svg`}
-          alt="Page not found"
+          alt="Page error"
         />
       </div>
       <p className="">Error: {error ?? 'Unknown error'}</p>

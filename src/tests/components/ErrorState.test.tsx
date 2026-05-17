@@ -22,6 +22,9 @@ describe('ErrorState', () => {
     const img = screen.getByRole('img', { name: 'Page error' });
 
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', './assets/page-error.jpg');
+    expect(img).toHaveAttribute(
+      'src',
+      expect.stringContaining('assets/page-not-found.svg')
+    );
   });
 });

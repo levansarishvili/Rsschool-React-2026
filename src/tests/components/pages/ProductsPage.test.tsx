@@ -1,20 +1,29 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import App from '../App';
 import userEvent from '@testing-library/user-event';
 import {
   mockErrorResponse,
   mockProductsResponse,
-} from '../test-utils/mocks/handlers';
+} from '../../../test-utils/mocks/handlers';
+import ProductsPage from '../../../pages/ProductsPage';
+import { MemoryRouter } from 'react-router-dom';
 
-describe('App', () => {
+describe('ProductsPage', () => {
+  const renderProductPage = () => {
+    render(
+      <MemoryRouter>
+        <ProductsPage />
+      </MemoryRouter>
+    );
+  };
+
   it('should render loader initially', () => {
-    render(<App />);
+    renderProductPage();
 
     expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
   it('should hide loader after data loads', async () => {
-    render(<App />);
+    renderProductPage();
 
     expect(screen.getByRole('status')).toBeInTheDocument();
 
@@ -28,7 +37,7 @@ describe('App', () => {
 
     mockProductsResponse([], 400);
 
-    render(<App />);
+    renderProductPage();
 
     const input = screen.getByRole('textbox');
 
@@ -42,7 +51,7 @@ describe('App', () => {
   });
 
   it('should render fetched products', async () => {
-    render(<App />);
+    renderProductPage();
 
     expect(await screen.findByText(/iphone 16/i)).toBeInTheDocument();
     expect(await screen.findByText(/macbook/i)).toBeInTheDocument();
@@ -51,7 +60,7 @@ describe('App', () => {
   it('should render empty state when no products returned', async () => {
     mockProductsResponse();
 
-    render(<App />);
+    renderProductPage();
 
     expect(await screen.findByText(/no products matched/i)).toBeInTheDocument();
   });
@@ -59,7 +68,7 @@ describe('App', () => {
   it('should update products when search query changes', async () => {
     const user = userEvent.setup();
 
-    render(<App />);
+    renderProductPage();
 
     const input = screen.getByRole('textbox');
     await user.type(input, 'phone');
@@ -70,7 +79,7 @@ describe('App', () => {
   it('should render error state on API failure', async () => {
     mockErrorResponse();
 
-    render(<App />);
+    renderProductPage();
 
     expect(await screen.findByText(/error/i)).toBeInTheDocument();
   });

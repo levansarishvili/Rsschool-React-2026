@@ -1,16 +1,26 @@
 import { render, screen } from '@testing-library/react';
 import { mockProduct } from '../../test-utils/mocks/productsMockData';
 import ProductCard from '../../components/ProductCard/ProductCard';
+import { MemoryRouter } from 'react-router-dom';
+import type { ProductType } from '../../types/types';
 
 describe('ProductCard', () => {
+  const renderProductCard = (productObj: ProductType) => {
+    render(
+      <MemoryRouter>
+        <ProductCard productObj={productObj} />
+      </MemoryRouter>
+    );
+  };
+
   it('should render product name', () => {
-    render(<ProductCard productObj={mockProduct} />);
+    renderProductCard(mockProduct);
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });
 
   it('should render product image with correct src and alt attribute', () => {
-    render(<ProductCard productObj={mockProduct} />);
+    renderProductCard(mockProduct);
 
     const img = screen.getByRole('img');
     expect(img).toBeInTheDocument();
@@ -21,19 +31,19 @@ describe('ProductCard', () => {
   });
 
   it('should render product price correctly', () => {
-    render(<ProductCard productObj={mockProduct} />);
+    renderProductCard(mockProduct);
 
     expect(screen.getByText('$300')).toBeInTheDocument();
   });
 
   it('should render product description correctly', () => {
-    render(<ProductCard productObj={mockProduct} />);
+    renderProductCard(mockProduct);
 
     expect(screen.getByText(/product description/i)).toBeInTheDocument();
   });
 
   it('should render the correct number of rating stars', () => {
-    render(<ProductCard productObj={mockProduct} />);
+    renderProductCard(mockProduct);
 
     const stars = screen.getAllByTestId('star-icon');
     const expectedStars = Math.round(mockProduct.rating);
@@ -50,7 +60,7 @@ describe('ProductCard', () => {
       price: 0,
       rating: 0,
     };
-    render(<ProductCard productObj={incompleteProduct} />);
+    renderProductCard(incompleteProduct);
 
     expect(screen.queryByRole('heading')).not.toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute(

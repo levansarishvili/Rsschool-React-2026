@@ -84,7 +84,16 @@ export default function App() {
         </div>
 
         {isDetailsRoute && (
-          <div className="flex justify-center items-center w-full sticky top-20 max-h-screen bg-white rounded-xs border border-gray-200 p-6">
+          <div
+            className="
+              flex justify-center items-center
+              w-full sticky top-20 max-h-screen
+              bg-white rounded-xs border border-gray-200 p-6
+              transform transition-all duration-300 ease-out
+              translate-x-0 opacity-100
+              animate-[slideIn_.3s_ease-out]
+    "
+          >
             <Outlet />
           </div>
         )}

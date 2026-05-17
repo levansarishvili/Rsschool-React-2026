@@ -12,7 +12,7 @@ export function EmptyState({ message }: PropsType) {
         src={`${baseUrl}/assets/data-not-found.svg`}
         alt="Item not found"
       />
-      <p className="text-gray-500">{message}</p>
+      <p className="">{message}</p>
     </div>
   );
 }

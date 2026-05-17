@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchProductApi } from '../services/api';
 import type { ProductDetailsType } from '../types/types.ts';
 import Loader from '../components/loader/Loader.tsx';
@@ -12,6 +12,8 @@ export default function DetailsPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductDetailsType | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   const fetchProduct = async () => {
     if (!id) return;
@@ -34,6 +36,10 @@ export default function DetailsPage() {
     }
   };
 
+  const handleCloseDetails = () => {
+    navigate('/');
+  };
+
   useEffect(() => {
     const loadProduct = async () => {
       await fetchProduct();
@@ -47,11 +53,21 @@ export default function DetailsPage() {
   if (!product) return <EmptyState message="No product found whith that ID" />;
 
   return (
-    <div className="w-full h-full flex flex-col gap-4 animate-fade-in">
+    <div className="w-full h-full flex flex-col gap-4">
+      <div>
+        <button
+          className="cursor-pointer flex items-center gap-2 text-xs text-gray-500 
+            hover:text-gray-900 font-medium border rounded-xs px-3 py-1.5"
+          onClick={handleCloseDetails}
+        >
+          Close
+        </button>
+      </div>
+
       <img
         src={product.thumbnail}
         alt={product.title}
-        className="w-full max-h-60 object-contain rounded-xs bg-gray-100 p-4"
+        className="w-full max-h-52 object-contain rounded-xs bg-gray-100 p-4"
       />
       <div>
         <span className="text-xs uppercase tracking-wider text-gray-400 font-bold">

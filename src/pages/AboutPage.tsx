@@ -1,7 +1,7 @@
 export default function AboutPage() {
   return (
-    <div className="bg-white rounded-xl shadow-sm border p-8 max-w-2xl mx-auto mt-8 text-center">
-      <h1 className="text-3xl font-bold mb-4 text-gray-800">
+    <div className="bg-white rounded-xl border border-gray-200 p-8 max-w-2xl mx-auto mt-8 text-center">
+      <h1 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
         About This Application
       </h1>
       <p className="text-gray-600 mb-6">
@@ -13,12 +13,30 @@ export default function AboutPage() {
         <h3 className="text-lg font-semibold text-gray-700 mb-2">
           Author Information:
         </h3>
-        <p className="text-sm text-gray-600">
-          🧑‍💻 Developer Name: Levan Sarishvili
-        </p>
-        <p className="text-sm text-gray-600">
-          🌐 Github Identity: https://github.com/levansarishvili
-        </p>
+
+        <div className="flex flex-col gap-4">
+          <p className="text-sm text-gray-600">
+            🧑‍💻 Developer Name: Levan Sarishvili
+          </p>
+          <a
+            href="https://github.com/levansarishvili"
+            className="flex gap-2 text-sm text-gray-600"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className="w-5" src="./assets/github.svg" />
+            <span>Github Account</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/levan-sarishvili/"
+            className="flex gap-2 text-sm text-gray-600"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className="w-5" src="./assets/linkedin.svg" />
+            <span>Linkedin Account</span>
+          </a>
+        </div>
       </div>
 
       <a

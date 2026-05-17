@@ -1,5 +1,4 @@
-// src/pages/About.tsx
-export default function About() {
+export default function AboutPage() {
   return (
     <div className="bg-white rounded-xl shadow-sm border p-8 max-w-2xl mx-auto mt-8 text-center">
       <h1 className="text-3xl font-bold mb-4 text-gray-800">
@@ -15,10 +14,10 @@ export default function About() {
           Author Information:
         </h3>
         <p className="text-sm text-gray-600">
-          🧑‍💻 Developer Name: RS School Student
+          🧑‍💻 Developer Name: Levan Sarishvili
         </p>
         <p className="text-sm text-gray-600">
-          🌐 Github Identity: @your-github-username
+          🌐 Github Identity: https://github.com/levansarishvili
         </p>
       </div>
 
@@ -26,7 +25,7 @@ export default function About() {
         href="https://rs.school/courses/reactjs"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+        className="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium"
       >
         RS School React Course Link
       </a>

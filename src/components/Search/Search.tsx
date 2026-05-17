@@ -43,7 +43,7 @@ function Search({ searchQuery, onSearch }: PropsType) {
         </span>
 
         <input
-          className="w-full bg-white border border-gray-200 rounded-lg px-12 py-3 text-sm outline-primary placeholder:text-sm placeholder:text-gray-400 placeholder:italic pr-10"
+          className="w-full bg-white border border-gray-200 rounded-xs px-12 py-3 text-sm outline-primary placeholder:text-sm placeholder:text-gray-400 placeholder:italic pr-10"
           type="text"
           placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
           value={input}
@@ -63,7 +63,7 @@ function Search({ searchQuery, onSearch }: PropsType) {
       </div>
 
       <button
-        className="cursor-pointer hover:bg-secondary transition-all duration-200 bg-primary text-white text-sm w-40 rounded-lg"
+        className="cursor-pointer hover:bg-secondary transition-all duration-200 bg-primary text-white text-sm w-40 rounded-xs"
         type="submit"
       >
         Search

@@ -24,7 +24,7 @@ export default function App() {
 
   const isDetailsRoute = useMatch('/details/:id');
 
-  const fetchProducts = async function (query = DEFAULT_SEARCH_QUERY) {
+  const fetchProducts = async (query = DEFAULT_SEARCH_QUERY) => {
     setAppState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
@@ -63,16 +63,18 @@ export default function App() {
   const { products, loading, error, searchQuery } = appState;
 
   return (
-    <div className="flex flex-col gap-12 font-inter text-base bg-gray-50 w-full min-h-screen">
+    <div className="flex flex-col gap-10 font-inter text-base bg-gray-50 w-full min-h-screen">
       <Search searchQuery={searchQuery} onSearch={handleSearch} />
 
       <div
-        className={`min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-2 gap-12' : ''}`}
+        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-[2fr_1fr] gap-10' : ''}`}
       >
         <div className="min-h-screen flex justify-center items-center">
           {loading && <Loader />}
 
-          {!loading && products.length === 0 && !error && <EmptyState />}
+          {!loading && products.length === 0 && !error && (
+            <EmptyState message="No products matched your search!" />
+          )}
 
           {error && <ErrorState error={error} />}
 
@@ -82,7 +84,7 @@ export default function App() {
         </div>
 
         {isDetailsRoute && (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="flex justify-center items-center w-full sticky top-20 max-h-screen bg-white rounded-xs border border-gray-200 p-6">
             <Outlet />
           </div>
         )}

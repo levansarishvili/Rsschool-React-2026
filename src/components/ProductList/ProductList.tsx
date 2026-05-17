@@ -7,7 +7,7 @@ type PropsType = {
 
 function ProductList({ products }: PropsType) {
   return (
-    <section className="flex flex-wrap justify-center gap-8 md:gap-12">
+    <section className="flex flex-wrap justify-center gap-6 md:gap-8">
       {products.map((product) => (
         <ProductCard key={product.id} productObj={product} />
       ))}

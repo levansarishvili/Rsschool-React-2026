@@ -2,16 +2,15 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout.tsx';
 import ProductsPage from './pages/ProductsPage.tsx';
-import Details from './pages/Details.tsx';
-import About from './pages/About.tsx';
 import NotFound from './pages/NotFound.tsx';
+import AboutPage from './pages/AboutPage.tsx';
+import DetailsPage from './pages/DetailsPage.tsx';
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
       element: <RootLayout />,
-      errorElement: <NotFound />,
       children: [
         {
           path: '',
@@ -19,13 +18,13 @@ export const router = createBrowserRouter(
           children: [
             {
               path: 'details/:id',
-              element: <Details />,
+              element: <DetailsPage />,
             },
           ],
         },
         {
           path: 'about',
-          element: <About />,
+          element: <AboutPage />,
         },
       ],
     },

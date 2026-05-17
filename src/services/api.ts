@@ -1,4 +1,4 @@
-import { DEFAULT_SEARCH_QUERY } from '../constants/index.ts';
+import { API_SELECT_FIELDS, DEFAULT_SEARCH_QUERY } from '../constants/index.ts';
 import type { ProductsApiResponse } from '../types/types.ts';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
@@ -7,7 +7,7 @@ export const fetchProductsApi = async (
   query = DEFAULT_SEARCH_QUERY
 ): Promise<ProductsApiResponse> => {
   const response = await fetch(
-    `${API_URL}products/search?q=${encodeURIComponent(query)}&limit=12`
+    `${API_URL}products/search?q=${encodeURIComponent(query)}&limit=12&select=${API_SELECT_FIELDS}`
   );
 
   if (!response.ok) {

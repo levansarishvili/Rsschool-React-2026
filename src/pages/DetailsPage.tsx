@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { fetchProductApi } from '../services/api';
 import type { ProductDetailsType } from '../types/types.ts';
 import Loader from '../components/loader/Loader.tsx';
@@ -15,6 +15,7 @@ export default function DetailsPage() {
   const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const fetchProduct = async () => {
     if (!id) return;
@@ -38,7 +39,7 @@ export default function DetailsPage() {
   };
 
   const handleCloseDetails = () => {
-    navigate(-1);
+    navigate(`/?${searchParams.toString()}`);
   };
 
   useEffect(() => {

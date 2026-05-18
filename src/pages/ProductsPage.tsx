@@ -106,7 +106,7 @@ export default function ProductsPage() {
       <Search searchQuery={searchQuery} onSearch={handleSearch} />
 
       <div
-        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-[3fr_2fr] gap-10' : ''}`}
+        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid md:grid-cols-[2fr_1fr] gap-10' : ''}`}
       >
         <div className="min-h-screen flex flex-col gap-12 items-center justify-center">
           {loading && (
@@ -132,8 +132,7 @@ export default function ProductsPage() {
 
         {isDetailsRoute && (
           <div
-            className="
-              flex justify-center items-center
+            className="sm:min-w-100 flex justify-center items-center
               w-full sticky top-20 max-h-screen
               bg-white rounded-lg border border-gray-200 p-6
               transform transition-all duration-300 ease-out

@@ -57,8 +57,8 @@ export default function DetailsPage() {
     <div className="w-full h-full flex flex-col gap-4">
       <div>
         <button
-          className="cursor-pointer flex items-center gap-2 text-xs text-gray-500 
-            hover:text-gray-900 font-medium border rounded-lg px-3 py-1.5"
+          className="cursor-pointer flex items-center gap-2 text-xs hover:bg-gray-200 
+           font-medium border border-gray-200 rounded-lg px-3 py-2"
           onClick={handleCloseDetails}
         >
           Close

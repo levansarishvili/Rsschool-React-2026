@@ -11,7 +11,12 @@ import Loader from '../components/loader/Loader.tsx';
 import { ErrorState } from '../components/ErrorState.tsx';
 import ProductList from '../components/ProductList/ProductList.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
-import { Outlet, useMatch, useSearchParams } from 'react-router-dom';
+import {
+  Outlet,
+  useMatch,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import Search from '../components/Search/Search.tsx';
 import Pagination from '../components/Pagination/Pagination.tsx';
 
@@ -25,6 +30,7 @@ export default function ProductsPage() {
   };
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const page = Number(searchParams.get('page')) || 1;
   const skip = (page - 1) * API_PRODUCTS_LIMIT;
@@ -70,6 +76,7 @@ export default function ProductsPage() {
     setAppState((prev) => ({ ...prev, searchQuery: query, loading: true }));
     fetchProducts(query);
     handleResetPagination();
+    navigate('/');
   };
 
   const handleResetPagination = () => {

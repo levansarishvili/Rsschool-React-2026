@@ -2,7 +2,6 @@ import {
   API_PRODUCTS_LIMIT,
   API_SELECT_FIELDS,
   API_SELECT_FIELDS_DETAILS,
-  DEFAULT_SEARCH_QUERY,
 } from '../constants/index.ts';
 import type {
   ProductDetailsType,
@@ -12,7 +11,7 @@ import type {
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const fetchProductsApi = async (
-  query = DEFAULT_SEARCH_QUERY,
+  query: string,
   skip = 0
 ): Promise<ProductsApiResponse> => {
   const response = await fetch(

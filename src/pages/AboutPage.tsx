@@ -9,7 +9,7 @@ export default function AboutPage() {
         implementations to functional layouts.
       </p>
 
-      <div className="border-t pt-4 text-left mb-6">
+      <div className="border-t border-t-gray-200 pt-4 text-left mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-2">
           Author Information:
         </h3>

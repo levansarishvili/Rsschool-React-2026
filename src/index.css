@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Electrolize&family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&family=Michroma&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Pixelify+Sans:wght@400..700&family=Racing+Sans+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=VT323&display=swap');
+
 @import 'tailwindcss';
 
 @theme {
-  --font-inter: 'Inter', 'sans-serif';
+  --font-manrope: 'Manrope', 'sans-serif';
   --color-primary: #047857;
   --color-secondary: #059669;
+}
+
+body {
+  font-family: var(--font-manrope);
 }
 
 @keyframes slideIn {

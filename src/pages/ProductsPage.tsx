@@ -72,6 +72,18 @@ export default function ProductsPage() {
     loadProducts();
   }, [savedQuery, skip]);
 
+  useEffect(() => {
+    const page = searchParams.get('page');
+
+    if (!page) {
+      const params = new URLSearchParams(searchParams);
+
+      params.set('page', '1');
+
+      setSearchParams(params, { replace: true });
+    }
+  }, []);
+
   const handleSearch = (query: string) => {
     setAppState((prev) => ({ ...prev, searchQuery: query, loading: true }));
     fetchProducts(query);

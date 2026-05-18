@@ -8,7 +8,6 @@ type PropsType = {
 
 export default function Pagination({ totalProducts }: PropsType) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = Number(searchParams.get('page')) || 1;
 
   const currentPage = Number(searchParams.get('page')) || 1;
   const totalPages = Math.ceil(totalProducts / API_PRODUCTS_LIMIT);
@@ -62,7 +61,7 @@ export default function Pagination({ totalProducts }: PropsType) {
       <button
         className="border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer 
           bg-white hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
-        disabled={page === totalPages}
+        disabled={currentPage === totalPages}
         onClick={handleNextPage}
       >
         Next

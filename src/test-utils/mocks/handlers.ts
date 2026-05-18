@@ -28,6 +28,23 @@ export const handlers = [
       ],
     });
   }),
+
+  http.get(`${API_URL}products/:id`, ({ params }) => {
+    const { id } = params;
+
+    return HttpResponse.json({
+      id,
+      title: 'Iphone 16',
+      description: 'Smartphone',
+      price: 300,
+      thumbnail:
+        'https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/1.webp',
+      rating: 4.5,
+      stock: 12,
+      brand: 'Apple',
+      availabilityStatus: 'In Stock',
+    });
+  }),
 ];
 
 export const mockProductsResponse = (products = [], responseDelay = 0) => {
@@ -43,6 +60,14 @@ export const mockProductsResponse = (products = [], responseDelay = 0) => {
 export const mockErrorResponse = () => {
   server.use(
     http.get(`${API_URL}products/search`, () => {
+      return HttpResponse.error();
+    })
+  );
+};
+
+export const mockProductErrorResponse = () => {
+  server.use(
+    http.get(`${API_URL}products/:id`, () => {
       return HttpResponse.error();
     })
   );

@@ -38,7 +38,7 @@ export default function DetailsPage() {
   };
 
   const handleCloseDetails = () => {
-    navigate('/');
+    navigate(-1);
   };
 
   useEffect(() => {

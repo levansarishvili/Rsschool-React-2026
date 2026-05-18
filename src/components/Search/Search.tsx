@@ -20,7 +20,6 @@ function Search({ searchQuery, onSearch }: PropsType) {
 
     const query = input.trim().toLowerCase();
     const previous = (savedQuery || '').trim().toLowerCase();
-    console.log(query, previous);
 
     if (query === previous) return;
 

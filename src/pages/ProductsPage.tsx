@@ -3,13 +3,17 @@ import type { AppState } from '../types/types.ts';
 import useLocalStorage from '../hooks/useLocalStorage.ts';
 import { fetchProductsApi } from '../services/api.ts';
 import { transformProducts } from '../utils/transform.ts';
-import { DEFAULT_SEARCH_QUERY } from '../constants/index.ts';
+import {
+  API_PRODUCTS_LIMIT,
+  DEFAULT_SEARCH_QUERY,
+} from '../constants/index.ts';
 import Loader from '../components/loader/Loader.tsx';
 import { ErrorState } from '../components/ErrorState.tsx';
 import ProductList from '../components/ProductList/ProductList.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
-import { Outlet, useMatch } from 'react-router-dom';
+import { Outlet, useMatch, useSearchParams } from 'react-router-dom';
 import Search from '../components/Search/Search.tsx';
+import Pagination from '../components/Pagination/Pagination.tsx';
 
 export default function ProductsPage() {
   const initialState: AppState = {
@@ -17,24 +21,31 @@ export default function ProductsPage() {
     loading: true,
     error: null,
     searchQuery: '',
+    totalProducts: 0,
   };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = Number(searchParams.get('page')) || 1;
+  const skip = (page - 1) * API_PRODUCTS_LIMIT;
 
   const [appState, setAppState] = useState(initialState);
   const [savedQuery] = useLocalStorage('searchQuery', '');
 
   const isDetailsRoute = useMatch('/details/:id');
 
-  const fetchProducts = async (query = DEFAULT_SEARCH_QUERY) => {
+  const fetchProducts = async (query = DEFAULT_SEARCH_QUERY, skip = 0) => {
     setAppState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
-      const { products } = await fetchProductsApi(query);
+      const { products, total } = await fetchProductsApi(query, skip);
       const productsData = transformProducts(products);
 
       setAppState((prev) => ({
         ...prev,
         products: productsData || [],
         loading: false,
+        totalProducts: total,
       }));
     } catch (error) {
       let errorMessage = 'Unknown error occurred';
@@ -49,15 +60,24 @@ export default function ProductsPage() {
 
   useEffect(() => {
     async function loadProducts() {
-      await fetchProducts(savedQuery || DEFAULT_SEARCH_QUERY);
+      await fetchProducts(savedQuery || DEFAULT_SEARCH_QUERY, skip);
     }
 
     loadProducts();
-  }, [savedQuery]);
+  }, [savedQuery, skip]);
 
   const handleSearch = (query: string) => {
     setAppState((prev) => ({ ...prev, searchQuery: query, loading: true }));
     fetchProducts(query);
+    handleResetPagination();
+  };
+
+  const handleResetPagination = () => {
+    const params = searchParams;
+
+    params.set('page', '1');
+
+    setSearchParams(params);
   };
 
   const { products, loading, error, searchQuery } = appState;
@@ -67,9 +87,9 @@ export default function ProductsPage() {
       <Search searchQuery={searchQuery} onSearch={handleSearch} />
 
       <div
-        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-[2fr_1fr] gap-10' : ''}`}
+        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid grid-cols-[3fr_2fr] gap-10' : ''}`}
       >
-        <div className="min-h-screen flex justify-center items-start">
+        <div className="min-h-screen flex flex-col gap-12 items-center justify-center">
           {loading && (
             <div className="flex items-center justify-center min-h-screen">
               <Loader />
@@ -84,6 +104,10 @@ export default function ProductsPage() {
 
           {!loading && !error && products.length > 0 && (
             <ProductList products={products} />
+          )}
+
+          {!loading && !error && products.length > 0 && (
+            <Pagination totalProducts={appState.totalProducts} />
           )}
         </div>
 

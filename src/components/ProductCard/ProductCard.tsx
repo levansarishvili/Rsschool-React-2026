@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import type { ProductType } from '../../types/types.ts';
 import { Star } from 'lucide-react';
 
@@ -7,10 +7,11 @@ type PropsType = {
 };
 
 export default function ProductCard({ productObj }: PropsType) {
+  const location = useLocation();
   const { id, name, description, price, rating, image } = productObj;
 
   return (
-    <Link to={`details/${id}`}>
+    <Link to={`details/${id}`} state={{ search: location.search }}>
       <article className="relative min-w-36 max-w-68 max-h-76 h-full group">
         <div
           className="absolute inset-0 rounded-lg bg-primary/10 z-0

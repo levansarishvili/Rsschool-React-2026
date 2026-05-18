@@ -1,4 +1,5 @@
 import {
+  API_PRODUCTS_LIMIT,
   API_SELECT_FIELDS,
   API_SELECT_FIELDS_DETAILS,
   DEFAULT_SEARCH_QUERY,
@@ -11,10 +12,11 @@ import type {
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const fetchProductsApi = async (
-  query = DEFAULT_SEARCH_QUERY
+  query = DEFAULT_SEARCH_QUERY,
+  skip = 0
 ): Promise<ProductsApiResponse> => {
   const response = await fetch(
-    `${API_URL}products/search?q=${encodeURIComponent(query)}&limit=12&select=${API_SELECT_FIELDS}`
+    `${API_URL}products/search?q=${encodeURIComponent(query)}&limit=${API_PRODUCTS_LIMIT}&skip=${skip}&select=${API_SELECT_FIELDS}`
   );
 
   if (!response.ok) {

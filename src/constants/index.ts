@@ -1,5 +1,7 @@
 export const DEFAULT_SEARCH_QUERY = 'ball';
 
+export const API_PRODUCTS_LIMIT = 8;
+
 const CORE_PRODUCT_FIELDS = [
   'id',
   'title',

@@ -11,8 +11,6 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route path="/" element={<ProductsPage />}>
-            <Route index element={null} />
-
             <Route path="details/:id" element={<DetailsPage />} />
           </Route>
 

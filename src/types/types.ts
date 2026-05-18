@@ -3,6 +3,7 @@ export interface AppState {
   loading: boolean;
   error: string | null;
   searchQuery: string;
+  totalProducts: number;
 }
 
 export interface ProductsApiResponse {

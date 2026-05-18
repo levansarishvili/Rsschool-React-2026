@@ -1,54 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { fetchProductApi } from '../services/api';
-import type { ProductDetailsType } from '../types/types.ts';
 import Loader from '../components/loader/Loader.tsx';
 import { ErrorState } from '../components/ErrorState.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
 import { getStockColor } from '../utils/getStockColor.ts';
+import { useProduct } from '../hooks/useProduct.ts';
 
 export default function DetailsPage() {
-  const { id } = useParams<{ id: string }>();
-
-  const [loading, setLoading] = useState<boolean>(false);
-  const [product, setProduct] = useState<ProductDetailsType | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const fetchProduct = async () => {
-    if (!id) return;
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const data = await fetchProductApi(id);
-      setProduct(data);
-    } catch (err) {
-      let errorMessage = 'Unknown error occurred';
-      if (err instanceof Error) {
-        errorMessage = err.message;
-      }
-      console.error('Fetch error:', errorMessage);
-      setError(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCloseDetails = () => {
-    navigate(`/?${searchParams.toString()}`);
-  };
-
-  useEffect(() => {
-    const loadProduct = async () => {
-      await fetchProduct();
-    };
-
-    loadProduct();
-  }, [id]);
+  const { product, loading, error, handleCloseDetails } = useProduct();
 
   if (loading) return <Loader />;
   if (error) return <ErrorState error={error} />;

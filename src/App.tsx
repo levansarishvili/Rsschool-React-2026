@@ -7,7 +7,7 @@ import NotFound from './pages/NotFound';
 
 export default function AppRouter() {
   return (
-    <BrowserRouter basename="/Rsschool-React-2026">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route path="/" element={<ProductsPage />}>

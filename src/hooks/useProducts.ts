@@ -47,6 +47,19 @@ export function useProducts() {
   };
 
   useEffect(() => {
+    if (!searchParams.has('page')) {
+      setSearchParams(
+        (prev) => {
+          const params = new URLSearchParams(prev);
+          params.set('page', '1');
+          return params;
+        },
+        { replace: true }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
     fetchProducts(appState.searchQuery, skip);
   }, [appState.searchQuery, skip]);
 

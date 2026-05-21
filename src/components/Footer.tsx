@@ -2,16 +2,10 @@ import { IoLogoGithub } from 'react-icons/io';
 import ErrorButton from './ErrorButton';
 
 export function Footer() {
-  const baseUrl = import.meta.env.BASE_URL;
-
   return (
     <footer className="flex flex-col md:flex-row items-center justify-between gap-4 px-4 md:px-8 py-6 text-sm">
       <a href="https://rs.school/" target="_blank" rel="noreferrer">
-        <img
-          className="w-8"
-          src={`${baseUrl}/assets/rs-logo.svg`}
-          alt="Rs school logo"
-        />
+        <img className="w-8" src="/assets/rs-logo.svg" alt="Rs school logo" />
       </a>
 
       <div className="flex items-center gap-3">

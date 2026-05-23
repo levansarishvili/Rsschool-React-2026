@@ -35,8 +35,8 @@ export default function Pagination({ totalProducts }: PropsType) {
   return (
     <div className="flex gap-4 items-center">
       <button
-        className="border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer 
-          bg-white hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+        className="text-text-secondary border border-border text-sm rounded-lg px-4 py-2 cursor-pointer 
+          bg-background-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:text-text-disabled"
         disabled={currentPage === 1}
         onClick={handlePrevPage}
       >
@@ -50,8 +50,8 @@ export default function Pagination({ totalProducts }: PropsType) {
           <button
             key={page}
             onClick={() => handlePageChange(Number(page))}
-            className={`border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-200 
-              ${currentPage === page ? 'bg-gray-200' : ''}`}
+            className={`border text-text-secondary border-border text-sm rounded-lg px-4 py-2 cursor-pointer hover:bg-card 
+              ${currentPage === page ? 'bg-card' : ''}`}
           >
             {page}
           </button>
@@ -59,8 +59,8 @@ export default function Pagination({ totalProducts }: PropsType) {
       )}
 
       <button
-        className="border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer 
-          bg-white hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+        className="text-text-secondary border border-border text-sm rounded-lg px-4 py-2 cursor-pointer 
+          bg-background-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:text-text-disabled"
         disabled={currentPage === totalPages}
         onClick={handleNextPage}
       >

@@ -1,21 +1,19 @@
 export default function AboutPage() {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-8 max-w-2xl mx-auto mt-8 text-center">
-      <h1 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
+    <div className="max-w-2xl mx-auto mt-8 text-center">
+      <h1 className="text-xl md:text-2xl font-semibold mb-4">
         About This Application
       </h1>
-      <p className="text-gray-600 mb-6">
+      <p className="text-text-secondary mb-6">
         Developed as an educational assignment transforming traditional class
         implementations to functional layouts.
       </p>
 
-      <div className="border-t border-t-gray-200 pt-4 text-left mb-6">
-        <h3 className="text-lg font-semibold text-gray-700 mb-2">
-          Author Information:
-        </h3>
+      <div className="border-t border-t-border pt-4 text-left mb-6">
+        <h3 className="text-lg font-semibold mb-2">Author Information:</h3>
 
         <div className="flex flex-col gap-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-text-secondary">
             🧑‍💻 Developer Name: Levan Sarishvili
           </p>
           <a

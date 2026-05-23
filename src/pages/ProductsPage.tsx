@@ -14,7 +14,7 @@ export default function ProductsPage() {
   const isDetailsRoute = useMatch('/details/:id');
 
   return (
-    <div className="flex flex-col gap-10 font-inter text-base bg-gray-50 w-full min-h-screen">
+    <div className="flex flex-col gap-10 font-inter text-base w-full min-h-screen">
       <Search searchQuery={searchQuery} onSearch={handleSearch} />
 
       <div
@@ -46,9 +46,9 @@ export default function ProductsPage() {
           <div
             className="sm:min-w-100 flex justify-center items-center
               w-full sticky top-20 max-h-screen
-              bg-white rounded-lg border border-gray-200 p-6
+              rounded-lg border border-border p-6
               transform transition-all duration-300 ease-out
-              translate-x-0 opacity-100
+              translate-x-0 opacity-100 bg-linear-to-b from-card to-background-secondary
               animate-[slideIn_.3s_ease-out]"
           >
             <Outlet />

@@ -1,5 +1,5 @@
 import { IoLogoGithub } from 'react-icons/io';
-import ErrorButton from './ErrorButton';
+import ErrorButton from '../ErrorButton';
 
 export function Footer() {
   return (

@@ -12,50 +12,49 @@ export default function ProductCard({ productObj }: PropsType) {
 
   return (
     <Link to={`/details/${id}?${searchParams.toString()}`}>
-      <article className="relative min-w-36 max-w-68 max-h-76 h-full group">
-        <div
-          className="absolute inset-0 rounded-lg bg-primary/10 z-0
-          group-hover:translate-y-1 group-hover:-translate-x-1 transition-all duration-200"
-        ></div>
+      <article className="group relative bg-card text-foreground rounded-xl border border-border min-w-36 max-w-68 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/30 overflow-hidden">
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-linear-to-br from-primary/10 via-transparent to-accent/10 pointer-events-none" />
 
-        <div
-          className="relative z-10 flex h-full top-0 left-0 flex-col gap-3 justify-between items-center 
-            w-full border border-gray-200 p-4 rounded-lg bg-white        
-            group-hover:-translate-y-1 group-hover:translate-x-1
-            group-hover:shadow-xl transition-all 
-            duration-200 cursor-pointer group"
-        >
+        <div className="relative flex h-full flex-col gap-3 justify-between items-center p-4">
           <img
             src={image || './assets/placeholder.png'}
             alt={name || 'product image'}
-            className="w-24 h-auto mb-2 object-cover rounded-lg opacity-80 group-hover:opacity-100 transition-all duration-200"
+            className="w-24 h-24 object-cover rounded-lg opacity-80 group-hover:opacity-100 transition-all duration-200"
           />
-          {name && <h2 className="text-sm md:text-base font-medium">{name}</h2>}
+
+          {name && (
+            <h2 className="text-sm md:text-base font-semibold text-center line-clamp-2">
+              {name}
+            </h2>
+          )}
 
           {description && (
             <p
               title={description}
-              className="text-xs md:text-sm text-gray-600 line-clamp-3"
+              className="text-xs md:text-sm text-text-secondary line-clamp-2 text-center"
             >
               {description}
             </p>
           )}
 
-          {price !== undefined && (
-            <p className="text-sm font-medium">${Math.round(price)}</p>
-          )}
+          <div className="flex flex-col items-center gap-2">
+            {price !== undefined && (
+              <p className="text-base font-bold text-price">
+                ${Math.round(price)}
+              </p>
+            )}
 
-          {rating !== undefined && (
-            <div className="flex">
-              {Array.from({ length: Math.round(rating) }, (_, i) => (
-                <Star
-                  className="size-3 stroke-yellow-600 fill-yellow-600"
-                  key={i}
-                  data-testid="star-icon"
-                />
-              ))}
-            </div>
-          )}
+            {rating !== undefined && (
+              <div className="flex items-center gap-1">
+                {Array.from({ length: Math.round(rating) }, (_, i) => (
+                  <Star
+                    key={i}
+                    className="size-3 stroke-yellow-500 fill-yellow-500"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </article>
     </Link>

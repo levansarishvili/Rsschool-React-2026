@@ -37,13 +37,13 @@ function Search({ searchQuery, onSearch }: PropsType) {
       onSubmit={handleSubmit}
     >
       <div className="relative w-full">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-          <SearchIcon className="size-5" />
+        <span className="absolute left-3 top-1/2 -translate-y-1/2">
+          <SearchIcon className="size-5 stroke-text-muted" />
         </span>
 
         <input
-          className="w-full bg-white border border-gray-200 rounded-lg px-12 py-3 text-sm outline-primary 
-            placeholder:text-sm placeholder:text-gray-400 placeholder:italic pr-10"
+          className="w-full bg-card border border-border rounded-lg px-12 py-3 text-sm outline-primary 
+            placeholder:text-sm placeholder:text-text-muted placeholder:italic pr-10"
           type="text"
           placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
           value={input}

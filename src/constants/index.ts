@@ -1,3 +1,8 @@
+export const THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark',
+} as const;
+
 export const DEFAULT_SEARCH_QUERY = 'ball';
 
 export const API_PRODUCTS_LIMIT = 8;

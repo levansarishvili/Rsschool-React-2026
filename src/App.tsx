@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import RootLayout from './layouts/RootLayout';
 import ProductsPage from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
 import DetailsPage from './pages/DetailsPage';
 import NotFound from './pages/NotFound';
+import RootLayout from './components/layout/RootLayout';
 
 export default function AppRouter() {
   return (

@@ -7,7 +7,7 @@ export default function NotFound() {
         <div className="absolute top-0 right-0 w-16 h-16 bg-warning pointer-events-none transform translate-x-8 -translate-y-8 rotate-45 border-b-2 border-foreground" />
 
         <h1 className="text-xl md:text-2xl font-black text-danger uppercase tracking-tight mb-6">
-          [ PAGE NOT FOUND ]
+          Requested Resource Not Found
         </h1>
 
         <div className="bg-background border-2 border-foreground p-6 mb-6 flex justify-center items-center relative bg-grid-pattern">

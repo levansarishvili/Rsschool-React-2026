@@ -43,7 +43,7 @@ export default function AboutPage() {
                 alt="Github"
               />
               <span className="underline decoration-2 underline-offset-4">
-                [ Github Account ]
+                Github Account
               </span>
             </a>
           </div>
@@ -64,24 +64,22 @@ export default function AboutPage() {
                 alt="Linkedin"
               />
               <span className="underline decoration-2 underline-offset-4">
-                [ Linkedin Account ]
+                Linkedin Account
               </span>
             </a>
           </div>
         </div>
       </div>
 
-      <div className="mt-8 text-center">
-        <a
-          href="https://rs.school/courses/reactjs"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-primary text-foreground font-black text-xs md:text-sm uppercase tracking-wider px-6 py-3 border-2 border-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] 
+      <a
+        href="https://rs.school/courses/reactjs"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block bg-primary text-foreground font-black text-xs md:text-sm uppercase tracking-wider px-6 py-3 border-2 border-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] 
           dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)] transition-all"
-        >
-          🔗 RS School React Registry
-        </a>
-      </div>
+      >
+        RS School React Course
+      </a>
     </section>
   );
 }

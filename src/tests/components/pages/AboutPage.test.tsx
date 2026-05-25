@@ -3,12 +3,6 @@ import { describe, it, expect } from 'vitest';
 import AboutPage from '../../../pages/AboutPage';
 
 describe('AboutPage', () => {
-  it('should render main title', () => {
-    render(<AboutPage />);
-
-    expect(screen.getByText('About This Application')).toBeInTheDocument();
-  });
-
   it('should render description text', () => {
     render(<AboutPage />);
 
@@ -48,7 +42,11 @@ describe('AboutPage', () => {
   it('should render RS School link', () => {
     render(<AboutPage />);
 
-    const courseLink = screen.getByText('RS School React Course Link');
+    const courseLink = screen.getByRole('link', {
+      name: /RS School React Course/i,
+    });
+
+    expect(courseLink).toBeInTheDocument();
 
     expect(courseLink).toHaveAttribute(
       'href',

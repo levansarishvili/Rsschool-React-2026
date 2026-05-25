@@ -45,7 +45,7 @@ describe('ErrorBoundary', () => {
   it('should render reload button in fallback UI', () => {
     renderCrashedBoundary();
 
-    const reloadButton = screen.getByRole('button', { name: /reload/i });
+    const reloadButton = screen.getByRole('button', { name: /reboot system/i });
 
     expect(reloadButton).toBeInTheDocument();
   });
@@ -58,7 +58,7 @@ describe('ErrorBoundary', () => {
         <Crash />
       </ErrorBoundary>
     );
-    const reloadButton = screen.getByRole('button', { name: /reload/i });
+    const reloadButton = screen.getByRole('button', { name: /reboot system/i });
     await user.click(reloadButton);
 
     rerender(

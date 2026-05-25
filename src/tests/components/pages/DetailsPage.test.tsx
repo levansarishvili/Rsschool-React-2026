@@ -32,7 +32,7 @@ describe('DetailsPage', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.getByText('Loading Product Details...')).toBeInTheDocument();
   });
 
   it('should render error state on failed request', async () => {

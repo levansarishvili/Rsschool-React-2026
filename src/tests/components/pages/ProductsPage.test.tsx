@@ -6,30 +6,35 @@ import {
 } from '../../../test-utils/mocks/handlers';
 import ProductsPage from '../../../pages/ProductsPage';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../../../store/store';
 
 describe('ProductsPage', () => {
   const renderProductPage = () => {
     render(
-      <MemoryRouter>
-        <ProductsPage />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductsPage />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
   it('should render loader initially', () => {
     renderProductPage();
 
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.getByText('Loading Products Data...')).toBeInTheDocument();
   });
 
   it('should hide loader after data loads', async () => {
     renderProductPage();
+    const loader = screen.getByText('Loading Products Data...');
 
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(loader).toBeInTheDocument();
 
     await screen.findByText(/iphone 16/i);
 
-    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(loader).not.toBeInTheDocument();
   });
 
   it('should show loader again when a new search starts', async () => {
@@ -46,7 +51,7 @@ describe('ProductsPage', () => {
     await user.click(screen.getByRole('button', { name: /search/i }));
 
     await waitFor(() => {
-      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(screen.getByText('Loading Products Data...')).toBeInTheDocument();
     });
   });
 

@@ -25,14 +25,10 @@ export function ErrorState({ error }: PropsType) {
         <div className="bg-background border-2 border-foreground p-3 text-left rounded-sm">
           <p className="text-sm font-bold text-foreground break-all">
             <span className="text-danger font-black">&gt;&gt;</span> Error:{' '}
-            {error ?? 'Unknown system conflict encountered.'}
+            {error ?? 'Unknown error encountered.'}
           </p>
         </div>
       </div>
-
-      <span className="text-[10px] uppercase font-black tracking-wider text-text-disabled">
-        Ref: 0x889_CATALOG_FAULT
-      </span>
     </div>
   );
 }

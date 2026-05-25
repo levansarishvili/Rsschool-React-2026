@@ -5,7 +5,7 @@ describe('ErrorState', () => {
   it('should render default error message when none is provided', () => {
     render(<ErrorState />);
 
-    expect(screen.getByText(/error: unknown error/i)).toBeInTheDocument();
+    expect(screen.getByText(/unknown error encountered/i)).toBeInTheDocument();
   });
 
   it('should render provided error message', () => {

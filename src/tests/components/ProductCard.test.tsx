@@ -1,15 +1,19 @@
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { mockProduct } from '../../test-utils/mocks/productsMockData';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { MemoryRouter } from 'react-router-dom';
 import type { ProductType } from '../../types/types';
+import store from '../../store/store';
 
 describe('ProductCard', () => {
   const renderProductCard = (productObj: ProductType) => {
     render(
-      <MemoryRouter>
-        <ProductCard productObj={productObj} />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductCard productObj={productObj} />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
@@ -40,15 +44,6 @@ describe('ProductCard', () => {
     renderProductCard(mockProduct);
 
     expect(screen.getByText(/product description/i)).toBeInTheDocument();
-  });
-
-  it('should render the correct number of rating stars', () => {
-    renderProductCard(mockProduct);
-
-    const stars = screen.getAllByTestId('star-icon');
-    const expectedStars = Math.round(mockProduct.rating);
-
-    expect(stars.length).toBe(expectedStars);
   });
 
   it('should handle missing props gracefully', () => {

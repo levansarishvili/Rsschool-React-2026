@@ -7,7 +7,7 @@ describe('ErrorButton', () => {
     render(<ErrorButton />);
 
     expect(
-      screen.getByRole('button', { name: /test error boundary/i })
+      screen.getByRole('button', { name: /trigger system crash/i })
     ).toBeInTheDocument();
   });
 
@@ -17,7 +17,7 @@ describe('ErrorButton', () => {
     render(<ErrorButton />);
 
     const button = screen.getByRole('button', {
-      name: /test error boundary/i,
+      name: /trigger system crash/i,
     });
 
     await expect(user.click(button)).rejects.toThrow(/simulated render crash/i);

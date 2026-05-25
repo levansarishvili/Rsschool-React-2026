@@ -41,7 +41,7 @@ describe('NotFound page', () => {
     renderNotFoundPage();
 
     const link = screen.getByRole('link', {
-      name: /return to home page/i,
+      name: /return to main directory/i,
     });
 
     expect(link).toBeInTheDocument();

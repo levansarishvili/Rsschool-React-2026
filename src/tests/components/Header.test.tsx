@@ -1,13 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { Header } from '../../components/layout/Header';
 import { MemoryRouter } from 'react-router-dom';
+import { ThemeProvider } from '../../contexts/ThemeProvider';
 
 describe('Header', () => {
   const renderHeader = () =>
     render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>
+      <ThemeProvider>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </ThemeProvider>
     );
 
   it('should render header title', () => {
@@ -15,7 +18,7 @@ describe('Header', () => {
     const header = screen.getByRole('heading');
 
     expect(header).toBeInTheDocument();
-    expect(header).toHaveTextContent('RS_React_App');
+    expect(header).toHaveTextContent('[RS_REACT_APP]');
   });
 
   it('should render navigation links', () => {

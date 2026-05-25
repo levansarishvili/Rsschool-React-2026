@@ -1,6 +1,8 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ProductType } from '../../types/types.ts';
 import { Star } from 'lucide-react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
+import { toggleItemSelection } from '../../store/shopSlice.ts';
 
 type PropsType = {
   productObj: ProductType;
@@ -9,6 +11,17 @@ type PropsType = {
 export default function ProductCard({ productObj }: PropsType) {
   const { id, name, description, price, rating, image } = productObj;
   const [searchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
+
+  const isSelected = useAppSelector((state) =>
+    state.shop.selectedItems.some(
+      (item: ProductType) => item.id === productObj.id
+    )
+  );
+
+  const handleCheckboxChange = () => {
+    dispatch(toggleItemSelection(productObj));
+  };
 
   return (
     <Link
@@ -20,6 +33,25 @@ export default function ProductCard({ productObj }: PropsType) {
           ease-in-out shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] 
           dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(43,41,39,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(244,239,226,1)]"
       >
+        <div
+          className="flex items-center gap-2"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <input
+            type="checkbox"
+            id={`select-${productObj.id}`}
+            checked={isSelected}
+            onChange={handleCheckboxChange}
+            className="w-4 h-4 cursor-pointer accent-primary"
+          />
+          <label
+            htmlFor={`select-${productObj.id}`}
+            className="text-[10px] font-black uppercase cursor-pointer text-text-muted"
+          >
+            {isSelected ? 'Selected' : 'Select Item'}
+          </label>
+        </div>
+
         {price !== undefined && (
           <div className="absolute top-2 right-2 z-10 bg-price text-background font-mono text-xs md:text-sm font-black px-2 py-1 border border-foreground transform rotate-3 group-hover:rotate-0 transition-transform shadow-[1px_1px_0px_0px_rgba(43,41,39,1)]">
             ${Math.round(price)}

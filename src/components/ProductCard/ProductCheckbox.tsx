@@ -13,7 +13,7 @@ export default function ProductCheckbox({
 }: PropsType) {
   return (
     <form
-      className="absolute top-2 left-2 z-10 flex items-center gap-1.5 bg-background border border-foreground px-2 py-0.5 shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] font-mono text-[10px]"
+      className="absolute top-2 left-2 z-10 flex items-center gap-1.5 bg-background border border-foreground px-2 py-1 shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] font-mono text-[10px]"
       onClick={(e) => e.stopPropagation()}
     >
       <input

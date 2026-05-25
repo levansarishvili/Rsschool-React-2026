@@ -10,7 +10,7 @@ export default function DetailsPage() {
     return (
       <div className="flex flex-col items-center justify-center py-20 my-auto">
         <span className="text-xs font-black uppercase tracking-wider mt-4 animate-pulse">
-          Fetching Product Details...
+          Loading Product Details...
         </span>
       </div>
     );

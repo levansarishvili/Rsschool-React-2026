@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useLocalStorage from './useLocalStorage';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { API_PRODUCTS_LIMIT } from '../constants';
 import type { AppState } from '../types/types';
 import { transformProducts } from '../utils/transform';
@@ -9,6 +9,7 @@ import { fetchProductsApi } from '../services/api';
 export function useProducts() {
   const [savedQuery, setSavedQuery] = useLocalStorage('searchQuery', '');
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const page = Number(searchParams.get('page')) || 1;
   const skip = (page - 1) * API_PRODUCTS_LIMIT;
@@ -74,6 +75,8 @@ export function useProducts() {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
     setSearchParams(params);
+
+    navigate('/');
   };
 
   return {

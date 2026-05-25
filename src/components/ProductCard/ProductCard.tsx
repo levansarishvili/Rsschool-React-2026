@@ -24,8 +24,6 @@ export default function ProductCard({ productObj }: PropsType) {
     dispatch(toggleItemSelection(productObj));
   };
 
-  console.log(productObj);
-
   return (
     <Link
       to={`/details/${id}?${searchParams.toString()}`}

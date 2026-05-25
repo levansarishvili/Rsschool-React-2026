@@ -1,7 +1,7 @@
-// src/layouts/RootLayout.tsx
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { SelectionFlyout } from '../SelectionFlyout';
 
 export default function RootLayout() {
   return (
@@ -19,6 +19,8 @@ export default function RootLayout() {
           <Footer />
         </div>
       </div>
+
+      <SelectionFlyout />
     </div>
   );
 }

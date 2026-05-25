@@ -1,8 +1,9 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ProductType } from '../../types/types.ts';
-import { Star } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import { toggleItemSelection } from '../../store/shopSlice.ts';
+import RatingStars from '../RatingStars.tsx';
+import ProductCheckbox from './ProductCheckbox.tsx';
 
 type PropsType = {
   productObj: ProductType;
@@ -30,35 +31,22 @@ export default function ProductCard({ productObj }: PropsType) {
     >
       <article
         className="min-h-76 group relative bg-card text-foreground rounded-sm border-2 border-foreground min-w-36 max-w-68 h-full flex flex-col justify-between overflow-hidden transition-all duration-200 
-          ease-in-out shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] 
-          dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(43,41,39,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(244,239,226,1)]"
+      ease-in-out shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] 
+      dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(43,41,39,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(244,239,226,1)]"
       >
-        <div
-          className="flex items-center gap-2"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <input
-            type="checkbox"
-            id={`select-${productObj.id}`}
-            checked={isSelected}
-            onChange={handleCheckboxChange}
-            className="w-4 h-4 cursor-pointer accent-primary"
-          />
-          <label
-            htmlFor={`select-${productObj.id}`}
-            className="text-[10px] font-black uppercase cursor-pointer text-text-muted"
-          >
-            {isSelected ? 'Selected' : 'Select Item'}
-          </label>
-        </div>
-
         {price !== undefined && (
-          <div className="absolute top-2 right-2 z-10 bg-price text-background font-mono text-xs md:text-sm font-black px-2 py-1 border border-foreground transform rotate-3 group-hover:rotate-0 transition-transform shadow-[1px_1px_0px_0px_rgba(43,41,39,1)]">
+          <div className="absolute top-2 right-2 z-10 bg-price text-background font-mono text-xs md:text-sm font-black px-2 py-0.5 border border-foreground transform rotate-3 group-hover:rotate-0 transition-transform shadow-[1px_1px_0px_0px_rgba(43,41,39,1)]">
             ${Math.round(price)}
           </div>
         )}
 
-        <div className="w-full bg-background-secondary p-4 border-b-2 border-foreground flex justify-center items-center group-hover:bg-surface transition-colors">
+        <ProductCheckbox
+          product={productObj}
+          isSelected={isSelected}
+          onCheckboxChange={handleCheckboxChange}
+        />
+
+        <div className="w-full bg-background-secondary pt-9 pb-4 px-4 border-b-2 border-foreground flex justify-center items-center group-hover:bg-surface transition-colors">
           <img
             src={image || './assets/placeholder.png'}
             alt={name || 'product image'}
@@ -89,20 +77,7 @@ export default function ProductCard({ productObj }: PropsType) {
               ITEM NO. #{id.toString().padStart(4, '0')}
             </span>
 
-            {rating !== undefined && (
-              <div className="flex items-center gap-0.5 bg-background border border-foreground px-1.5 py-0.5 rounded-xs shadow-[1px_1px_0px_0px_rgba(43,41,39,1)]">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <Star
-                    key={i}
-                    className={`size-2.5 ${
-                      i < Math.round(rating)
-                        ? 'stroke-foreground fill-accent'
-                        : 'stroke-text-disabled fill-transparent'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
+            {rating !== undefined && <RatingStars rating={rating} />}
           </div>
         </div>
       </article>

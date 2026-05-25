@@ -5,55 +5,45 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Backgrounds - Warm cream & oatmeal tones instead of cool greys */
   --color-background: #fdfbf7;
   --color-background-secondary: #f4efe2;
   --color-card: #ffffff;
   --color-surface: #fbf8f1;
   --color-border: #e6ded0;
 
-  /* Text - Rich charcoal instead of harsh digital dark blue */
   --color-foreground: #2b2927;
   --color-text-secondary: #5c5651;
   --color-text-muted: #9c938a;
   --color-text-disabled: #ccc4b8;
 
-  /* Primary (Retro Terracotta / Burnt Orange) */
   --color-primary: #d95d39;
   --color-primary-hover: #b84625;
 
-  /* Accent (Vintage Mustard Yellow) */
   --color-accent: #e09f3e;
 
-  /* Status - Adjusted to feel like printed ink rather than bright LEDs */
   --color-warning: #f2bb05;
   --color-danger: #cd5334;
   --color-success: #588b5b;
-  --color-price: #3a7d6a; /* A gorgeous vintage teal/pine for prices */
+  --color-price: #3a7d6a;
 }
 
 .dark {
-  /* Backgrounds - Deep vintage brown/charcoal instead of sci-fi blue */
   --color-background: #1c1a19;
   --color-background-secondary: #262321;
   --color-card: #2b2826;
   --color-surface: #262321;
   --color-border: #3d3733;
 
-  /* Text - Soft cream white instead of stark cold white */
   --color-foreground: #f4efe2;
   --color-text-secondary: #ccc4b8;
   --color-text-muted: #9c938a;
   --color-text-disabled: #665f57;
 
-  /* Primary (Slightly softer terracotta for dark mode readability) */
   --color-primary: #e27150;
   --color-primary-hover: #d95d39;
 
-  /* Accent (Muted vintage gold) */
   --color-accent: #eab464;
 
-  /* Status */
   --color-warning: #f4c430;
   --color-danger: #e06d53;
   --color-success: #70a273;

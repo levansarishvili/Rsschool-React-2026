@@ -13,10 +13,11 @@ function ErrorButton() {
 
   return (
     <button
-      className="text-sm flex gap-2 bg-red-600 text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-red-500 transition-colors"
+      className="text-xs md:text-sm flex gap-2 items-center justify-center font-mono font-black uppercase tracking-wider text-background bg-danger px-5 py-3 border-2 border-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)] hover:bg-opacity-95 cursor-pointer transition-all"
       onClick={handleClick}
     >
-      Test Error Boundary
+      <span>💥</span>
+      <span>Trigger System Crash</span>
     </button>
   );
 }

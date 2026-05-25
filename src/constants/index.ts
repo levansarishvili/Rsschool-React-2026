@@ -5,7 +5,7 @@ export const THEMES = {
 
 export const DEFAULT_SEARCH_QUERY = 'ball';
 
-export const API_PRODUCTS_LIMIT = 8;
+export const API_PRODUCTS_LIMIT = 12;
 
 const CORE_PRODUCT_FIELDS = [
   'id',

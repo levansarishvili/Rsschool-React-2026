@@ -33,38 +33,53 @@ export default function Pagination({ totalProducts }: PropsType) {
   };
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex flex-wrap gap-2 items-center justify-center font-mono select-none">
       <button
-        className="text-text-secondary border border-border text-sm rounded-lg px-4 py-2 cursor-pointer 
-          bg-background-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:text-text-disabled"
+        className="text-foreground border-2 border-foreground text-sm font-black uppercase px-4 py-2 cursor-pointer 
+      bg-surface shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)]
+      active:translate-x active:translate-y active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)]
+      disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none transition-all"
         disabled={currentPage === 1}
         onClick={handlePrevPage}
       >
-        Prev
+        &#9664; Prev
       </button>
 
-      {visiblePages.map((page, index) =>
-        page === '...' ? (
-          <span key={index + page}>...</span>
-        ) : (
-          <button
-            key={page}
-            onClick={() => handlePageChange(Number(page))}
-            className={`border text-text-secondary border-border text-sm rounded-lg px-4 py-2 cursor-pointer hover:bg-card 
-              ${currentPage === page ? 'bg-card' : ''}`}
-          >
-            {page}
-          </button>
-        )
-      )}
+      <div className="flex border-2 border-foreground bg-background divide-x-2 divide-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)]">
+        {visiblePages.map((page, index) =>
+          page === '...' ? (
+            <span
+              key={index + page}
+              className="text-text-muted px-4 py-2 text-sm font-bold bg-background-secondary flex items-center justify-center"
+            >
+              ...
+            </span>
+          ) : (
+            <button
+              key={page}
+              onClick={() => handlePageChange(Number(page))}
+              className={`text-sm font-black px-4 py-2 cursor-pointer transition-colors
+            ${
+              currentPage === page
+                ? 'bg-accent text-background'
+                : 'text-foreground bg-card hover:bg-background-secondary'
+            }`}
+            >
+              {String(page).padStart(2, '0')}
+            </button>
+          )
+        )}
+      </div>
 
       <button
-        className="text-text-secondary border border-border text-sm rounded-lg px-4 py-2 cursor-pointer 
-          bg-background-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:text-text-disabled"
+        className="text-foreground border-2 border-foreground text-sm font-black uppercase px-4 py-2 cursor-pointer 
+      bg-surface shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)]
+      active:translate-x active:translate-y active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)]
+      disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none transition-all"
         disabled={currentPage === totalPages}
         onClick={handleNextPage}
       >
-        Next
+        Next &#9654;
       </button>
     </div>
   );

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { X, Search as SearchIcon } from 'lucide-react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 type PropsType = {
@@ -33,19 +32,18 @@ function Search({ searchQuery, onSearch }: PropsType) {
 
   return (
     <form
-      className="flex gap-6 md:gap-12 justify-between"
+      className="flex flex-col sm:flex-row gap-4 items-stretch justify-between w-full font-mono"
       onSubmit={handleSubmit}
     >
-      <div className="relative w-full">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2">
-          <SearchIcon className="size-5 stroke-text-muted" />
+      <div className="relative flex-1 flex items-stretch border-2 border-foreground bg-card shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)] focus-within:translate-x-px focus-within:translate-y-px focus-within:shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:focus-within:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] transition-all">
+        <span className="flex items-center justify-center bg-background-secondary border-r-2 border-foreground px-3 text-xs font-black uppercase tracking-wider text-text-secondary select-none">
+          FIND:
         </span>
 
         <input
-          className="w-full bg-card border border-border rounded-lg px-12 py-3 text-sm outline-primary 
-            placeholder:text-sm placeholder:text-text-muted placeholder:italic pr-10"
+          className="w-full bg-transparent px-4 py-3 text-sm font-bold text-foreground outline-none placeholder:text-xs placeholder:text-text-muted placeholder:font-normal"
           type="text"
-          placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
+          placeholder="Type keyword... (e.g. Samsung, Apple, Watch, Sport)"
           value={input}
           onChange={handleChange}
         />
@@ -54,17 +52,16 @@ function Search({ searchQuery, onSearch }: PropsType) {
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-600 cursor-pointer"
+            className="px-3 text-text-secondary hover:text-danger cursor-pointer transition-colors font-black text-sm"
             aria-label="Clear input"
           >
-            <X className="size-5" />
+            [X]
           </button>
         )}
       </div>
 
       <button
-        className="cursor-pointer hover:bg-secondary transition-all duration-200 bg-primary 
-        text-white text-sm w-40 rounded-lg"
+        className="cursor-pointer bg-primary text-foreground font-black text-sm uppercase tracking-wider px-6 py-3 sm:py-0 min-w-32 border-2 border-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)] transition-all"
         type="submit"
       >
         Search

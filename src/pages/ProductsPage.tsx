@@ -1,4 +1,3 @@
-import Loader from '../components/loader/Loader.tsx';
 import { ErrorState } from '../components/ErrorState.tsx';
 import ProductList from '../components/ProductList/ProductList.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
@@ -14,21 +13,29 @@ export default function ProductsPage() {
   const isDetailsRoute = useMatch('/details/:id');
 
   return (
-    <div className="flex flex-col gap-10 font-inter text-base w-full min-h-screen">
+    <div className="flex flex-col gap-8 font-mono text-foreground w-full min-h-screen selection:bg-accent selection:text-background">
       <Search searchQuery={searchQuery} onSearch={handleSearch} />
 
       <div
-        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid md:grid-cols-[2fr_1fr] gap-10' : ''}`}
+        className={`relative w-full ${
+          isDetailsRoute
+            ? 'grid lg:grid-cols-[1.5fr_1fr] gap-6 items-start'
+            : 'flex flex-col'
+        }`}
       >
-        <div className="min-h-screen flex flex-col gap-12 items-center justify-start">
+        <div className="flex flex-col gap-8 items-center justify-start border-2 border-foreground bg-surface p-4 md:p-6 shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] min-h-[70vh]">
           {loading && (
-            <div className="flex items-center justify-center min-h-screen">
-              <Loader />
+            <div className="flex flex-col items-center justify-center py-20 my-auto">
+              <span className="text-xs font-black uppercase tracking-wider mt-4 animate-pulse">
+                Fetching Products...
+              </span>
             </div>
           )}
 
           {!loading && products.length === 0 && !error && (
-            <EmptyState message="No products matched your search!" />
+            <div className="my-auto">
+              <EmptyState message="No products matched your search!" />
+            </div>
           )}
 
           {error && <ErrorState error={error} />}
@@ -38,20 +45,22 @@ export default function ProductsPage() {
           )}
 
           {!loading && !error && products.length > 0 && (
-            <Pagination totalProducts={totalProducts} />
+            <div className="w-full mt-auto pt-6 border-t-2 border-dashed border-foreground/20">
+              <Pagination totalProducts={totalProducts} />
+            </div>
           )}
         </div>
 
         {isDetailsRoute && (
           <div
-            className="sm:min-w-100 flex justify-center items-center
-              w-full sticky top-20 max-h-screen
-              rounded-lg border border-border p-6
-              transform transition-all duration-300 ease-out
-              translate-x-0 opacity-100 bg-linear-to-b from-card to-background-secondary
-              animate-[slideIn_.3s_ease-out]"
+            className="w-full sticky top-24 flex items-center justify-center min-h-[75vh]
+              bg-background border lg:border-2 border-foreground p-1
+              shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)]
+              transition-none"
           >
-            <Outlet />
+            <div className="p-2 h-full">
+              <Outlet />
+            </div>
           </div>
         )}
       </div>

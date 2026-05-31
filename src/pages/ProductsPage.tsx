@@ -1,16 +1,49 @@
 import { ErrorState } from '../components/ErrorState.tsx';
 import ProductList from '../components/ProductList/ProductList.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
-import { Outlet, useMatch } from 'react-router-dom';
-import Search from '../components/Search/Search.tsx';
+import {
+  Outlet,
+  useMatch,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import Pagination from '../components/Pagination/Pagination.tsx';
-import { useProducts } from '../hooks/useProducts.ts';
+import useLocalStorage from '../hooks/useLocalStorage.ts';
+import { API_PRODUCTS_LIMIT } from '../constants/index.ts';
+import { useGetProductsQuery } from '../services/api.ts';
+import { transformProducts } from '../utils/transform.ts';
+import Loader from '../components/Loader.tsx';
+import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
+import Search from '../components/Search/Search.tsx';
 
 export default function ProductsPage() {
-  const { products, loading, error, searchQuery, totalProducts, handleSearch } =
-    useProducts();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useLocalStorage('searchQuery', '');
+  const navigate = useNavigate();
+
+  const page = Number(searchParams.get('page')) || 1;
+  const skip = (page - 1) * API_PRODUCTS_LIMIT;
+
+  const { data, isLoading, isError, error } = useGetProductsQuery({
+    search: searchQuery,
+    skip,
+  });
+  const products = transformProducts(data?.products ?? []);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
+    setSearchParams(params);
+    navigate('/');
+  };
 
   const isDetailsRoute = useMatch('/details/:id');
+
+  const hasNoProducts = !isLoading && !isError && products.length === 0;
+  const hasProducts = !isLoading && !isError && products.length > 0;
+
+  const errorMessage = getRtkErrorMessage(error);
 
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -24,30 +57,21 @@ export default function ProductsPage() {
         }`}
       >
         <div className="w-full flex flex-col items-center justify-start bg-card border border-border/80 rounded-2xl p-2 shadow-xs min-h-[90vh]">
-          {loading && (
-            <div className="flex flex-col items-center justify-center py-32 my-auto">
-              <div className="w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" />
-              <span className="text-xs font-medium tracking-wide text-text-muted mt-4">
-                Loading products...
-              </span>
-            </div>
-          )}
+          {isLoading && <Loader message="Loading products..." />}
 
-          {!loading && products.length === 0 && !error && (
+          {isError && <ErrorState error={errorMessage} />}
+
+          {hasNoProducts && (
             <div className="my-auto">
               <EmptyState message="No products matched your search!" />
             </div>
           )}
 
-          {error && <ErrorState error={error} />}
+          {hasProducts && <ProductList products={products} />}
 
-          {!loading && !error && products.length > 0 && (
-            <ProductList products={products} />
-          )}
-
-          {!loading && !error && products.length > 0 && (
+          {hasProducts && data?.total && (
             <div className="w-full mt-auto pt-4">
-              <Pagination totalProducts={totalProducts} />
+              <Pagination totalProducts={data.total} />
             </div>
           )}
         </div>

@@ -19,10 +19,6 @@ export function ErrorState({ error }: PropsType) {
           <h3 className="text-base font-semibold tracking-tight text-foreground">
             Unable to load content
           </h3>
-          <p className="text-xs text-text-muted max-w-70 mx-auto leading-relaxed">
-            We ran into a slight issue communicating with the marketplace
-            servers.
-          </p>
         </div>
 
         <div className="bg-background-secondary border border-border rounded-xl p-3 text-left shadow-inner">

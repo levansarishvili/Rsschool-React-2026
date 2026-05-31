@@ -5,27 +5,32 @@ type PropsType = {
 
 export function ErrorState({ error }: PropsType) {
   return (
-    <div className="flex flex-col gap-6 justify-center items-center max-w-lg mx-auto my-10 p-6 bg-surface border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] font-mono text-center">
-      <div className="w-full bg-background-secondary border-2 border-dashed border-foreground/30 p-6 flex justify-center items-center relative">
+    <div className="flex flex-col gap-6 justify-center items-center max-w-md mx-auto my-12 p-6 bg-card border border-border/80 rounded-2xl shadow-sm font-sans text-center transition-all duration-300">
+      <div className="w-full bg-background-secondary/50 rounded-xl p-8 flex justify-center items-center relative border border-border/40 overflow-hidden">
         <img
-          className="w-48 max-w-full opacity-75 grayscale contrast-125 dark:invert"
+          className="w-36 max-w-full opacity-65 dark:opacity-80 transition-opacity dark:invert object-contain"
           src="/assets/page-not-found.svg"
-          alt="Page error"
+          alt="Page error graphic"
         />
-        <span className="absolute top-2 left-2 bg-danger text-background text-[10px] font-black px-1.5 uppercase tracking-wider border border-foreground">
-          SYS_ERR
-        </span>
       </div>
 
-      <div className="w-full space-y-2">
-        <div className="text-xs font-black uppercase tracking-widest text-text-muted">
-          -- DIAGNOSTIC LOG --
+      <div className="w-full space-y-3">
+        <div className="space-y-1">
+          <h3 className="text-base font-semibold tracking-tight text-foreground">
+            Unable to load content
+          </h3>
+          <p className="text-xs text-text-muted max-w-70 mx-auto leading-relaxed">
+            We ran into a slight issue communicating with the marketplace
+            servers.
+          </p>
         </div>
 
-        <div className="bg-background border-2 border-foreground p-3 text-left rounded-sm">
-          <p className="text-sm font-bold text-foreground break-all">
-            <span className="text-danger font-black">&gt;&gt;</span> Error:{' '}
-            {error ?? 'Unknown error encountered.'}
+        <div className="bg-background-secondary border border-border rounded-xl p-3 text-left shadow-inner">
+          <p className="text-xs font-mono font-medium text-text-secondary break-all leading-normal flex items-start gap-1.5">
+            <span className="text-danger font-semibold select-none shrink-0">
+              ✕
+            </span>
+            <span>{error ?? 'An unknown network error occurred.'}</span>
           </p>
         </div>
       </div>

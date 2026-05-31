@@ -13,21 +13,22 @@ export default function ProductsPage() {
   const isDetailsRoute = useMatch('/details/:id');
 
   return (
-    <div className="flex flex-col gap-8 font-mono text-foreground w-full min-h-screen selection:bg-accent selection:text-background">
+    <div className="flex flex-col gap-6 w-full">
       <Search searchQuery={searchQuery} onSearch={handleSearch} />
 
       <div
         className={`relative w-full ${
           isDetailsRoute
-            ? 'grid lg:grid-cols-[1.5fr_1fr] gap-6 items-start'
+            ? 'grid lg:grid-cols-[1.6fr_1fr] gap-6 items-start'
             : 'flex flex-col'
         }`}
       >
-        <div className="flex flex-col gap-8 items-center justify-start border-2 border-foreground bg-surface p-4 md:p-6 shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] min-h-[70vh]">
+        <div className="w-full flex flex-col items-center justify-start bg-card border border-border/80 rounded-2xl p-2 shadow-xs min-h-[90vh]">
           {loading && (
-            <div className="flex flex-col items-center justify-center py-20 my-auto">
-              <span className="text-xs font-black uppercase tracking-wider mt-4 animate-pulse">
-                Loading Products Data...
+            <div className="flex flex-col items-center justify-center py-32 my-auto">
+              <div className="w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" />
+              <span className="text-xs font-medium tracking-wide text-text-muted mt-4">
+                Loading products...
               </span>
             </div>
           )}
@@ -45,20 +46,15 @@ export default function ProductsPage() {
           )}
 
           {!loading && !error && products.length > 0 && (
-            <div className="w-full mt-auto pt-6 border-t-2 border-dashed border-foreground/20">
+            <div className="w-full mt-auto pt-4">
               <Pagination totalProducts={totalProducts} />
             </div>
           )}
         </div>
 
         {isDetailsRoute && (
-          <div
-            className="w-full sticky top-24 flex items-center justify-center min-h-[75vh]
-              bg-background border lg:border-2 border-foreground p-1
-              shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)]
-              transition-none"
-          >
-            <div className="p-2 h-full">
+          <div className="w-full sticky top-24 flex items-start justify-center min-h-[90vh] bg-card border border-border/80 p-5 md:p-6 rounded-2xl shadow-sm transition-all duration-300">
+            <div className="w-full h-full">
               <Outlet />
             </div>
           </div>

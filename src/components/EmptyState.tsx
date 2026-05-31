@@ -4,32 +4,24 @@ type PropsType = {
 
 export function EmptyState({ message }: PropsType) {
   return (
-    <div
-      className="flex flex-col gap-6 justify-center items-center max-w-md mx-auto my-12 p-8 
-    bg-surface border-2 border-dashed border-foreground shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] text-center font-mono"
-    >
-      <div className="relative p-2 bg-background border-2 border-foreground rounded-sm">
+    <div className="flex flex-col gap-6 justify-center items-center max-w-sm mx-auto my-16 p-8 text-center font-sans">
+      <div className="relative flex items-center justify-center w-40 h-40 rounded-full bg-background-secondary/80 border border-border/40 p-4 transition-transform duration-300 hover:scale-102">
         <img
-          className="w-48 max-w-full opacity-75 dark:invert grayscale contrast-125"
+          className="w-24 max-w-full opacity-80 dark:opacity-90 transition-opacity dark:invert object-contain"
           src="/assets/data-not-found.svg"
-          alt="Item not found"
+          alt="No products found"
         />
       </div>
 
       <div className="space-y-2">
-        <span className="text-danger font-black text-lg block tracking-tight uppercase">
-          [ ! ] SYSTEM NOTICE
-        </span>
-        <p className="text-sm font-bold text-text-secondary leading-relaxed uppercase">
-          {message || 'Requested index returned zero results.'}
+        <h3 className="text-foreground font-semibold text-lg tracking-tight">
+          No products found
+        </h3>
+        <p className="text-sm font-normal text-text-muted max-w-70 mx-auto leading-relaxed">
+          {message ||
+            "We couldn't find anything matching your current selection. Try adjusting your filters."}
         </p>
       </div>
-
-      <div className="w-full border-t border-foreground/20 border-dashed my-1" />
-
-      <span className="text-[10px] text-text-muted uppercase tracking-widest">
-        --- End of Registry Record ---
-      </span>
     </div>
   );
 }

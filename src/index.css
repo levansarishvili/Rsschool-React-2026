@@ -5,49 +5,49 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background: #fdfbf7;
-  --color-background-secondary: #f4efe2;
+  --color-background: #ffffff;
+  --color-background-secondary: #f8fafc;
   --color-card: #ffffff;
-  --color-surface: #fbf8f1;
-  --color-border: #e6ded0;
+  --color-surface: #f1f5f9;
+  --color-border: #e2e8f0;
 
-  --color-foreground: #2b2927;
-  --color-text-secondary: #5c5651;
-  --color-text-muted: #9c938a;
-  --color-text-disabled: #ccc4b8;
+  --color-foreground: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+  --color-text-disabled: #cbd5e1;
 
-  --color-primary: #d95d39;
-  --color-primary-hover: #b84625;
+  --color-primary: #9333ea;
+  --color-primary-hover: #7e22ce;
 
-  --color-accent: #e09f3e;
+  --color-accent: #7c3aed;
 
-  --color-warning: #f2bb05;
-  --color-danger: #cd5334;
-  --color-success: #588b5b;
-  --color-price: #3a7d6a;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --color-price: #0f172a;
 }
 
 .dark {
-  --color-background: #1c1a19;
-  --color-background-secondary: #262321;
-  --color-card: #2b2826;
-  --color-surface: #262321;
-  --color-border: #3d3733;
+  --color-background: #09090b;
+  --color-background-secondary: #121214;
+  --color-card: #18181b;
+  --color-surface: #27272a;
+  --color-border: #27272a;
 
-  --color-foreground: #f4efe2;
-  --color-text-secondary: #ccc4b8;
-  --color-text-muted: #9c938a;
-  --color-text-disabled: #665f57;
+  --color-foreground: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-text-disabled: #3f3f46;
 
-  --color-primary: #e27150;
-  --color-primary-hover: #d95d39;
+  --color-primary: #9333ea;
+  --color-primary-hover: #7e22ce;
 
-  --color-accent: #eab464;
+  --color-accent: #8b5cf6;
 
-  --color-warning: #f4c430;
-  --color-danger: #e06d53;
-  --color-success: #70a273;
-  --color-price: #529e87;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-success: #34d399;
+  --color-price: #f4f4f5;
 }
 
 @layer base {

@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { API_PRODUCTS_LIMIT } from '../../constants';
 import { getVisiblePages } from '../../utils/getVisiblePages';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type PropsType = {
   totalProducts: number;
@@ -33,53 +34,51 @@ export default function Pagination({ totalProducts }: PropsType) {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 items-center justify-center font-mono select-none">
+    <div className="flex flex-wrap gap-1.5 items-center justify-center font-sans select-none my-8">
       <button
-        className="text-foreground border-2 border-foreground text-sm font-black uppercase px-4 py-2 cursor-pointer 
-      bg-surface shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)]
-      active:translate-x active:translate-y active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)]
-      disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none transition-all"
+        className="flex items-center gap-1 text-text-secondary border border-border text-sm font-medium px-3.5 py-2 rounded-xl cursor-pointer bg-card hover:bg-surface hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-card disabled:hover:text-text-secondary transition-all duration-200 shadow-xs"
         disabled={currentPage === 1}
         onClick={handlePrevPage}
+        aria-label="Previous page"
       >
-        &#9664; Prev
+        <ChevronLeft className="w-4" />
+        <span className="hidden sm:inline">Previous</span>
       </button>
 
-      <div className="flex border-2 border-foreground bg-background divide-x-2 divide-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)]">
+      <div className="flex items-center gap-1 bg-background-secondary/60 p-1 border border-border rounded-xl">
         {visiblePages.map((page, index) =>
           page === '...' ? (
             <span
               key={index + page}
-              className="text-text-muted px-4 py-2 text-sm font-bold bg-background-secondary flex items-center justify-center"
+              className="text-text-muted px-3 py-1.5 text-sm font-medium w-9 h-9 flex items-center justify-center"
             >
-              ...
+              &hellip;
             </span>
           ) : (
             <button
               key={page}
               onClick={() => handlePageChange(Number(page))}
-              className={`text-sm font-black px-4 py-2 cursor-pointer transition-colors
+              className={`text-sm font-medium w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer transition-all duration-200
             ${
               currentPage === page
-                ? 'bg-accent text-background'
-                : 'text-foreground bg-card hover:bg-background-secondary'
+                ? 'bg-primary text-white font-semibold shadow-xs shadow-primary/10'
+                : 'text-text-secondary bg-transparent hover:bg-card hover:text-foreground'
             }`}
             >
-              {String(page).padStart(2, '0')}
+              {page}
             </button>
           )
         )}
       </div>
 
       <button
-        className="text-foreground border-2 border-foreground text-sm font-black uppercase px-4 py-2 cursor-pointer 
-      bg-surface shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)]
-      active:translate-x active:translate-y active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)]
-      disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none transition-all"
+        className="flex items-center gap-1 text-text-secondary border border-border text-sm font-medium px-3.5 py-2 rounded-xl cursor-pointer bg-card hover:bg-surface hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-card disabled:hover:text-text-secondary transition-all duration-200 shadow-xs"
         disabled={currentPage === totalPages}
         onClick={handleNextPage}
+        aria-label="Next page"
       >
-        Next &#9654;
+        <span className="hidden sm:inline">Next</span>
+        <ChevronRight className="w-4" />
       </button>
     </div>
   );

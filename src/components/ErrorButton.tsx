@@ -1,3 +1,4 @@
+import { Sparkle } from 'lucide-react';
 import { useState } from 'react';
 
 function ErrorButton() {
@@ -13,11 +14,11 @@ function ErrorButton() {
 
   return (
     <button
-      className="text-xs md:text-sm flex gap-2 items-center justify-center font-mono font-black uppercase tracking-wider text-background bg-danger px-5 py-3 border-2 border-foreground shadow-[3px_3px_0px_0px_rgba(43,41,39,1)] dark:shadow-[3px_3px_0px_0px_rgba(244,239,226,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)] hover:bg-opacity-95 cursor-pointer transition-all"
       onClick={handleClick}
+      className="text-xs md:text-sm flex gap-2 items-center justify-center font-sans font-medium tracking-wide text-danger bg-danger/10 border border-danger/20 px-4 py-2.5 rounded-xl cursor-pointer transition-all duration-200 hover:bg-danger hover:text-white hover:border-danger hover:shadow-sm hover:shadow-danger/15 active:scale-98 select-none"
     >
-      <span>💥</span>
-      <span>Trigger System Crash</span>
+      <Sparkle className="w-4 h-4" />
+      <span>Trigger Test Error</span>
     </button>
   );
 }

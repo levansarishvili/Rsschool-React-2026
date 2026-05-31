@@ -40,23 +40,16 @@ export const api = createApi({
         return `${base}?${params.toString()}`;
       },
     }),
+    getProduct: builder.query<ProductDetailsType, string | number>({
+      query: (id) => {
+        const params = new URLSearchParams();
+
+        params.append('select', String(API_SELECT_FIELDS_DETAILS));
+        return `products/${id}?${params.toString()}`;
+      },
+    }),
   }),
 });
 
 export const { useGetProductsQuery } = api;
-
-export const fetchProductApi = async (
-  id: string | undefined
-): Promise<ProductDetailsType> => {
-  const response = await fetch(
-    `${API_URL}products/${id}?select=${API_SELECT_FIELDS_DETAILS}`
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `${response.status} (${response.statusText}): Unable to fetch product with that ID.`
-    );
-  }
-
-  return await response.json();
-};
+export const { useGetProductQuery } = api;

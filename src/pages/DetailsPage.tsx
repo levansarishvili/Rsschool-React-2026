@@ -1,13 +1,31 @@
 import { ErrorState } from '../components/ErrorState.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
 import { getStockColor } from '../utils/getStockColor.ts';
-import { useProduct } from '../hooks/useProduct.ts';
 import { X } from 'lucide-react';
+import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useGetProductQuery } from '../services/api.ts';
 
 export default function DetailsPage() {
-  const { product, loading, error, handleCloseDetails } = useProduct();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  if (loading) {
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useGetProductQuery(id ?? '');
+
+  const handleCloseDetails = () => {
+    navigate(`/?${searchParams.toString()}`);
+  };
+
+  const errorMessage = getRtkErrorMessage(error);
+  console.log(product);
+
+  if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-32 my-auto">
         <div className="w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" />
@@ -17,7 +35,7 @@ export default function DetailsPage() {
       </div>
     );
   }
-  if (error) return <ErrorState error={error} />;
+  if (isError) return <ErrorState error={errorMessage} />;
   if (!product) return <EmptyState message="No product found whith that ID" />;
 
   return (

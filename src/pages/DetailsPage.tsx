@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useGetProductQuery } from '../services/api.ts';
+import Loader from '../components/Loader.tsx';
 
 export default function DetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -13,27 +14,21 @@ export default function DetailsPage() {
 
   const {
     data: product,
-    isLoading,
+    isFetching,
     isError,
     error,
-  } = useGetProductQuery(id ?? '');
+  } = useGetProductQuery(id ?? '', {
+    skip: !id,
+  });
 
   const handleCloseDetails = () => {
     navigate(`/?${searchParams.toString()}`);
   };
 
   const errorMessage = getRtkErrorMessage(error);
-  console.log(product);
 
-  if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center py-32 my-auto">
-        <div className="w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" />
-        <span className="text-xs font-medium tracking-wide text-text-muted mt-4">
-          Loading Product Details...
-        </span>
-      </div>
-    );
+  if (isFetching) {
+    return <Loader message="Loading Product Details..." />;
   }
   if (isError) return <ErrorState error={errorMessage} />;
   if (!product) return <EmptyState message="No product found whith that ID" />;

@@ -9,6 +9,7 @@ import type {
 } from '../types/types.ts';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
+const CACHE_TTL = Number(import.meta.env.VITE_CACHE_TTL_SECONDS) || 60;
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -17,6 +18,10 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
   }),
+
+  tagTypes: ['Products'],
+
+  keepUnusedDataFor: CACHE_TTL,
 
   endpoints: (builder) => ({
     getProducts: builder.query<
@@ -39,6 +44,17 @@ export const api = createApi({
 
         return `${base}?${params.toString()}`;
       },
+
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.products.map(({ id }) => ({
+                type: 'Products' as const,
+                id,
+              })),
+              { type: 'Products', id: 'LIST' },
+            ]
+          : [{ type: 'Products', id: 'LIST' }],
     }),
     getProduct: builder.query<ProductDetailsType, string | number>({
       query: (id) => {
@@ -47,9 +63,10 @@ export const api = createApi({
         params.append('select', String(API_SELECT_FIELDS_DETAILS));
         return `products/${id}?${params.toString()}`;
       },
+
+      providesTags: (_result, _error, id) => [{ type: 'Products', id }],
     }),
   }),
 });
 
-export const { useGetProductsQuery } = api;
-export const { useGetProductQuery } = api;
+export const { useGetProductsQuery, useGetProductQuery } = api;

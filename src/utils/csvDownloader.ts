@@ -7,7 +7,7 @@ export const downloadItemsAsCSV = (items: ProductType[]): void => {
 
   const rows = items.map((item) => [
     item.id,
-    `"${(item.name || '').replace(/"/g, '""')}"`,
+    `"${(item.title || '').replace(/"/g, '""')}"`,
     `"${(item.description || '').replace(/"/g, '""')}"`,
     item.price,
     `"${window.location.origin}/details/${item.id}"`,

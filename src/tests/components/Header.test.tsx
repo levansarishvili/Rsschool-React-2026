@@ -18,7 +18,7 @@ describe('Header', () => {
     const header = screen.getByRole('heading');
 
     expect(header).toBeInTheDocument();
-    expect(header).toHaveTextContent('[RS_REACT_APP]');
+    expect(header).toHaveTextContent('RS_STORE');
   });
 
   it('should render navigation links', () => {

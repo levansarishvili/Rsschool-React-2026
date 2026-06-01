@@ -25,7 +25,9 @@ describe('Search', () => {
   it('should hide clear button when input is empty', () => {
     renderSearch();
 
-    const clearButton = screen.queryByRole('button', { name: 'Clear input' });
+    const clearButton = screen.queryByRole('button', {
+      name: 'Clear input',
+    });
 
     expect(clearButton).not.toBeInTheDocument();
   });
@@ -112,7 +114,9 @@ describe('Search', () => {
 
     await user.type(getInput(), 'phone');
 
-    const clearButton = screen.getByRole('button', { name: /clear input/i });
+    const clearButton = screen.getByRole('button', {
+      name: /Clear input/i,
+    });
     await user.click(clearButton);
 
     expect(getInput()).toHaveValue('');

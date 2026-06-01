@@ -44,13 +44,13 @@ describe('SelectionFlyout', () => {
   it('should not render when no items selected', () => {
     renderFlyout([]);
 
-    expect(screen.queryByText(/active selection/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/products selected/i)).not.toBeInTheDocument();
   });
 
   it('should render selected items count', () => {
     renderFlyout(mockProducts);
 
-    expect(screen.getByText(/total selected products/i)).toBeInTheDocument();
+    expect(screen.getByText(/products selected/i)).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
 
@@ -65,7 +65,7 @@ describe('SelectionFlyout', () => {
       </Provider>
     );
 
-    await user.click(screen.getByRole('button', { name: /clear all/i }));
+    await user.click(screen.getByRole('button', { name: /clear selection/i }));
 
     const state = store.getState();
 
@@ -77,7 +77,7 @@ describe('SelectionFlyout', () => {
 
     renderFlyout([mockProduct]);
 
-    await user.click(screen.getByRole('button', { name: /download csv/i }));
+    await user.click(screen.getByRole('button', { name: /Export CSV/i }));
 
     expect(csv.downloadItemsAsCSV).toHaveBeenCalledTimes(1);
   });

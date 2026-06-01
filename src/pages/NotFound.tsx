@@ -8,17 +8,17 @@ export default function NotFound() {
           <img
             className="w-44 max-w-full opacity-65 dark:opacity-80 transition-opacity dark:invert object-contain"
             src="/assets/page-not-found.svg"
-            alt="Page not found illustration"
+            alt="Page not found"
           />
         </div>
 
         <div className="space-y-2">
           <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
-            Page not found
+            Requested Resource Not Found
           </h1>
           <p className="text-sm text-text-muted max-w-70 mx-auto leading-relaxed">
-            The link you followed may be broken, or the product index path might
-            have been removed from our marketplace directory.
+            The requested item could not be retrieved. Please check the link or
+            head back to browse our other products.
           </p>
         </div>
 

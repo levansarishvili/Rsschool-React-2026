@@ -51,9 +51,9 @@ class ErrorBoundary extends Component<PropsType, State> {
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
-                Something went wrong
-              </h2>
+              <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
+                Oops! something went wrong
+              </h1>
               <p className="text-sm text-text-secondary max-w-xs mx-auto leading-relaxed">
                 An unexpected error occurred while loading this page layout. You
                 can try reloading your session.
@@ -81,12 +81,6 @@ class ErrorBoundary extends Component<PropsType, State> {
               >
                 Reload Page
               </button>
-              <a
-                href="/"
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-surface text-text-secondary font-medium text-sm transition-all duration-200 text-center border border-border hover:bg-background-secondary hover:text-foreground active:scale-98"
-              >
-                Go to Home
-              </a>
             </div>
           </div>
         </div>

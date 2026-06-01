@@ -11,7 +11,6 @@ export const SelectionFlyout = () => {
   return (
     <div className="fixed bottom-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-2xl z-50 bg-foreground/70 dark:bg-foreground/20 text-background backdrop-blur-md px-5 py-4 rounded-2xl shadow-[0_12px_40px_-12px_rgba(0,0,0,0.3)] font-sans animate-[slideUp_0.3s_cubic-bezier(0.16,1,0.3,1)] border border-white/10">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Left Track: Dynamic Counter State */}
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-foreground font-semibold text-xs">
             {selectedItems.length}
@@ -23,7 +22,6 @@ export const SelectionFlyout = () => {
           </p>
         </div>
 
-        {/* Right Track: Clean Contextual Action Controls */}
         <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           <button
             onClick={() => dispatch(clearAllSelections())}
@@ -36,7 +34,6 @@ export const SelectionFlyout = () => {
             onClick={() => downloadItemsAsCSV(selectedItems)}
             className="text-xs font-semibold flex items-center gap-2 bg-primary text-foreground px-4 py-2 rounded-xl shadow-xs shadow-primary/10 hover:opacity-95 transition-all duration-200 cursor-pointer active:scale-95"
           >
-            {/* Sleek Modern Download Vector Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

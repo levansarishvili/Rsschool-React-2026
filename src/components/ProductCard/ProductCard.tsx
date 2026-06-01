@@ -10,14 +10,16 @@ type PropsType = {
 };
 
 export default function ProductCard({ productObj }: PropsType) {
-  const { id, name, description, price, rating, image } = productObj;
+  const { id, title, description, price, rating, thumbnail } = productObj;
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
-  const isSelected = useAppSelector((state) =>
-    state.shop.selectedItems.some(
-      (item: ProductType) => item.id === productObj.id
-    )
+  const selectedItems = useAppSelector(
+    (state) => state.shop?.selectedItems ?? []
+  );
+
+  const isSelected = selectedItems.some(
+    (item: ProductType) => item.id === productObj.id
   );
 
   const handleCheckboxChange = () => {
@@ -48,17 +50,17 @@ export default function ProductCard({ productObj }: PropsType) {
 
         <div className="w-full bg-background-secondary/60 h-48 sm:h-52 p-6 flex justify-center items-center overflow-hidden transition-colors duration-300 group-hover:bg-background-secondary">
           <img
-            src={image || './assets/placeholder.png'}
-            alt={name || 'product image'}
+            src={thumbnail || './assets/placeholder.png'}
+            alt={title || 'product image'}
             className="max-w-full max-h-full w-auto h-auto object-contain mix-blend-multiply dark:mix-blend-normal transform group-hover:scale-105 transition-transform duration-300 ease-out"
           />
         </div>
 
         <div className="flex flex-col gap-3 flex-1 p-4">
           <div className="space-y-1">
-            {name && (
+            {title && (
               <h2 className="text-sm md:text-base font-semibold tracking-tight line-clamp-2 text-foreground group-hover:text-primary transition-colors duration-200">
-                {name}
+                {title}
               </h2>
             )}
 

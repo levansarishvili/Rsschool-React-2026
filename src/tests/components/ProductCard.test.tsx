@@ -28,8 +28,8 @@ describe('ProductCard', () => {
 
     const img = screen.getByRole('img');
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', mockProduct.image);
-    expect(img).toHaveAttribute('alt', mockProduct.name);
+    expect(img).toHaveAttribute('src', mockProduct.thumbnail);
+    expect(img).toHaveAttribute('alt', mockProduct.title);
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });
@@ -49,8 +49,8 @@ describe('ProductCard', () => {
   it('should handle missing props gracefully', () => {
     const incompleteProduct = {
       id: 1,
-      image: '',
-      name: '',
+      thumbnail: '',
+      title: '',
       description: '',
       price: 0,
       rating: 0,

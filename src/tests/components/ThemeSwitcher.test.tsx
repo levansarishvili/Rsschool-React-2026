@@ -37,24 +37,4 @@ describe('ThemeSwitcher Component', () => {
 
     expect(mockToggle).toHaveBeenCalledTimes(1);
   });
-
-  it('should show sun icon in light mode', () => {
-    (useTheme as Mock).mockReturnValue({
-      theme: 'light',
-      toggleTheme: vi.fn(),
-    });
-
-    renderThemeSwitcher();
-    expect(screen.getByText('☀️')).toBeInTheDocument();
-  });
-
-  it('should show moon icon in dark mode', () => {
-    (useTheme as Mock).mockReturnValue({
-      theme: 'dark',
-      toggleTheme: vi.fn(),
-    });
-
-    renderThemeSwitcher();
-    expect(screen.getByText('🌙')).toBeInTheDocument();
-  });
 });

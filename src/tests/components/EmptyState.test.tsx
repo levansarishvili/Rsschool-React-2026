@@ -20,6 +20,6 @@ describe('EmptyState', () => {
       'src',
       expect.stringContaining('assets/data-not-found.svg')
     );
-    expect(img).toHaveAttribute('alt', 'Item not found');
+    expect(img).toHaveAttribute('alt', 'No products found');
   });
 });

@@ -3,16 +3,26 @@ import { describe, it, expect } from 'vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import DetailsPage from '../../../pages/DetailsPage';
 import { mockProductErrorResponse } from '../../../test-utils/mocks/handlers';
+import { createTestStore } from '../../../test-utils/createTestStore';
+import { Provider } from 'react-redux';
 
 describe('DetailsPage', () => {
-  it('should render product details from API', async () => {
+  const renderDetailsPanel = () => {
+    const store = createTestStore();
+
     render(
-      <MemoryRouter initialEntries={['/details/1']}>
-        <Routes>
-          <Route path="/details/:id" element={<DetailsPage />} />
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/details/1']}>
+          <Routes>
+            <Route path="/details/:id" element={<DetailsPage />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
     );
+  };
+
+  it('should render product details from API', async () => {
+    renderDetailsPanel();
 
     expect(await screen.findByText('Iphone 16')).toBeInTheDocument();
 
@@ -24,13 +34,7 @@ describe('DetailsPage', () => {
   });
 
   it('should render loader initially', () => {
-    render(
-      <MemoryRouter initialEntries={['/details/1']}>
-        <Routes>
-          <Route path="/details/:id" element={<DetailsPage />} />
-        </Routes>
-      </MemoryRouter>
-    );
+    renderDetailsPanel();
 
     expect(screen.getByText('Loading Product Details...')).toBeInTheDocument();
   });
@@ -38,13 +42,7 @@ describe('DetailsPage', () => {
   it('should render error state on failed request', async () => {
     mockProductErrorResponse();
 
-    render(
-      <MemoryRouter initialEntries={['/details/1']}>
-        <Routes>
-          <Route path="/details/:id" element={<DetailsPage />} />
-        </Routes>
-      </MemoryRouter>
-    );
+    renderDetailsPanel();
 
     expect(await screen.findByText(/error/i)).toBeInTheDocument();
   });

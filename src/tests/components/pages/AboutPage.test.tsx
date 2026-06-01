@@ -18,7 +18,7 @@ describe('AboutPage', () => {
   it('should render GitHub link', () => {
     render(<AboutPage />);
 
-    const github = screen.getByText('Github Account').closest('a');
+    const github = screen.getByText('GitHub Profile').closest('a');
 
     expect(github).toHaveAttribute(
       'href',
@@ -31,7 +31,7 @@ describe('AboutPage', () => {
   it('should render LinkedIn link', () => {
     render(<AboutPage />);
 
-    const linkedin = screen.getByText('Linkedin Account').closest('a');
+    const linkedin = screen.getByText('LinkedIn Profile').closest('a');
 
     expect(linkedin).toHaveAttribute(
       'href',

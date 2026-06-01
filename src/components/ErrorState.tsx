@@ -10,7 +10,7 @@ export function ErrorState({ error }: PropsType) {
         <img
           className="w-36 max-w-full opacity-65 dark:opacity-80 transition-opacity dark:invert object-contain"
           src="/assets/page-not-found.svg"
-          alt="Page error graphic"
+          alt="Page error"
         />
       </div>
 
@@ -26,7 +26,7 @@ export function ErrorState({ error }: PropsType) {
             <span className="text-danger font-semibold select-none shrink-0">
               ✕
             </span>
-            <span>{error ?? 'An unknown network error occurred.'}</span>
+            <span>{error ?? 'An unknown network error occurred'}</span>
           </p>
         </div>
       </div>

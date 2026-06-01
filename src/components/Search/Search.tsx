@@ -64,7 +64,7 @@ function Search({ searchQuery, onSearch }: PropsType) {
             type="button"
             onClick={handleClear}
             className="p-1 rounded-full text-text-muted hover:text-danger hover:bg-danger/10 cursor-pointer transition-colors shrink-0"
-            aria-label="Clear search input"
+            aria-label="Clear input"
           >
             <X className="w-3.5" />
           </button>

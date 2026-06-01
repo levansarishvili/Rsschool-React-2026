@@ -11,7 +11,6 @@ import Pagination from '../components/Pagination/Pagination.tsx';
 import useLocalStorage from '../hooks/useLocalStorage.ts';
 import { API_PRODUCTS_LIMIT } from '../constants/index.ts';
 import { useGetProductsQuery } from '../services/api.ts';
-import { transformProducts } from '../utils/transform.ts';
 import Loader from '../components/Loader.tsx';
 import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
 import Search from '../components/Search/Search.tsx';
@@ -30,7 +29,7 @@ export default function ProductsPage() {
       search: searchQuery,
       skip,
     });
-  const products = transformProducts(data?.products ?? []);
+  const products = data?.products ?? [];
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -55,6 +54,7 @@ export default function ProductsPage() {
         </div>
 
         <button
+          data-testid="refresh-button"
           className={`${
             isFetching || isLoading ? 'opacity-60' : ''
           } p-3 cursor-pointer bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary rounded-xl transition-all duration-200 shadow-xs active:scale-95 flex items-center justify-center h-11.5 w-11.5`}
@@ -63,9 +63,7 @@ export default function ProductsPage() {
           title="Refresh Product Data"
           disabled={isFetching || isLoading}
         >
-          <RefreshCw
-            className={`w-5 h-5 ${isFetching ? 'animate-spin' : ''}`}
-          />
+          <RefreshCw className="w-5 h-5" />
         </button>
       </div>
 

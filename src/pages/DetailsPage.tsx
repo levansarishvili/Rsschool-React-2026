@@ -40,6 +40,7 @@ export default function DetailsPage() {
         <button
           className="cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary transition-all duration-200 shadow-xs active:scale-95"
           onClick={() => refetch()}
+          data-testid="refresh-details-btn"
           aria-label="Refresh details"
           title="Refresh Product Data"
         >

@@ -5,6 +5,7 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import { MemoryRouter } from 'react-router-dom';
 import type { ProductType } from '../../types/types';
 import store from '../../store/store';
+import userEvent from '@testing-library/user-event';
 
 describe('ProductCard', () => {
   const renderProductCard = (productObj: ProductType) => {
@@ -65,5 +66,45 @@ describe('ProductCard', () => {
     expect(screen.queryByTestId('star-icon')).not.toBeInTheDocument();
     expect(screen.queryByText(/product description/i)).not.toBeInTheDocument();
     expect(screen.queryByText('$300')).not.toBeInTheDocument();
+  });
+
+  it('should navigate to product details page', () => {
+    renderProductCard(mockProduct);
+
+    const link = screen.getByRole('link');
+
+    expect(link).toHaveAttribute('href', `/details/${mockProduct.id}`);
+  });
+
+  it('should render product id', () => {
+    renderProductCard(mockProduct);
+
+    expect(screen.getByText(`ID: #${mockProduct.id}`)).toBeInTheDocument();
+  });
+
+  it('should render product checkbox', () => {
+    renderProductCard(mockProduct);
+
+    expect(screen.getByRole('checkbox')).toBeInTheDocument();
+  });
+
+  it('should toggle checkbox when clicked', async () => {
+    const user = userEvent.setup();
+
+    renderProductCard(mockProduct);
+
+    const checkbox = screen.getByRole('checkbox');
+
+    expect(checkbox).not.toBeChecked();
+
+    await user.click(checkbox);
+
+    expect(checkbox).toBeChecked();
+  });
+
+  it('should render rating stars', () => {
+    renderProductCard(mockProduct);
+
+    expect(screen.getByTestId('rating-stars')).toBeInTheDocument();
   });
 });

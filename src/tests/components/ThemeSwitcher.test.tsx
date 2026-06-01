@@ -37,4 +37,31 @@ describe('ThemeSwitcher Component', () => {
 
     expect(mockToggle).toHaveBeenCalledTimes(1);
   });
+
+  it('should toggle theme multiple times', async () => {
+    const user = userEvent.setup();
+    const mockToggle = vi.fn();
+
+    (useTheme as Mock).mockReturnValue({
+      theme: 'light',
+      toggleTheme: mockToggle,
+    });
+
+    renderThemeSwitcher();
+
+    const button = screen.getByRole('button');
+
+    await user.click(button);
+    await user.click(button);
+
+    expect(mockToggle).toHaveBeenCalledTimes(2);
+  });
+
+  it('should be accessible via aria-label', () => {
+    renderThemeSwitcher();
+
+    const button = screen.getByRole('button');
+
+    expect(button).toHaveAttribute('aria-label', 'Toggle theme');
+  });
 });

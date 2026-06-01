@@ -9,6 +9,7 @@ export default function RatingStars({ rating }: PropsType) {
     <div
       className="flex items-center gap-0.5"
       aria-label={`Rated ${rating} out of 5 stars`}
+      data-testid="rating-stars"
     >
       {Array.from({ length: 5 }, (_, i) => (
         <Star

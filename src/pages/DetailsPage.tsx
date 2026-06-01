@@ -1,7 +1,7 @@
 import { ErrorState } from '../components/ErrorState.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
 import { getStockColor } from '../utils/getStockColor.ts';
-import { X } from 'lucide-react';
+import { X, RefreshCw } from 'lucide-react';
 import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useGetProductQuery } from '../services/api.ts';
@@ -17,6 +17,7 @@ export default function DetailsPage() {
     isFetching,
     isError,
     error,
+    refetch,
   } = useGetProductQuery(id ?? '', {
     skip: !id,
   });
@@ -31,17 +32,27 @@ export default function DetailsPage() {
     return <Loader message="Loading Product Details..." />;
   }
   if (isError) return <ErrorState error={errorMessage} />;
-  if (!product) return <EmptyState message="No product found whith that ID" />;
+  if (!product) return <EmptyState message="No product found with that ID" />;
 
   return (
     <aside className="relative w-full h-full flex flex-col gap-6 font-sans text-foreground md:p-2">
-      <button
-        className="absolute top-0 right-0 z-20 cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary transition-all duration-200 shadow-xs active:scale-95"
-        onClick={handleCloseDetails}
-        aria-label="Close details"
-      >
-        <X className="w-4" />
-      </button>
+      <div className="absolute top-0 right-0 z-20 flex items-center gap-2">
+        <button
+          className="cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary transition-all duration-200 shadow-xs active:scale-95"
+          onClick={() => refetch()}
+          aria-label="Refresh details"
+          title="Refresh Product Data"
+        >
+          <RefreshCw className="w-4 h-4 text-text-secondary hover:text-foreground" />
+        </button>
+        <button
+          className="cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary transition-all duration-200 shadow-xs active:scale-95"
+          onClick={handleCloseDetails}
+          aria-label="Close details"
+        >
+          <X className="w-4" />
+        </button>
+      </div>
 
       <div className="w-full h-56 rounded-2xl bg-background-secondary/60 border border-border/60 p-6 flex justify-center items-center relative overflow-hidden group">
         <img

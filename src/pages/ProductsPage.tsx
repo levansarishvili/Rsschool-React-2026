@@ -15,6 +15,7 @@ import { transformProducts } from '../utils/transform.ts';
 import Loader from '../components/Loader.tsx';
 import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
 import Search from '../components/Search/Search.tsx';
+import { RefreshCw } from 'lucide-react';
 
 export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,10 +25,11 @@ export default function ProductsPage() {
   const page = Number(searchParams.get('page')) || 1;
   const skip = (page - 1) * API_PRODUCTS_LIMIT;
 
-  const { data, isLoading, isError, error } = useGetProductsQuery({
-    search: searchQuery,
-    skip,
-  });
+  const { data, isFetching, isLoading, isError, error, refetch } =
+    useGetProductsQuery({
+      search: searchQuery,
+      skip,
+    });
   const products = transformProducts(data?.products ?? []);
 
   const handleSearch = (query: string) => {
@@ -40,14 +42,32 @@ export default function ProductsPage() {
 
   const isDetailsRoute = useMatch('/details/:id');
 
-  const hasNoProducts = !isLoading && !isError && products.length === 0;
-  const hasProducts = !isLoading && !isError && products.length > 0;
+  const hasNoProducts = !isFetching && !isError && products.length === 0;
+  const hasProducts = !isFetching && !isError && products.length > 0;
 
   const errorMessage = getRtkErrorMessage(error);
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <Search searchQuery={searchQuery} onSearch={handleSearch} />
+      <div className="flex items-center gap-3 w-full">
+        <div className="flex-1">
+          <Search searchQuery={searchQuery} onSearch={handleSearch} />
+        </div>
+
+        <button
+          className={`${
+            isFetching || isLoading ? 'opacity-60' : ''
+          } p-3 cursor-pointer bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary rounded-xl transition-all duration-200 shadow-xs active:scale-95 flex items-center justify-center h-11.5 w-11.5`}
+          onClick={() => refetch()}
+          aria-label="Refresh list"
+          title="Refresh Product Data"
+          disabled={isFetching || isLoading}
+        >
+          <RefreshCw
+            className={`w-5 h-5 ${isFetching ? 'animate-spin' : ''}`}
+          />
+        </button>
+      </div>
 
       <div
         className={`relative w-full ${
@@ -57,7 +77,7 @@ export default function ProductsPage() {
         }`}
       >
         <div className="w-full flex flex-col items-center justify-start bg-card border border-border/80 rounded-2xl p-2 shadow-xs min-h-[90vh]">
-          {isLoading && <Loader message="Loading products..." />}
+          {isFetching && <Loader message="Loading products..." />}
 
           {isError && <ErrorState error={errorMessage} />}
 

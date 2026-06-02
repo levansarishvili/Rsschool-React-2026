@@ -10,25 +10,27 @@ import {
 import Pagination from '../components/Pagination/Pagination.tsx';
 import useLocalStorage from '../hooks/useLocalStorage.ts';
 import { API_PRODUCTS_LIMIT } from '../constants/index.ts';
-import { useGetProductsQuery } from '../services/api.ts';
+import { api, useGetProductsQuery } from '../services/api.ts';
 import Loader from '../components/Loader.tsx';
 import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
 import Search from '../components/Search/Search.tsx';
 import { RefreshCw } from 'lucide-react';
+import { useAppDispatch } from '../store/hooks.ts';
 
 export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useLocalStorage('searchQuery', '');
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
   const page = Number(searchParams.get('page')) || 1;
   const skip = (page - 1) * API_PRODUCTS_LIMIT;
 
-  const { data, isFetching, isLoading, isError, error, refetch } =
-    useGetProductsQuery({
-      search: searchQuery,
-      skip,
-    });
+  const { data, isFetching, isLoading, isError, error } = useGetProductsQuery({
+    search: searchQuery,
+    skip,
+  });
   const products = data?.products ?? [];
 
   const handleSearch = (query: string) => {
@@ -37,6 +39,15 @@ export default function ProductsPage() {
     params.set('page', '1');
     setSearchParams(params);
     navigate('/');
+  };
+
+  const handleInvalidateCache = () => {
+    dispatch(
+      api.util.invalidateTags([
+        { type: 'Products', id: 'LIST' },
+        { type: 'Products' },
+      ])
+    );
   };
 
   const isDetailsRoute = useMatch('/details/:id');
@@ -58,7 +69,7 @@ export default function ProductsPage() {
           className={`${
             isFetching || isLoading ? 'opacity-60' : ''
           } p-3 cursor-pointer bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary rounded-xl transition-all duration-200 shadow-xs active:scale-95 flex items-center justify-center h-11.5 w-11.5`}
-          onClick={() => refetch()}
+          onClick={handleInvalidateCache}
           aria-label="Refresh list"
           title="Refresh Product Data"
           disabled={isFetching || isLoading}

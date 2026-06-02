@@ -126,38 +126,6 @@ describe('DetailsPage', () => {
     );
   });
 
-  it('should call refetch when refresh button is clicked', async () => {
-    const user = userEvent.setup();
-    const refetchMock = vi.fn();
-
-    vi.spyOn(apiHooks, 'useGetProductQuery').mockReturnValue({
-      data: {
-        id: 1,
-        title: 'Iphone 16',
-        brand: 'Apple',
-        price: 300,
-        description: 'Smartphone',
-        thumbnail: 'image.png',
-        stock: 12,
-        rating: 4.5,
-        availabilityStatus: 'In Stock',
-      },
-      isFetching: false,
-      isError: false,
-      error: null,
-      refetch: refetchMock,
-    });
-
-    renderDetailsPanel();
-
-    const refreshButton = await screen.findByTestId('refresh-details-btn');
-    await user.click(refreshButton);
-
-    expect(refetchMock).toHaveBeenCalledTimes(1);
-
-    vi.restoreAllMocks();
-  });
-
   it('should fall back to "Generic" if the brand is missing', async () => {
     vi.spyOn(apiHooks, 'useGetProductQuery').mockReturnValue({
       data: {

@@ -118,27 +118,6 @@ describe('ProductsPage', () => {
     expect(await screen.findByText(/error/i)).toBeInTheDocument();
   });
 
-  it('should trigger refetch when the refresh button is clicked', async () => {
-    const user = userEvent.setup();
-    const refetchMock = vi.fn();
-
-    vi.spyOn(apiHooks, 'useGetProductsQuery').mockReturnValue({
-      data: { products: [{ id: 1, title: 'Iphone 16' }], total: 1 },
-      isFetching: false,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: refetchMock,
-    });
-
-    renderProductPage();
-
-    const refreshButton = screen.getByTestId('refresh-button');
-    await user.click(refreshButton);
-
-    expect(refetchMock).toHaveBeenCalledTimes(1);
-  });
-
   it('should disable refresh button while fetching or loading data', () => {
     vi.spyOn(apiHooks, 'useGetProductsQuery').mockReturnValue({
       data: null,

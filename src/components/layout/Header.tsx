@@ -18,7 +18,7 @@ export function Header() {
 
         <nav className="flex items-center gap-1 md:gap-2">
           <NavLink
-            to={`/?${searchParams.toString()}`}
+            to="/"
             className={({ isActive }) =>
               `text-sm font-medium tracking-wide px-4 py-2 rounded-lg transition-all duration-200 relative ${
                 isActive
@@ -28,6 +28,19 @@ export function Header() {
             }
           >
             Home
+          </NavLink>
+
+          <NavLink
+            to={`/products?${searchParams.toString()}`}
+            className={({ isActive }) =>
+              `text-sm font-medium tracking-wide px-4 py-2 rounded-lg transition-all duration-200 relative ${
+                isActive
+                  ? 'text-primary bg-surface font-semibold'
+                  : 'text-text-secondary hover:text-foreground hover:bg-background-secondary'
+              }`
+            }
+          >
+            Products
           </NavLink>
 
           <NavLink

@@ -50,7 +50,7 @@ export default function ProductsPage() {
     );
   };
 
-  const isDetailsRoute = useMatch('/details/:id');
+  const isDetailsRoute = useMatch('/products/:id');
 
   const hasNoProducts = !isFetching && !isError && products.length === 0;
   const hasProducts = !isFetching && !isError && products.length > 0;

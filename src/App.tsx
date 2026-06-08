@@ -4,14 +4,16 @@ import AboutPage from './pages/AboutPage';
 import DetailsPage from './pages/DetailsPage';
 import NotFound from './pages/NotFound';
 import RootLayout from './components/layout/RootLayout';
+import HomePage from './pages/HomePage';
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<RootLayout />}>
-          <Route path="/" element={<ProductsPage />}>
-            <Route path="/details/:id" element={<DetailsPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />}>
+            <Route path="/products/:id" element={<DetailsPage />} />
           </Route>
 
           <Route path="about" element={<AboutPage />} />

@@ -22,7 +22,7 @@ export default function DetailsPage() {
   });
 
   const handleCloseDetails = () => {
-    navigate(`/?${searchParams.toString()}`);
+    navigate(`/products?${searchParams.toString()}`);
   };
 
   const errorMessage = getRtkErrorMessage(error);

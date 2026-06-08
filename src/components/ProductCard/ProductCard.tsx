@@ -27,7 +27,7 @@ export default function ProductCard({ productObj }: PropsType) {
   };
   return (
     <Link
-      to={`/details/${id}?${searchParams.toString()}`}
+      to={`/products/${id}?${searchParams.toString()}`}
       className="block h-full group"
     >
       <article

@@ -4,6 +4,7 @@ import { SubmissionCard } from './SubmissionCard';
 import type { RootState } from '../store/store';
 import { Modal } from './Modal/Modal';
 import { UncontrolledForm } from '../forms/UncontrolledForm';
+import { ReactHookForm } from '../forms/ReactHookForm';
 
 export const Dashboard: React.FC = () => {
   const [modalType, setModalType] = useState<'none' | 'uncontrolled' | 'rhf'>(
@@ -17,9 +18,7 @@ export const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-background text-foreground">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-6 mb-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            React Forms
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">React Forms</h1>
           <p className="text-text-muted mt-0.5">
             Zod Schema Validation with Redux Global state sync.
           </p>
@@ -64,14 +63,16 @@ export const Dashboard: React.FC = () => {
         onClose={() => setModalType('none')}
         title={
           modalType === 'uncontrolled'
-            ? 'Submission via Uncontrolled Engine'
+            ? 'Submission via Uncontrolled Form'
             : 'Submission via React Hook Form'
         }
       >
         {modalType === 'uncontrolled' && (
           <UncontrolledForm onSuccess={() => setModalType('none')} />
         )}
-        {/* {modalType === 'rhf' && <ReactHookForm onSuccess={() => setModalType('none')} />} */}
+        {modalType === 'rhf' && (
+          <ReactHookForm onSuccess={() => setModalType('none')} />
+        )}
       </Modal>
     </div>
   );

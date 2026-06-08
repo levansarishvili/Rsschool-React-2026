@@ -20,14 +20,14 @@ const LocationDisplay = () => {
 };
 
 describe('DetailsPage', () => {
-  const renderDetailsPanel = (initialRoute = '/details/1') => {
+  const renderDetailsPanel = (initialRoute = '/products/1') => {
     const store = createTestStore();
 
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={[initialRoute]}>
           <Routes>
-            <Route path="/details/:id" element={<DetailsPage />} />
+            <Route path="/products/:id" element={<DetailsPage />} />
             <Route path="/" element={<div>Home Page</div>} />
           </Routes>
           <LocationDisplay />
@@ -113,7 +113,7 @@ describe('DetailsPage', () => {
 
   it('should navigate back home and preserve search queries when close button is clicked', async () => {
     const user = userEvent.setup();
-    renderDetailsPanel('/details/1?search=phone&category=smartphones');
+    renderDetailsPanel('/products/1?search=phone&category=smartphones');
 
     const button = await screen.findByRole('button', {
       name: /close details/i,
@@ -122,7 +122,7 @@ describe('DetailsPage', () => {
     await user.click(button);
 
     expect(screen.getByTestId('location-display')).toHaveTextContent(
-      '/?search=phone&category=smartphones'
+      '/products?search=phone&category=smartphones'
     );
   });
 

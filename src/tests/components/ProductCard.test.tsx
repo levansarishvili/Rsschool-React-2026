@@ -73,7 +73,7 @@ describe('ProductCard', () => {
 
     const link = screen.getByRole('link');
 
-    expect(link).toHaveAttribute('href', `/details/${mockProduct.id}`);
+    expect(link).toHaveAttribute('href', `/products/${mockProduct.id}`);
   });
 
   it('should render product id', () => {

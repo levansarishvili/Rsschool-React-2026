@@ -39,7 +39,7 @@ describe('ProductsPage', () => {
           <Routes>
             <Route path="/" element={<ProductsPage />}>
               <Route
-                path="details/:id"
+                path="products/:id"
                 element={
                   <div data-testid="mock-outlet">Details Panel Content</div>
                 }
@@ -136,7 +136,7 @@ describe('ProductsPage', () => {
   });
 
   it('should change layout styling and render the details Outlet when matching details route path', async () => {
-    renderProductPage(['/details/1']);
+    renderProductPage(['/products/1']);
 
     expect(screen.getByTestId('mock-outlet')).toBeInTheDocument();
     expect(

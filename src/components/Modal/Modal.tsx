@@ -49,7 +49,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 transition-opacity"
+      className="fixed inset-0 z-50 flex items-center justify-center  backdrop-blur-md p-4"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
@@ -58,20 +58,38 @@ export const Modal: React.FC<ModalProps> = ({
       <div
         ref={modalRef}
         tabIndex={-1}
-        className="w-full max-w-lg rounded-xl border border-[--color-border] bg-[--color-card] p-6 shadow-xl outline-none transition-all"
+        className="
+          w-full max-w-2xl
+          rounded-2xl
+          border border-border
+          bg-card
+          shadow-2xl
+          animate-[slideIn_0.25s_ease-out]
+          overflow-hidden
+          outline-none
+        "
       >
-        {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-[--color-border] pb-4 mb-4">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border bg-background-secondary">
           <h2
             id="modal-title"
-            className="text-xl font-semibold text-[--color-foreground]"
+            className="text-xl font-semibold text-foreground"
           >
             {title}
           </h2>
+
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-[--color-text-muted] hover:bg-[--color-surface] hover:text-[--color-foreground] transition-colors focus:ring-2 focus:ring-[--color-primary] outline-none"
             aria-label="Close modal"
+            className="
+              flex items-center justify-center
+              w-9 h-9
+              rounded-lg
+              text-text-muted
+              hover:bg-surface
+              hover:text-foreground
+              transition-all
+              cursor-pointer
+            "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -90,8 +108,7 @@ export const Modal: React.FC<ModalProps> = ({
           </button>
         </div>
 
-        {/* Modal Content */}
-        <div className="text-[--color-text-secondary]">{children}</div>
+        <div className="p-6 text-[--color-text-secondary]">{children}</div>
       </div>
     </div>,
     document.body

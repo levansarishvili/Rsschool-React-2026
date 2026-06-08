@@ -1,3 +1,9 @@
+import { Dashboard } from '../components/Dashboard';
+
 export default function HomePage() {
-  return <div>Homepage</div>;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }

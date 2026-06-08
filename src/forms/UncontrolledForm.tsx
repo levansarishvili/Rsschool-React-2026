@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formBaseSchema } from '../schemas/validation';
 import { addSubmission } from '../store/formSlice';
@@ -6,9 +6,7 @@ import { convertToBase64 } from '../utils/convertToBase64';
 import { PasswordStrength } from '../components/PasswordStrength';
 import type { RootState } from '../store/store';
 
-export const UncontrolledForm: React.FC<{ onSuccess: () => void }> = ({
-  onSuccess,
-}) => {
+export const UncontrolledForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const dispatch = useDispatch();
   const availableCountries = useSelector(
     (state: RootState) => state.forms.countries

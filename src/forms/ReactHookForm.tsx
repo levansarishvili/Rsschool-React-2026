@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,9 +11,7 @@ import { z } from 'zod';
 
 type FormData = z.infer<typeof formBaseSchema>;
 
-export const ReactHookForm: React.FC<{ onSuccess: () => void }> = ({
-  onSuccess,
-}) => {
+export const ReactHookForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const dispatch = useDispatch();
   const availableCountries = useSelector(
     (state: RootState) => state.forms.countries

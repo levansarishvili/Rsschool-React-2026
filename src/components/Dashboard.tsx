@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SubmissionCard } from './SubmissionCard';
 import type { RootState } from '../store/store';
@@ -6,7 +6,7 @@ import { Modal } from './Modal/Modal';
 import { UncontrolledForm } from '../forms/UncontrolledForm';
 import { ReactHookForm } from '../forms/ReactHookForm';
 
-export const Dashboard: React.FC = () => {
+export const Dashboard = () => {
   const [modalType, setModalType] = useState<'none' | 'uncontrolled' | 'rhf'>(
     'none'
   );
@@ -51,8 +51,12 @@ export const Dashboard: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {submissions.map((data) => (
-              <SubmissionCard key={data.id} item={data} />
+            {submissions.map((data, index) => (
+              <SubmissionCard
+                key={data.id}
+                item={data}
+                isLatest={index === 0}
+              />
             ))}
           </div>
         )}

@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from 'react';
 import type { SavedSubmission } from '../store/formSlice';
 
 interface Props {
   item: SavedSubmission;
+  isLatest: boolean;
 }
 
-export const SubmissionCard: React.FC<Props> = ({ item }) => {
-  const [isRecent, setIsRecent] = useState(false);
-
-  useEffect(() => {
-    const checkRecent = () => {
-      setIsRecent(Date.now() - item.submittedAt < 4000);
-    };
-
-    checkRecent();
-    const interval = setInterval(checkRecent, 1000);
-
-    return () => clearInterval(interval);
-  }, [item.submittedAt]);
-
+export const SubmissionCard = ({ item, isLatest }: Props) => {
   return (
     <div
-      className={`p-5 rounded-xl border transition-all duration-500 bg-card shadow-sm flex flex-col gap-4 ${
-        isRecent
+      className={`p-5 rounded-xl border transition-all duration-300 bg-card shadow-sm flex flex-col gap-4 ${
+        isLatest
           ? 'border-warning ring-2 ring-warning/30 scale-[1.02]'
           : 'border-border'
       }`}
@@ -38,9 +25,7 @@ export const SubmissionCard: React.FC<Props> = ({ item }) => {
           <h3 className="font-bold text-lg text-foreground truncate">
             {item.name}
           </h3>
-          <p className="text-xs text-text-muted truncate">
-            {item.email}
-          </p>
+          <p className="text-xs text-text-muted truncate">{item.email}</p>
         </div>
       </div>
 
@@ -55,8 +40,7 @@ export const SubmissionCard: React.FC<Props> = ({ item }) => {
         </p>
 
         <p className="col-span-2 truncate">
-          <span className="text-text-muted">Country:</span>{' '}
-          {item.country}
+          <span className="text-text-muted">Country:</span> {item.country}
         </p>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useGetProductQuery } from '../services/api.ts';
 import Loader from '../components/Loader.tsx';
+import { ROUTE_PATHS } from '../constants/index.ts';
 
 export default function DetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -22,7 +23,7 @@ export default function DetailsPage() {
   });
 
   const handleCloseDetails = () => {
-    navigate(`/products?${searchParams.toString()}`);
+    navigate(`${ROUTE_PATHS.PRODUCTS}?${searchParams.toString()}`);
   };
 
   const errorMessage = getRtkErrorMessage(error);

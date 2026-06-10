@@ -5,18 +5,22 @@ import DetailsPage from './pages/DetailsPage';
 import NotFound from './pages/NotFound';
 import RootLayout from './components/layout/RootLayout';
 import HomePage from './pages/HomePage';
+import { ROUTE_PATHS } from './constants';
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<RootLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductsPage />}>
-            <Route path="/products/:id" element={<DetailsPage />} />
+        <Route path={ROUTE_PATHS.HOME} element={<RootLayout />}>
+          <Route path={ROUTE_PATHS.HOME} element={<HomePage />} />
+          <Route path={ROUTE_PATHS.PRODUCTS} element={<ProductsPage />}>
+            <Route
+              path={ROUTE_PATHS.PRODUCT_DETAILS}
+              element={<DetailsPage />}
+            />
           </Route>
 
-          <Route path="about" element={<AboutPage />} />
+          <Route path={ROUTE_PATHS.ABOUT} element={<AboutPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

@@ -22,6 +22,13 @@ const EXTRA_DETAIL_FIELDS = [
   'category',
 ];
 
+export const ROUTE_PATHS = {
+  HOME: '/',
+  PRODUCTS: '/products',
+  PRODUCT_DETAILS: '/products/:id',
+  ABOUT: '/about',
+};
+
 export const API_SELECT_FIELDS = CORE_PRODUCT_FIELDS.join(',');
 export const API_SELECT_FIELDS_DETAILS = [
   ...CORE_PRODUCT_FIELDS,

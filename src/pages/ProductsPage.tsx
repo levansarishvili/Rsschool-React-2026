@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Pagination from '../components/Pagination/Pagination.tsx';
 import useLocalStorage from '../hooks/useLocalStorage.ts';
-import { API_PRODUCTS_LIMIT } from '../constants/index.ts';
+import { API_PRODUCTS_LIMIT, ROUTE_PATHS } from '../constants/index.ts';
 import { api, useGetProductsQuery } from '../services/api.ts';
 import Loader from '../components/Loader.tsx';
 import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
@@ -38,7 +38,7 @@ export default function ProductsPage() {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
     setSearchParams(params);
-    navigate('/');
+    navigate('/products');
   };
 
   const handleInvalidateCache = () => {
@@ -50,7 +50,7 @@ export default function ProductsPage() {
     );
   };
 
-  const isDetailsRoute = useMatch('/products/:id');
+  const isDetailsRoute = useMatch(ROUTE_PATHS.PRODUCT_DETAILS);
 
   const hasNoProducts = !isFetching && !isError && products.length === 0;
   const hasProducts = !isFetching && !isError && products.length > 0;

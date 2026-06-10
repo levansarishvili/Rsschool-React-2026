@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ROUTE_PATHS } from '../constants';
 
 export default function NotFound() {
   return (
@@ -26,7 +27,7 @@ export default function NotFound() {
 
         <div className="w-full flex flex-col sm:flex-row items-center gap-3 justify-center">
           <Link
-            to="/"
+            to={ROUTE_PATHS.HOME}
             className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 shadow-sm shadow-primary/10 hover:opacity-95 active:scale-98 text-center"
           >
             Go to Home

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import { toggleItemSelection } from '../../store/shopSlice.ts';
 import RatingStars from '../RatingStars.tsx';
 import ProductCheckbox from './ProductCheckbox.tsx';
+import { ROUTE_PATHS } from '../../constants/index.ts';
 
 type PropsType = {
   productObj: ProductType;
@@ -27,7 +28,7 @@ export default function ProductCard({ productObj }: PropsType) {
   };
   return (
     <Link
-      to={`/products/${id}?${searchParams.toString()}`}
+      to={`${ROUTE_PATHS.PRODUCTS}/${id}?${searchParams.toString()}`}
       className="block h-full group"
     >
       <article

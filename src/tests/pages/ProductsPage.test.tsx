@@ -32,14 +32,14 @@ describe('ProductsPage', () => {
     vi.restoreAllMocks();
   });
 
-  const renderProductPage = (initialEntries = ['/']) => {
+  const renderProductPage = (initialEntries = ['/products']) => {
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={initialEntries}>
           <Routes>
-            <Route path="/" element={<ProductsPage />}>
+            <Route path="/products" element={<ProductsPage />}>
               <Route
-                path="products/:id"
+                path=":id"
                 element={
                   <div data-testid="mock-outlet">Details Panel Content</div>
                 }

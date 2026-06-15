@@ -38,23 +38,30 @@ describe('ThemeSwitcher Component', () => {
     expect(mockToggle).toHaveBeenCalledTimes(1);
   });
 
-  it('should show sun icon in light mode', () => {
+  it('should toggle theme multiple times', async () => {
+    const user = userEvent.setup();
+    const mockToggle = vi.fn();
+
     (useTheme as Mock).mockReturnValue({
       theme: 'light',
-      toggleTheme: vi.fn(),
+      toggleTheme: mockToggle,
     });
 
     renderThemeSwitcher();
-    expect(screen.getByText('☀️')).toBeInTheDocument();
+
+    const button = screen.getByRole('button');
+
+    await user.click(button);
+    await user.click(button);
+
+    expect(mockToggle).toHaveBeenCalledTimes(2);
   });
 
-  it('should show moon icon in dark mode', () => {
-    (useTheme as Mock).mockReturnValue({
-      theme: 'dark',
-      toggleTheme: vi.fn(),
-    });
-
+  it('should be accessible via aria-label', () => {
     renderThemeSwitcher();
-    expect(screen.getByText('🌙')).toBeInTheDocument();
+
+    const button = screen.getByRole('button');
+
+    expect(button).toHaveAttribute('aria-label', 'Toggle theme');
   });
 });

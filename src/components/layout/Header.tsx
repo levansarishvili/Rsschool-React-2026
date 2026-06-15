@@ -5,22 +5,25 @@ export function Header() {
   const [searchParams] = useSearchParams();
 
   return (
-    <header className="sticky top-0 z-50 bg-background border-b-4 border-foreground">
-      <div className="flex justify-between items-center max-w-360 mx-auto gap-4 px-4 md:px-8 py-4">
-        <Link to={`/?${searchParams.toString()}`} className="">
-          <h1 className="font-mono text-base md:text-lg font-black uppercase tracking-wider text-foreground hover:text-primary transition-colors select-none">
-            [RS_REACT_APP]
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border transition-all duration-200">
+      <div className="flex justify-between items-center max-w-340 px-4 md:px-6 mx-auto gap-4 py-3.5">
+        <Link to={`/?${searchParams.toString()}`} className="group">
+          <h1 className="font-sans text-lg md:text-xl font-bold tracking-tight text-foreground select-none">
+            RS
+            <span className="text-primary transition-colors group-hover:text-primary-hover">
+              _STORE
+            </span>
           </h1>
         </Link>
 
-        <nav className="flex gap-4 md:gap-8">
+        <nav className="flex items-center gap-1 md:gap-2">
           <NavLink
             to={`/?${searchParams.toString()}`}
             className={({ isActive }) =>
-              `text-sm md:text-base uppercase font-black tracking-wider px-3 py-1.5 transition-all ${
+              `text-sm font-medium tracking-wide px-4 py-2 rounded-lg transition-all duration-200 relative ${
                 isActive
-                  ? 'text-foreground bg-primary border-2 border-foreground shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(244,239,226,1)]'
-                  : 'text-text-secondary hover:text-primary hover:translate-y'
+                  ? 'text-primary bg-surface font-semibold'
+                  : 'text-text-secondary hover:text-foreground hover:bg-background-secondary'
               }`
             }
           >
@@ -30,10 +33,10 @@ export function Header() {
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              `text-sm md:text-base uppercase font-black tracking-wider px-3 py-1.5 transition-all ${
+              `text-sm font-medium tracking-wide px-4 py-2 rounded-lg transition-all duration-200 relative ${
                 isActive
-                  ? 'text-foreground bg-primary border-2 border-foreground shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(244,239,226,1)]'
-                  : 'text-text-secondary hover:text-primary hover:translate-y'
+                  ? 'text-primary bg-surface font-semibold'
+                  : 'text-text-secondary hover:text-foreground hover:bg-background-secondary'
               }`
             }
           >
@@ -41,7 +44,7 @@ export function Header() {
           </NavLink>
         </nav>
 
-        <div className="border-2 border-foreground p-1 bg-surface shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(244,239,226,1)]">
+        <div className="flex items-center p-1 rounded-full bg-background-secondary border border-border">
           <ThemeSwitcher />
         </div>
       </div>

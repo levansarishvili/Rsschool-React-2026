@@ -5,7 +5,7 @@ import { mockProduct } from '../../test-utils/mocks/productsMockData';
 import ProductCheckbox from '../../components/ProductCard/ProductCheckbox';
 
 describe('ProductCheckbox Component', () => {
-  it('should render the checkbox unchecked with the "Select" label', () => {
+  it('should render the checkbox unchecked with the "Select product" label', () => {
     render(
       <ProductCheckbox
         product={mockProduct}
@@ -16,10 +16,11 @@ describe('ProductCheckbox Component', () => {
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
-    expect(screen.getByText('Select')).toBeInTheDocument();
+
+    expect(screen.getByText('Select product')).toBeInTheDocument();
   });
 
-  it('should render the checkbox checked with the "Selected" label', () => {
+  it('should render the checkbox checked with the "Deselect product" label', () => {
     render(
       <ProductCheckbox
         product={mockProduct}
@@ -30,7 +31,8 @@ describe('ProductCheckbox Component', () => {
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeChecked();
-    expect(screen.getByText('Selected')).toBeInTheDocument();
+
+    expect(screen.getByText('Deselect product')).toBeInTheDocument();
   });
 
   it('should call onCheckboxChange when the checkbox or label is clicked', async () => {
@@ -45,7 +47,7 @@ describe('ProductCheckbox Component', () => {
       />
     );
 
-    const label = screen.getByText('Select');
+    const label = screen.getByText('Select product');
     await user.click(label);
 
     expect(mockOnChange).toHaveBeenCalledTimes(1);
@@ -65,7 +67,7 @@ describe('ProductCheckbox Component', () => {
       </div>
     );
 
-    const label = screen.getByText('Select');
+    const label = screen.getByText('Select product');
     await user.click(label);
 
     expect(parentClickMock).not.toHaveBeenCalled();

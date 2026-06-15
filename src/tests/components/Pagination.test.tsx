@@ -80,7 +80,7 @@ describe('Pagination', () => {
 
     render(<Pagination totalProducts={100} />);
 
-    fireEvent.click(screen.getByText('03'));
+    fireEvent.click(screen.getByText('3'));
 
     expect(setSearchParamsMock).toHaveBeenCalledWith({
       page: '3',

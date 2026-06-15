@@ -2,41 +2,42 @@ import { Link } from 'react-router-dom';
 
 export default function NotFound() {
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-background-secondary px-4 py-8 font-mono select-none">
-      <div className="w-full max-w-xl bg-card border-4 border-foreground p-6 md:p-8 text-center shadow-[8px_8px_0px_0px_rgba(43,41,39,1)] dark:shadow-[8px_8px_0px_0px_rgba(244,239,226,1)] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-16 h-16 bg-warning pointer-events-none transform translate-x-8 -translate-y-8 rotate-45 border-b-2 border-foreground" />
-
-        <h1 className="text-xl md:text-2xl font-black text-danger uppercase tracking-tight mb-6">
-          Requested Resource Not Found
-        </h1>
-
-        <div className="bg-background border-2 border-foreground p-6 mb-6 flex justify-center items-center relative bg-grid-pattern">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-background px-4 py-12 font-sans select-none antialiased">
+      <div className="w-full max-w-md bg-card border border-border/80 p-6 md:p-8 text-center shadow-xl rounded-2xl flex flex-col items-center gap-6 transition-all duration-300">
+        <div className="w-full bg-background-secondary/50 rounded-xl py-10 px-6 flex justify-center items-center relative border border-border/40 overflow-hidden">
           <img
-            className="w-52 max-w-full grayscale opacity-75 contrast-125 dark:invert"
+            className="w-44 max-w-full opacity-65 dark:opacity-80 transition-opacity dark:invert object-contain"
             src="/assets/page-not-found.svg"
-            alt="Page error"
+            alt="Page not found"
           />
-          <span className="absolute bottom-1.5 left-2 text-[9px] font-black text-text-disabled tracking-widest uppercase">
-            Sector_Lookup_Fail
-          </span>
         </div>
 
-        <div className="bg-surface border-2 border-dashed border-foreground/30 p-4 mb-8 rounded-xs text-left">
-          <span className="text-[10px] font-black text-text-muted block uppercase mb-1">
-            Diagnostic_Log:
-          </span>
-          <p className="text-xs md:text-sm text-text-secondary font-bold uppercase leading-relaxed">
-            The route configuration parameter string typed does not match any
-            index paths inside this catalog directory app layout.
+        <div className="space-y-2">
+          <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
+            Requested Resource Not Found
+          </h1>
+          <p className="text-sm text-text-muted max-w-70 mx-auto leading-relaxed">
+            The requested item could not be retrieved. Please check the link or
+            head back to browse our other products.
           </p>
         </div>
 
-        <Link
-          to="/"
-          className="inline-block w-full sm:w-auto bg-primary text-foreground font-black text-xs md:text-sm uppercase tracking-wider px-6 py-3.5 border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(43,41,39,1)] dark:shadow-[4px_4px_0px_0px_rgba(244,239,226,1)] active:translate-x-0.75 active:translate-y-0.75 active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(244,239,226,1)] transition-all"
-        >
-          Return to Main Directory
-        </Link>
+        <div className="w-full border-t border-border/60 my-1" />
+
+        <div className="w-full flex flex-col sm:flex-row items-center gap-3 justify-center">
+          <Link
+            to="/"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-primary text-white font-medium text-sm transition-all duration-200 shadow-sm shadow-primary/10 hover:opacity-95 active:scale-98 text-center"
+          >
+            Go to Home
+          </Link>
+          <button
+            onClick={() => window.history.back()}
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-surface text-text-secondary font-medium text-sm transition-all duration-200 text-center border border-border hover:bg-background-secondary hover:text-foreground active:scale-98 cursor-pointer"
+          >
+            Go Back
+          </button>
+        </div>
       </div>
     </div>
   );

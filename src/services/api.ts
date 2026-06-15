@@ -9,36 +9,64 @@ import type {
 } from '../types/types.ts';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
+const CACHE_TTL = Number(import.meta.env.VITE_CACHE_TTL_SECONDS) || 60;
 
-export const fetchProductsApi = async (
-  query: string,
-  skip = 0
-): Promise<ProductsApiResponse> => {
-  const response = await fetch(
-    `${API_URL}products/search?q=${encodeURIComponent(query)}&limit=${API_PRODUCTS_LIMIT}&skip=${skip}&select=${API_SELECT_FIELDS}`
-  );
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-  if (!response.ok) {
-    throw new Error(
-      `${response.status} (${response.statusText}): Unable to fetch products for "${query}".`
-    );
-  }
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_URL,
+  }),
 
-  return await response.json();
-};
+  tagTypes: ['Products'],
 
-export const fetchProductApi = async (
-  id: string | undefined
-): Promise<ProductDetailsType> => {
-  const response = await fetch(
-    `${API_URL}products/${id}?select=${API_SELECT_FIELDS_DETAILS}`
-  );
+  keepUnusedDataFor: CACHE_TTL,
 
-  if (!response.ok) {
-    throw new Error(
-      `${response.status} (${response.statusText}): Unable to fetch product with that ID.`
-    );
-  }
+  endpoints: (builder) => ({
+    getProducts: builder.query<
+      ProductsApiResponse,
+      {
+        search?: string;
+        skip?: number;
+        select?: string;
+      }
+    >({
+      query: ({ search = '', skip = 0, select = API_SELECT_FIELDS }) => {
+        const base = search ? `products/search` : `products`;
 
-  return await response.json();
-};
+        const params = new URLSearchParams();
+
+        if (search) params.append('q', search);
+        params.append('limit', String(API_PRODUCTS_LIMIT));
+        params.append('select', String(select));
+        params.append('skip', String(skip));
+
+        return `${base}?${params.toString()}`;
+      },
+
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.products.map(({ id }) => ({
+                type: 'Products' as const,
+                id,
+              })),
+              { type: 'Products', id: 'LIST' },
+            ]
+          : [{ type: 'Products', id: 'LIST' }],
+    }),
+    getProduct: builder.query<ProductDetailsType, string | number>({
+      query: (id) => {
+        const params = new URLSearchParams();
+
+        params.append('select', String(API_SELECT_FIELDS_DETAILS));
+        return `products/${id}?${params.toString()}`;
+      },
+
+      providesTags: (_result, _error, id) => [{ type: 'Products', id }],
+    }),
+  }),
+});
+
+export const { useGetProductsQuery, useGetProductQuery } = api;

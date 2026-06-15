@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
-import NotFound from '../../../pages/NotFound';
+import NotFound from '../../pages/NotFound';
 
 describe('NotFound page', () => {
   const renderNotFoundPage = () => {
@@ -24,14 +24,14 @@ describe('NotFound page', () => {
     renderNotFoundPage();
 
     expect(
-      screen.getByText(/route configuration parameter/i)
+      screen.getByText(/the requested item could not be retrieved/i)
     ).toBeInTheDocument();
   });
 
   it('should render page not found image', () => {
     renderNotFoundPage();
 
-    const img = screen.getByAltText('Page error');
+    const img = screen.getByAltText('Page not found');
 
     expect(img).toBeInTheDocument();
     expect(img.getAttribute('src')).toContain('page-not-found.svg');
@@ -41,7 +41,7 @@ describe('NotFound page', () => {
     renderNotFoundPage();
 
     const link = screen.getByRole('link', {
-      name: /return to main directory/i,
+      name: /go to home/i,
     });
 
     expect(link).toBeInTheDocument();

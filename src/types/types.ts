@@ -7,7 +7,7 @@ export interface AppState {
 }
 
 export interface ProductsApiResponse {
-  products: ApiProduct[];
+  products: ProductType[];
   total: number;
   skip: number;
   limit: number;
@@ -15,21 +15,13 @@ export interface ProductsApiResponse {
 
 export interface ProductType {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  image: string;
+  thumbnail: string;
   price: number;
   rating: number;
 }
 
-export interface ApiProduct {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  rating: number;
-  thumbnail: string;
-}
 export interface ProductDetailsType {
   id: number;
   title: string;
@@ -41,13 +33,4 @@ export interface ProductDetailsType {
   brand: string;
   stock: string;
   category: string;
-}
-
-export interface Review {
-  user: string;
-  comment: string;
-  rating: number;
-  date: string;
-  reviewerEmail: string;
-  reviewerName: string;
 }

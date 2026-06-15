@@ -9,33 +9,46 @@ export const SelectionFlyout = () => {
   if (selectedItems.length === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-foreground text-background p-4 border-t-4 border-primary shadow-[0_-4px_10px_rgba(0,0,0,0.15)] font-mono animate-[slideUp_0.2s_ease-out]">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div className="fixed bottom-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-2xl z-50 bg-foreground/70 dark:bg-foreground/20 text-background backdrop-blur-md px-5 py-4 rounded-2xl shadow-[0_12px_40px_-12px_rgba(0,0,0,0.3)] font-sans animate-[slideUp_0.3s_cubic-bezier(0.16,1,0.3,1)] border border-white/10">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="bg-primary text-foreground text-xs font-black px-2 py-1 uppercase tracking-wider">
-            Active Selection
-          </span>
-          <p className="text-sm font-bold uppercase">
-            Total Selected Products:{' '}
-            <span className="text-accent font-black">
-              {selectedItems.length}
-            </span>
+          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-foreground font-semibold text-xs">
+            {selectedItems.length}
+          </div>
+          <p className="text-sm font-medium tracking-tight text-white/90">
+            {selectedItems.length === 1
+              ? 'Product selected'
+              : 'Products selected'}
           </p>
         </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto justify-end">
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           <button
             onClick={() => dispatch(clearAllSelections())}
-            className="text-xs font-black uppercase tracking-wider bg-background-secondary text-foreground px-4 py-2 border-2 border-foreground shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)] active:translate-x-px active:translate-y-px transition-all cursor-pointer"
+            className="text-xs font-medium bg-white/10 hover:bg-white/15 text-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer active:scale-95"
           >
-            Clear All
+            Clear Selection
           </button>
 
           <button
             onClick={() => downloadItemsAsCSV(selectedItems)}
-            className="text-xs font-black uppercase tracking-wider bg-primary text-foreground px-5 py-2 border-2 border-foreground shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)] active:translate-x-px active:translate-y-px transition-all cursor-pointer"
+            className="text-xs font-semibold flex items-center gap-2 bg-primary text-foreground px-4 py-2 rounded-xl shadow-xs shadow-primary/10 hover:opacity-95 transition-all duration-200 cursor-pointer active:scale-95"
           >
-            💾 Download CSV ({selectedItems.length})
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-3.5 h-3.5"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>Export CSV</span>
           </button>
         </div>
       </div>

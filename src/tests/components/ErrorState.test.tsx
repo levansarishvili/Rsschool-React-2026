@@ -5,15 +5,15 @@ describe('ErrorState', () => {
   it('should render default error message when none is provided', () => {
     render(<ErrorState />);
 
-    expect(screen.getByText(/unknown error encountered/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/unknown network error occurred/i)
+    ).toBeInTheDocument();
   });
 
   it('should render provided error message', () => {
     render(<ErrorState error="Something went wrong" />);
 
-    expect(
-      screen.getByText(/error: something went wrong/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
 
   it('should render error image', () => {

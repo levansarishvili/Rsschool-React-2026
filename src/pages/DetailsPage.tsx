@@ -1,90 +1,112 @@
 import { ErrorState } from '../components/ErrorState.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
 import { getStockColor } from '../utils/getStockColor.ts';
-import { useProduct } from '../hooks/useProduct.ts';
+import { X, RefreshCw } from 'lucide-react';
+import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useGetProductQuery } from '../services/api.ts';
+import Loader from '../components/Loader.tsx';
 
 export default function DetailsPage() {
-  const { product, loading, error, handleCloseDetails } = useProduct();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 my-auto">
-        <span className="text-xs font-black uppercase tracking-wider mt-4 animate-pulse">
-          Loading Product Details...
-        </span>
-      </div>
-    );
+  const {
+    data: product,
+    isFetching,
+    isError,
+    error,
+    refetch,
+  } = useGetProductQuery(id ?? '', {
+    skip: !id,
+  });
+
+  const handleCloseDetails = () => {
+    navigate(`/?${searchParams.toString()}`);
+  };
+
+  const errorMessage = getRtkErrorMessage(error);
+
+  if (isFetching) {
+    return <Loader message="Loading Product Details..." />;
   }
-  if (error) return <ErrorState error={error} />;
-  if (!product) return <EmptyState message="No product found whith that ID" />;
+  if (isError) return <ErrorState error={errorMessage} />;
+  if (!product) return <EmptyState message="No product found with that ID" />;
 
   return (
-    <aside className="relative w-full h-full flex flex-col gap-5 font-mono text-foreground md:p-6 ">
-      <button
-        className="absolute top-2 right-0 z-10 cursor-pointer text-xs font-black uppercase tracking-wider bg-background border-2 border-foreground px-3 py-1.5 shadow-[2px_2px_0px_0px_rgba(43,41,39,1)] dark:shadow-[2px_2px_0px_0px_rgba(244,239,226,1)] active:translate-x-px active:translate-y-px active:shadow-[1px_1px_0px_0px_rgba(43,41,39,1)] transition-all"
-        onClick={handleCloseDetails}
-      >
-        [ Close ]
-      </button>
+    <aside className="relative w-full h-full flex flex-col gap-6 font-sans text-foreground md:p-2">
+      <div className="absolute top-0 right-0 z-20 flex items-center gap-2">
+        <button
+          className="cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary transition-all duration-200 shadow-xs active:scale-95"
+          onClick={() => refetch()}
+          data-testid="refresh-details-btn"
+          aria-label="Refresh details"
+          title="Refresh Product Data"
+        >
+          <RefreshCw className="w-4 h-4 text-text-secondary hover:text-foreground" />
+        </button>
+        <button
+          className="cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary transition-all duration-200 shadow-xs active:scale-95"
+          onClick={handleCloseDetails}
+          aria-label="Close details"
+        >
+          <X className="w-4" />
+        </button>
+      </div>
 
-      <div className="w-full rounded-xs bg-background-secondary border-2 border-foreground p-4 flex justify-center items-center relative group">
+      <div className="w-full h-56 rounded-2xl bg-background-secondary/60 border border-border/60 p-6 flex justify-center items-center relative overflow-hidden group">
         <img
           src={product.thumbnail}
           alt={product.title}
-          className="w-full max-h-48 object-contain mix-blend-multiply dark:mix-blend-normal transform group-hover:scale-102 transition-transform"
+          className="max-w-full max-h-full w-auto h-auto object-contain mix-blend-multiply dark:mix-blend-normal transform group-hover:scale-103 transition-transform duration-300 ease-out"
         />
-        <div className="absolute bottom-2 left-2 bg-foreground text-background text-[9px] font-black uppercase px-2 py-0.5 tracking-widest">
-          IMG_RECD
-        </div>
       </div>
 
-      <div className="space-y-1">
-        <span className="text-xs uppercase tracking-widest text-accent font-black block">
-          {product.brand || 'GENERIC_BRAND'}
+      <div className="space-y-2">
+        <span className="text-xs uppercase tracking-wider text-primary font-semibold block">
+          {product.brand || 'Generic'}
         </span>
-        <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none text-foreground">
+        <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground leading-tight">
           {product.title}
         </h2>
 
-        <div className="inline-block bg-price text-background text-lg font-black px-3 py-1 border border-foreground transform -rotate-1 mt-2 shadow-[2px_2px_0px_0px_rgba(43,41,39,0.15)]">
+        <div className="inline-block bg-foreground text-background text-xl font-semibold px-3 py-1 rounded-xl mt-1 shadow-xs">
           ${Math.round(product.price)}
         </div>
       </div>
 
-      <div className="bg-surface border border-foreground p-3 rounded-xs">
-        <p className="text-text-secondary text-xs md:text-sm leading-relaxed uppercase font-semibold">
+      <div className="bg-card border border-border/60 p-4 rounded-xl shadow-xs">
+        <p className="text-text-secondary text-sm leading-relaxed font-normal">
           {product.description}
         </p>
       </div>
 
-      <div className="border-t-2 border-dashed border-foreground/30 pt-4 mt-auto flex flex-col gap-2 text-xs md:text-sm">
+      <div className="border-t border-border/60 pt-5 mt-auto flex flex-col gap-3.5 text-sm">
         <div className="flex justify-between items-center">
-          <span className="text-text-muted font-bold uppercase tracking-wider">
-            STOCK_COUNT:
+          <span className="text-text-muted font-medium">Available stock</span>
+          <span className="text-foreground font-semibold bg-background-secondary px-2.5 py-1 rounded-lg text-xs border border-border/40">
+            {product.stock} units
           </span>
-          <strong className="text-foreground font-black bg-background-secondary px-2 py-0.5 border border-foreground/10">
-            {product.stock} UNITS
-          </strong>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-text-muted font-bold uppercase tracking-wider">
-            USER_RATING:
+          <span className="text-text-muted font-medium">Customer rating</span>
+          <span className="text-foreground font-semibold bg-background-secondary px-2.5 py-1 rounded-lg text-xs border border-border/40 flex items-center gap-1">
+            <span className="text-amber-400">★</span>{' '}
+            {product.rating.toFixed(1)} / 5.0
           </span>
-          <strong className="text-foreground font-black bg-background-secondary px-2 py-0.5 border border-foreground/10">
-            ★ {product.rating.toFixed(1)} / 5.0
-          </strong>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-text-muted font-bold uppercase tracking-wider">
-            AVAIL_STATUS:
+          <span className="text-text-muted font-medium">
+            Availability status
           </span>
-          <strong
-            className={`${getStockColor(product.availabilityStatus)} font-black uppercase tracking-wide bg-background px-2 py-0.5 border-2 border-current`}
+          <span
+            className={`${getStockColor(product.availabilityStatus)} font-medium text-xs tracking-normal px-2.5 py-1 rounded-lg border border-current/20 bg-current/5`}
           >
             {product.availabilityStatus}
-          </strong>
+          </span>
         </div>
       </div>
     </aside>

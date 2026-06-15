@@ -46,7 +46,7 @@ describe('Pagination', () => {
   it('should disable Next on last page', () => {
     mockSearchParams('10');
 
-    render(<Pagination totalProducts={80} />);
+    render(<Pagination totalProducts={120} />);
 
     expect(screen.getByRole('button', { name: /next/i })).toBeDisabled();
   });

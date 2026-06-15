@@ -1,61 +1,90 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ProductType } from '../../types/types.ts';
-import { Star } from 'lucide-react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
+import { toggleItemSelection } from '../../store/shopSlice.ts';
+import RatingStars from '../RatingStars.tsx';
+import ProductCheckbox from './ProductCheckbox.tsx';
 
 type PropsType = {
   productObj: ProductType;
 };
 
 export default function ProductCard({ productObj }: PropsType) {
-  const { id, name, description, price, rating, image } = productObj;
+  const { id, title, description, price, rating, thumbnail } = productObj;
   const [searchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
 
+  const selectedItems = useAppSelector(
+    (state) => state.shop?.selectedItems ?? []
+  );
+
+  const isSelected = selectedItems.some(
+    (item: ProductType) => item.id === productObj.id
+  );
+
+  const handleCheckboxChange = () => {
+    dispatch(toggleItemSelection(productObj));
+  };
   return (
-    <Link to={`/details/${id}?${searchParams.toString()}`}>
-      <article className="relative min-w-36 max-w-68 max-h-76 h-full group">
-        <div
-          className="absolute inset-0 rounded-lg bg-primary/10 z-0
-          group-hover:translate-y-1 group-hover:-translate-x-1 transition-all duration-200"
-        ></div>
+    <Link
+      to={`/details/${id}?${searchParams.toString()}`}
+      className="block h-full group"
+    >
+      <article
+        className="max-w-72 relative bg-card text-foreground rounded-2xl border border-border/80 h-full flex flex-col 
+      overflow-hidden transition-all duration-300 hover:border-border hover:shadow-md hover:-translate-y-1"
+      >
+        {price !== undefined && (
+          <div className="absolute top-3 right-3 z-10 bg-foreground text-background font-sans text-xs font-semibold px-2.5 py-1 rounded-lg shadow-xs backdrop-blur-xs">
+            ${Math.round(price)}
+          </div>
+        )}
 
-        <div
-          className="relative z-10 flex h-full top-0 left-0 flex-col gap-3 justify-between items-center 
-            w-full border border-gray-200 p-4 rounded-lg bg-white        
-            group-hover:-translate-y-1 group-hover:translate-x-1
-            group-hover:shadow-xl transition-all 
-            duration-200 cursor-pointer group"
-        >
-          <img
-            src={image || './assets/placeholder.png'}
-            alt={name || 'product image'}
-            className="w-24 h-auto mb-2 object-cover rounded-lg opacity-80 group-hover:opacity-100 transition-all duration-200"
+        <div className="absolute top-3 left-3 z-10">
+          <ProductCheckbox
+            product={productObj}
+            isSelected={isSelected}
+            onCheckboxChange={handleCheckboxChange}
           />
-          {name && <h2 className="text-sm md:text-base font-medium">{name}</h2>}
+        </div>
 
-          {description && (
-            <p
-              title={description}
-              className="text-xs md:text-sm text-gray-600 line-clamp-3"
-            >
-              {description}
-            </p>
-          )}
+        <div className="w-full bg-background-secondary/60 h-48 sm:h-52 p-6 flex justify-center items-center overflow-hidden transition-colors duration-300 group-hover:bg-background-secondary">
+          <img
+            src={thumbnail || './assets/placeholder.png'}
+            alt={title || 'product image'}
+            className="max-w-full max-h-full w-auto h-auto object-contain mix-blend-multiply dark:mix-blend-normal transform group-hover:scale-105 transition-transform duration-300 ease-out"
+          />
+        </div>
 
-          {price !== undefined && (
-            <p className="text-sm font-medium">${Math.round(price)}</p>
-          )}
+        <div className="flex flex-col gap-3 flex-1 p-4">
+          <div className="space-y-1">
+            {title && (
+              <h2 className="text-sm md:text-base font-semibold tracking-tight line-clamp-2 text-foreground group-hover:text-primary transition-colors duration-200">
+                {title}
+              </h2>
+            )}
 
-          {rating !== undefined && (
-            <div className="flex">
-              {Array.from({ length: Math.round(rating) }, (_, i) => (
-                <Star
-                  className="size-3 stroke-yellow-600 fill-yellow-600"
-                  key={i}
-                  data-testid="star-icon"
-                />
-              ))}
-            </div>
-          )}
+            {description && (
+              <p
+                title={description}
+                className="text-xs text-text-muted font-normal line-clamp-2 leading-relaxed"
+              >
+                {description}
+              </p>
+            )}
+          </div>
+
+          <div className="pt-3 border-t border-border/60 flex items-center justify-between gap-2 w-full mt-auto">
+            <span className="text-[11px] font-medium tracking-normal text-text-disabled">
+              ID: #{id}
+            </span>
+
+            {rating !== undefined && (
+              <div className="scale-90 origin-right">
+                <RatingStars rating={rating} />
+              </div>
+            )}
+          </div>
         </div>
       </article>
     </Link>

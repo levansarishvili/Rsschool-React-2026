@@ -1,3 +1,4 @@
+import { Sparkle } from 'lucide-react';
 import { useState } from 'react';
 
 function ErrorButton() {
@@ -13,10 +14,11 @@ function ErrorButton() {
 
   return (
     <button
-      className="text-sm flex gap-2 bg-red-600 text-white px-4 py-3 rounded-lg cursor-pointer hover:bg-red-500 transition-colors"
       onClick={handleClick}
+      className="text-xs md:text-sm flex gap-2 items-center justify-center font-sans font-medium tracking-wide text-danger bg-danger/10 border border-danger/20 px-4 py-2.5 rounded-xl cursor-pointer transition-all duration-200 hover:bg-danger hover:text-white hover:border-danger hover:shadow-sm hover:shadow-danger/15 active:scale-98 select-none"
     >
-      Test Error Boundary
+      <Sparkle className="w-4 h-4" />
+      <span>Trigger Test Error</span>
     </button>
   );
 }

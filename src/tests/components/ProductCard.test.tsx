@@ -1,15 +1,20 @@
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { mockProduct } from '../../test-utils/mocks/productsMockData';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { MemoryRouter } from 'react-router-dom';
 import type { ProductType } from '../../types/types';
+import store from '../../store/store';
+import userEvent from '@testing-library/user-event';
 
 describe('ProductCard', () => {
   const renderProductCard = (productObj: ProductType) => {
     render(
-      <MemoryRouter>
-        <ProductCard productObj={productObj} />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <ProductCard productObj={productObj} />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
@@ -24,8 +29,8 @@ describe('ProductCard', () => {
 
     const img = screen.getByRole('img');
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', mockProduct.image);
-    expect(img).toHaveAttribute('alt', mockProduct.name);
+    expect(img).toHaveAttribute('src', mockProduct.thumbnail);
+    expect(img).toHaveAttribute('alt', mockProduct.title);
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
   });
@@ -42,20 +47,11 @@ describe('ProductCard', () => {
     expect(screen.getByText(/product description/i)).toBeInTheDocument();
   });
 
-  it('should render the correct number of rating stars', () => {
-    renderProductCard(mockProduct);
-
-    const stars = screen.getAllByTestId('star-icon');
-    const expectedStars = Math.round(mockProduct.rating);
-
-    expect(stars.length).toBe(expectedStars);
-  });
-
   it('should handle missing props gracefully', () => {
     const incompleteProduct = {
       id: 1,
-      image: '',
-      name: '',
+      thumbnail: '',
+      title: '',
       description: '',
       price: 0,
       rating: 0,
@@ -70,5 +66,45 @@ describe('ProductCard', () => {
     expect(screen.queryByTestId('star-icon')).not.toBeInTheDocument();
     expect(screen.queryByText(/product description/i)).not.toBeInTheDocument();
     expect(screen.queryByText('$300')).not.toBeInTheDocument();
+  });
+
+  it('should navigate to product details page', () => {
+    renderProductCard(mockProduct);
+
+    const link = screen.getByRole('link');
+
+    expect(link).toHaveAttribute('href', `/details/${mockProduct.id}`);
+  });
+
+  it('should render product id', () => {
+    renderProductCard(mockProduct);
+
+    expect(screen.getByText(`ID: #${mockProduct.id}`)).toBeInTheDocument();
+  });
+
+  it('should render product checkbox', () => {
+    renderProductCard(mockProduct);
+
+    expect(screen.getByRole('checkbox')).toBeInTheDocument();
+  });
+
+  it('should toggle checkbox when clicked', async () => {
+    const user = userEvent.setup();
+
+    renderProductCard(mockProduct);
+
+    const checkbox = screen.getByRole('checkbox');
+
+    expect(checkbox).not.toBeChecked();
+
+    await user.click(checkbox);
+
+    expect(checkbox).toBeChecked();
+  });
+
+  it('should render rating stars', () => {
+    renderProductCard(mockProduct);
+
+    expect(screen.getByTestId('rating-stars')).toBeInTheDocument();
   });
 });

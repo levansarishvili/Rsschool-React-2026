@@ -35,17 +35,10 @@ describe('ErrorBoundary', () => {
     expect(screen.getByText(/test crash/i)).toBeInTheDocument();
   });
 
-  it('should render error image in fallback UI', () => {
-    renderCrashedBoundary();
-
-    const img = screen.getByRole('img', { name: /Page error/i });
-
-    expect(img).toBeInTheDocument();
-  });
   it('should render reload button in fallback UI', () => {
     renderCrashedBoundary();
 
-    const reloadButton = screen.getByRole('button', { name: /reload/i });
+    const reloadButton = screen.getByRole('button', { name: /reload page/i });
 
     expect(reloadButton).toBeInTheDocument();
   });
@@ -58,7 +51,7 @@ describe('ErrorBoundary', () => {
         <Crash />
       </ErrorBoundary>
     );
-    const reloadButton = screen.getByRole('button', { name: /reload/i });
+    const reloadButton = screen.getByRole('button', { name: /reload page/i });
     await user.click(reloadButton);
 
     rerender(

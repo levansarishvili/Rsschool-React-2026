@@ -1,57 +1,104 @@
-import Loader from '../components/loader/Loader.tsx';
 import { ErrorState } from '../components/ErrorState.tsx';
 import ProductList from '../components/ProductList/ProductList.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
-import { Outlet, useMatch } from 'react-router-dom';
-import Search from '../components/Search/Search.tsx';
+import {
+  Outlet,
+  useMatch,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import Pagination from '../components/Pagination/Pagination.tsx';
-import { useProducts } from '../hooks/useProducts.ts';
+import useLocalStorage from '../hooks/useLocalStorage.ts';
+import { API_PRODUCTS_LIMIT } from '../constants/index.ts';
+import { useGetProductsQuery } from '../services/api.ts';
+import Loader from '../components/Loader.tsx';
+import { getRtkErrorMessage } from '../utils/getRtkErrorMessage.ts';
+import Search from '../components/Search/Search.tsx';
+import { RefreshCw } from 'lucide-react';
 
 export default function ProductsPage() {
-  const { products, loading, error, searchQuery, totalProducts, handleSearch } =
-    useProducts();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useLocalStorage('searchQuery', '');
+  const navigate = useNavigate();
+
+  const page = Number(searchParams.get('page')) || 1;
+  const skip = (page - 1) * API_PRODUCTS_LIMIT;
+
+  const { data, isFetching, isLoading, isError, error, refetch } =
+    useGetProductsQuery({
+      search: searchQuery,
+      skip,
+    });
+  const products = data?.products ?? [];
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
+    setSearchParams(params);
+    navigate('/');
+  };
 
   const isDetailsRoute = useMatch('/details/:id');
 
+  const hasNoProducts = !isFetching && !isError && products.length === 0;
+  const hasProducts = !isFetching && !isError && products.length > 0;
+
+  const errorMessage = getRtkErrorMessage(error);
+
   return (
-    <div className="flex flex-col gap-10 font-inter text-base bg-gray-50 w-full min-h-screen">
-      <Search searchQuery={searchQuery} onSearch={handleSearch} />
+    <div className="flex flex-col gap-6 w-full">
+      <div className="flex items-center gap-3 w-full">
+        <div className="flex-1">
+          <Search searchQuery={searchQuery} onSearch={handleSearch} />
+        </div>
+
+        <button
+          data-testid="refresh-button"
+          className={`${
+            isFetching || isLoading ? 'opacity-60' : ''
+          } p-3 cursor-pointer bg-card border border-border/80 text-text-secondary hover:text-foreground hover:bg-background-secondary rounded-xl transition-all duration-200 shadow-xs active:scale-95 flex items-center justify-center h-11.5 w-11.5`}
+          onClick={() => refetch()}
+          aria-label="Refresh list"
+          title="Refresh Product Data"
+          disabled={isFetching || isLoading}
+        >
+          <RefreshCw className="w-5 h-5" />
+        </button>
+      </div>
 
       <div
-        className={`relative min-h-screen w-full ${isDetailsRoute ? 'grid md:grid-cols-[2fr_1fr] gap-10' : ''}`}
+        className={`relative w-full ${
+          isDetailsRoute
+            ? 'grid lg:grid-cols-[1.6fr_1fr] gap-6 items-start'
+            : 'flex flex-col'
+        }`}
       >
-        <div className="min-h-screen flex flex-col gap-12 items-center justify-start">
-          {loading && (
-            <div className="flex items-center justify-center min-h-screen">
-              <Loader />
+        <div className="w-full flex flex-col items-center justify-start bg-card border border-border/80 rounded-2xl p-2 shadow-xs min-h-[90vh]">
+          {isFetching && <Loader message="Loading products..." />}
+
+          {isError && <ErrorState error={errorMessage} />}
+
+          {hasNoProducts && (
+            <div className="my-auto">
+              <EmptyState message="No products matched your search!" />
             </div>
           )}
 
-          {!loading && products.length === 0 && !error && (
-            <EmptyState message="No products matched your search!" />
-          )}
+          {hasProducts && <ProductList products={products} />}
 
-          {error && <ErrorState error={error} />}
-
-          {!loading && !error && products.length > 0 && (
-            <ProductList products={products} />
-          )}
-
-          {!loading && !error && products.length > 0 && (
-            <Pagination totalProducts={totalProducts} />
+          {hasProducts && data?.total && (
+            <div className="w-full mt-auto pt-4">
+              <Pagination totalProducts={data.total} />
+            </div>
           )}
         </div>
 
         {isDetailsRoute && (
-          <div
-            className="sm:min-w-100 flex justify-center items-center
-              w-full sticky top-20 max-h-screen
-              bg-white rounded-lg border border-gray-200 p-6
-              transform transition-all duration-300 ease-out
-              translate-x-0 opacity-100
-              animate-[slideIn_.3s_ease-out]"
-          >
-            <Outlet />
+          <div className="w-full sticky top-24 flex items-start justify-center min-h-[90vh] bg-card border border-border/80 p-5 md:p-6 rounded-2xl shadow-sm transition-all duration-300">
+            <div className="w-full h-full">
+              <Outlet />
+            </div>
           </div>
         )}
       </div>

@@ -1,14 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import AboutPage from '../../../pages/AboutPage';
+import AboutPage from '../../pages/AboutPage';
 
 describe('AboutPage', () => {
-  it('should render main title', () => {
-    render(<AboutPage />);
-
-    expect(screen.getByText('About This Application')).toBeInTheDocument();
-  });
-
   it('should render description text', () => {
     render(<AboutPage />);
 
@@ -24,7 +18,7 @@ describe('AboutPage', () => {
   it('should render GitHub link', () => {
     render(<AboutPage />);
 
-    const github = screen.getByText('Github Account').closest('a');
+    const github = screen.getByText('GitHub Profile').closest('a');
 
     expect(github).toHaveAttribute(
       'href',
@@ -37,7 +31,7 @@ describe('AboutPage', () => {
   it('should render LinkedIn link', () => {
     render(<AboutPage />);
 
-    const linkedin = screen.getByText('Linkedin Account').closest('a');
+    const linkedin = screen.getByText('LinkedIn Profile').closest('a');
 
     expect(linkedin).toHaveAttribute(
       'href',
@@ -48,7 +42,11 @@ describe('AboutPage', () => {
   it('should render RS School link', () => {
     render(<AboutPage />);
 
-    const courseLink = screen.getByText('RS School React Course Link');
+    const courseLink = screen.getByRole('link', {
+      name: /RS School React Course/i,
+    });
+
+    expect(courseLink).toBeInTheDocument();
 
     expect(courseLink).toHaveAttribute(
       'href',

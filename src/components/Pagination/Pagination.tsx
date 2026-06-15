@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { API_PRODUCTS_LIMIT } from '../../constants';
 import { getVisiblePages } from '../../utils/getVisiblePages';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type PropsType = {
   totalProducts: number;
@@ -33,38 +34,51 @@ export default function Pagination({ totalProducts }: PropsType) {
   };
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex flex-wrap gap-1.5 items-center justify-center font-sans select-none my-8">
       <button
-        className="border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer 
-          bg-white hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+        className="flex items-center gap-1 text-text-secondary border border-border text-sm font-medium px-3.5 py-2 rounded-xl cursor-pointer bg-card hover:bg-surface hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-card disabled:hover:text-text-secondary transition-all duration-200 shadow-xs"
         disabled={currentPage === 1}
         onClick={handlePrevPage}
+        aria-label="Previous page"
       >
-        Prev
+        <ChevronLeft className="w-4" />
+        <span className="hidden sm:inline">Previous</span>
       </button>
 
-      {visiblePages.map((page, index) =>
-        page === '...' ? (
-          <span key={index + page}>...</span>
-        ) : (
-          <button
-            key={page}
-            onClick={() => handlePageChange(Number(page))}
-            className={`border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer hover:bg-gray-200 
-              ${currentPage === page ? 'bg-gray-200' : ''}`}
-          >
-            {page}
-          </button>
-        )
-      )}
+      <div className="flex items-center gap-1 bg-background-secondary/60 p-1 border border-border rounded-xl">
+        {visiblePages.map((page, index) =>
+          page === '...' ? (
+            <span
+              key={index + page}
+              className="text-text-muted px-3 py-1.5 text-sm font-medium w-9 h-9 flex items-center justify-center"
+            >
+              &hellip;
+            </span>
+          ) : (
+            <button
+              key={page}
+              onClick={() => handlePageChange(Number(page))}
+              className={`text-sm font-medium w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer transition-all duration-200
+            ${
+              currentPage === page
+                ? 'bg-primary text-white font-semibold shadow-xs shadow-primary/10'
+                : 'text-text-secondary bg-transparent hover:bg-card hover:text-foreground'
+            }`}
+            >
+              {page}
+            </button>
+          )
+        )}
+      </div>
 
       <button
-        className="border border-gray-200 text-sm rounded-lg px-4 py-2 cursor-pointer 
-          bg-white hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+        className="flex items-center gap-1 text-text-secondary border border-border text-sm font-medium px-3.5 py-2 rounded-xl cursor-pointer bg-card hover:bg-surface hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-card disabled:hover:text-text-secondary transition-all duration-200 shadow-xs"
         disabled={currentPage === totalPages}
         onClick={handleNextPage}
+        aria-label="Next page"
       >
-        Next
+        <span className="hidden sm:inline">Next</span>
+        <ChevronRight className="w-4" />
       </button>
     </div>
   );
